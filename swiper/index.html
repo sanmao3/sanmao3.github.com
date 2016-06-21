@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<style type="text/css">
+			html,
+			body{
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+			}
+			.swiper-container {
+				width: 100%;
+				height: 100%;
+			}
+			.swiper-container img{
+				width: 100%;
+			}
+			.swiper-slide:first-child{
+				background-color: #000000;
+			}
+			.swiper-slide:nth-child(2){
+				background-color: #73afc7;
+			}
+			.swiper-slide:nth-child(3){
+				background-color: #ccc7c4;
+			}
+			.swiper-slide:nth-child(4){
+				background-color: #3c1e14;
+			}
+			.swiper-slide:nth-child(5){
+				background-color: #29bcc4;
+			}
+			.swiper-slide:last-child{
+				background-color: #e9cf18;
+			}
+			.swiper-next{
+				display: block;
+				position: absolute;
+			    width: 30px;
+			    height: 30px;
+			    left: 50%;
+			    bottom: 0px;
+			    z-index: 10;
+			    cursor: pointer;
+			    background: #fff;
+			}
+			
+			.box2{
+				display: none;
+				width: 50px;
+				height: 50px;
+				border: 1px solid #E9CF18;
+				border-radius: 5px;
+				background: rgba(255, 255, 255, 0.6);
+				position: absolute;
+			}
+			.animation2{
+				display: block;
+				animation: box2 1s;
+				-webkit-animation: box2 1s;
+			}
+			
+			@-webkit-keyframes box2{
+				from{
+					left: 100%;
+				}
+				to{
+					left: 10px;
+					transform: rotate(360deg);
+					-webkit-transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><img src="images/black.jpg" /></div>
+				<div class="swiper-slide">
+					<img src="images/boy.jpeg" />
+					<div id="box2" class="box2">一首歌的时间</div>
+				</div>
+				<div class="swiper-slide"><img src="images/cup.jpg" /></div>
+				<div class="swiper-slide"><img src="images/morning.jpg" /></div>
+				<div class="swiper-slide"><img src="images/rain.jpg" /></div>
+				<div class="swiper-slide"><img src="images/smile.jpg" /></div>
+			</div>
+			
+    		<div class="swiper-next"></div>
+		</div>
+
+		<script type="text/javascript" src="js/swiper.min.js"></script>
+		<script type="text/javascript">
+			var mySwiper = new Swiper('.swiper-container', {
+				direction: 'vertical',
+				nextButton: '.swiper-next',
+				onSlideChangeEnd: function(swiper){
+					//console.log(swiper.activeIndex, document.querySelectorAll('.animation2'));
+					
+					if(swiper.activeIndex == 1){
+						document.getElementById('box2').classList.add('animation2');
+					}else{
+						document.querySelectorAll('.animation2').forEach(function(el, index){
+							el.classList.remove('animation2');
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>
