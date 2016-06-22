@@ -2,36 +2,71 @@
 <html>
 
 	<head>
-    		<meta charset="utf-8">
-    		<meta http-equiv="X-UA-Compatible" content="chrome=1">
-    		<meta name="description" content="Sanmao3.github.com">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<meta name="description" content="Sanmao3.github.com">
 		<title>Sanmao3.github.com</title>
-    		<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-  	</head>
+		<link rel="stylesheet" href="stylesheets/reset.css" />
+		<style type="text/css">
+			body{
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+				background: #f4f3f0;
+			}
+			header, footer{
+				background: #404040;
+				color: #eee;
+				position: relative;
+				overflow: hidden;
+			}
+			h1{
+				color: #eee;
+				margin-left: 10%;
+			}
+			header a{
+				background: #007EDF;
+				color: #fff;
+				padding: 0px 10px;
+				transform: rotate(30deg);
+				-webkit-transform: rotate(30deg);
+				position: absolute;
+				bottom: 25px;
+				right: 0px;
+			}
+			.main_content{
+				flex: 1;
+				width: 50%;
+				align-self: center;
+				padding: 20px;
+			}
+			footer{
+				text-align: center;
+			}
+			footer a{
+				color: #eee;
+				text-decoration: underline;
+				margin-left: 5px;
+			}
+		</style>
+	</head>
 
-  	<body>
-    		<!-- HEADER -->
-    		<div id="header_wrap" class="outer">
-        		<header class="inner">
-          		<a id="forkme_banner" href="https://github.com/sanmao3">View on GitHub</a>
-          		<h1 id="project_title">Sanmao3.github.com</h1>
-          		<h2 id="project_tagline"></h2>
-        		</header>
-    		</div>
-    		<!-- MAIN CONTENT -->
-    		<div id="main_content_wrap" class="outer">
-      		<section id="main_content" class="inner">
-      			<ul>
-      				<li><a href="swiper/index.html" target="_blank">card</a></li>
-      				<li><a href="demo.html" target="_blank">demo</a></li>
-      			</ul>
-      		</section>
-    		</div>
-    		<!-- FOOTER  -->
-    		<div id="footer_wrap" class="outer">
-      		<footer class="inner">
-        			<p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      		</footer>
+	<body>
+		<!-- HEADER -->
+		<header>
+			<a href="https://github.com/sanmao3" target="_blank">View on GitHub</a>
+			<h1>Sanmao3.github.com</h1>
+		</header>
+		<!-- MAIN CONTENT -->
+		<div class="main_content">
+			<ul>
+				<li><a href="swiper/index.html" target="_blank">card</a></li>
+			</ul>
 		</div>
-  	</body>
+		<!-- FOOTER  -->
+		<footer>
+			<p>Published with <a href="https://pages.github.com" target="_blank">GitHub Pages</a></p>
+		</footer>
+	</body>
+
 </html>
