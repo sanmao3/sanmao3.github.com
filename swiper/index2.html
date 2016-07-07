@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>微会议-打赏</title>
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			ul {
+				list-style: none;
+			}
+			
+			body {
+				background: #393533;
+				color: #ECE7E8;
+				font-size: 14px;
+				font-family: "微软雅黑";
+			}
+			
+			img {
+				width: 100%;
+				border-radius: 50%;
+				box-sizing: border-box;
+			}
+			
+			.clearfix:after {
+				display: block;
+				content: '';
+				clear: both;
+			}
+			
+			.gallery-thumbs {
+				min-height: 40px;
+				background: #2E2B29;
+				padding: 4px 0px;
+				box-sizing: border-box;
+				margin-bottom: 5vh;
+			}
+			
+			.gallery-thumbs .swiper-slide {
+				width: 50px;
+				height: 100%;
+				text-align: center;
+				font-size: 10px;
+				opacity: 0.4;
+			}
+			
+			.gallery-thumbs .swiper-slide-active {
+				opacity: 1;
+			}
+			.gallery-top .swiper-slide{
+				text-align: center;
+				color: #999;
+			}
+			.gallery-top .swiper-slide img{
+				width: 40%;
+				border: 2px solid #fff;
+			}
+			h3 {
+				font-size: 20px;
+				font-weight: normal;
+				margin: 8px 0px;
+			}
+			.content {
+				padding: 30px 15px 0px;
+			}
+			
+			.input-group {
+				height: 45px;
+				border-radius: 5px;
+				background: #fff;
+				overflow: hidden;
+				position: relative;
+				margin: 30px 0px;
+			}
+			
+			.input-group input {
+				width: 100%;
+				height: 100%;
+				border: none;
+				font-size: 16px;
+				padding-left: 15px;
+			}
+			
+			.input-group button {
+				position: absolute;
+				top: 0px;
+				right: 0px;
+				width: 70px;
+				height: 100%;
+				border: none;
+				font-size: 14px;
+				background: #F7EB34;
+			}
+			
+			h5 {
+				font-size: 14px;
+				font-weight: normal;
+			}
+			
+			.money {
+				display: flex;
+				justify-content: space-between;
+				margin: 10px 0px;
+			}
+			
+			.money li {
+				width: 20vw;
+				height: 20vw;
+				background: #F6EA34;
+				color: #333;
+				text-align: center;
+				border-radius: 5px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			.input-group button:active,
+			.money li:active {
+				background: #CCC127;
+				border: none;
+			}
+			
+			.money i {
+				font-style: normal;
+				font-size: 24px;
+			}
+			
+			footer {
+				width: 100%;
+				text-align: center;
+				font-size: 13px;
+				color: #999;
+				position: fixed;
+				left: 0px;
+				bottom: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="persons">
+			<!-- Swiper -->
+			<div class="swiper-container gallery-thumbs">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img src="images/longmao.jpg" />
+						<span>龙猫</span>
+					</div>
+					<div class="swiper-slide">
+						<img src="images/dlam.png" />
+						<span>多啦爱梦</span>
+					</div>
+				</div>
+			</div>
+			<div class="swiper-container gallery-top">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" data-id="1">
+						<img src="images/longmao.jpg" />
+						<h3>龙猫</h3>
+						<p>龙猫好可爱，你喜欢它吗？</p>
+					</div>
+					<div class="swiper-slide" data-id="2">
+						<img src="images/dlam.png" />
+						<h3>多啦爱梦</h3>
+						<p>多啦爱梦好神奇，你喜欢它吗？</p>
+					</div>
+				</div>
+				<!-- Add Arrows -->
+				<div class="swiper-button-next swiper-button-white"></div>
+				<div class="swiper-button-prev swiper-button-white"></div>
+			</div>
+		</div>
+		
+		<!-- 删掉 -->
+		<!--<div class="persons">
+			<ul class="clearfix" id="stars" data-x="0">
+				<volist name="list" id="data">
+					<li data-desc="{$data.summary}" data-id="{$data.id}">
+						<img src="{$data.path}" />
+						<span>{$data.name}</span>
+					</li>
+				</volist>
+			</ul>
+		</div>-->
+		<div class="content">
+			<!-- 删掉 -->
+			<!--<div class="star">
+				<div class="pre">&lt;</div>
+				<div class="current" id="curstar">
+					<img src="{$list[0].path}" />
+					<h3>{$list[0].name}</h3>
+					<p>{$list[0].summary}</p>
+					<input type="hidden" id="id" value="{$list[0].id}" />
+				</div>
+				<div class="next">&gt;</div>
+			</div>-->
+			<div class="input-group">
+				<input type="number" id="num" placeholder="打赏金额" />
+				<input type="hidden" id="openid" value="{$openid}" />
+				<input type="hidden" id="token" value="{$token}" />
+				<button type="button" onclick="submitMoney();">确定</button>
+			</div>
+			<h5>我要打赏：</h5>
+			<ul class="money">
+				<li onclick="setMoney(5);"><i>5</i>元</li>
+				<li onclick="setMoney(10);"><i>10</i>元</li>
+				<li onclick="setMoney(20);"><i>20</i>元</li>
+				<li onclick="setMoney(0);">自定义<br />价格</li>
+			</ul>
+		</div>
+		<footer>魔飞科技技术支持</footer>
+		<script type="text/javascript" src="js/swiper.min.js" ></script>
+		<script type="text/javascript">
+			//swiper
+			var galleryTop = new Swiper('.gallery-top', {
+				nextButton: '.swiper-button-next',
+				prevButton: '.swiper-button-prev',
+				spaceBetween: 10,
+			});
+			var galleryThumbs = new Swiper('.gallery-thumbs', {
+				spaceBetween: 10,
+				centeredSlides: true,
+				slidesPerView: 'auto',
+				touchRatio: 0.2,
+				slideToClickedSlide: true
+			});
+			galleryTop.params.control = galleryThumbs;
+			galleryThumbs.params.control = galleryTop;
+			//打赏
+			var num = document.getElementById('num');
+			//点击金额
+			function setMoney(m){
+				num.value = m == 0 ? '' : m;
+			}
+			//点击确定
+			function submitMoney(){
+				if (num.value <= 0) {
+					alert('金额不能小于等于0');
+					return false;
+				}
+				callpay();
+			}
+
+			function sendAjax() {
+				var openid = document.getElementById('openid').value,
+					token = document.getElementById('token').value,
+					id = document.querySelector('.gallery-top .swiper-slide-active').getAttribute('data-id');
+				//构造表单数据
+				var formData = new FormData();
+				formData.append('num', num.value);
+				formData.append('openid', openid);
+				formData.append('id', id);
+				formData.append('token', token);
+				//创建xhr对象 
+				var xhr = new XMLHttpRequest();
+				//设置xhr请求的超时时间
+				xhr.timeout = 3000;
+				//设置响应返回的数据格式
+				//xhr.responseType = "json";
+				//创建一个 post 请求，采用异步(method, url, async)
+				xhr.open('POST', '/index.php?s=/addon/Reward/Reward/order', true);
+				//注册相关事件回调处理函数
+				xhr.onreadystatechange = function(e) {
+					if (xhr.readyState == 4) {
+						if (xhr.status == 200 || xhr.status == 0) {
+							var jsApiParameters = xhr.responseText;
+							WeixinJSBridge.invoke(
+								'getBrandWCPayRequest',
+								JSON.parse(jsApiParameters),
+								function(res) {
+									WeixinJSBridge.log(res.err_msg);
+									if (res.err_msg == "get_brand_wcpay_request:ok") {
+										//alert('支付成功');
+									}
+									//alert(res.err_code+res.err_desc+res.err_msg);
+								}
+							);
+						}
+					}
+				};
+				xhr.ontimeout = function(e) {
+
+				};
+				xhr.onerror = function(e) {
+
+				};
+				xhr.upload.onprogress = function(e) {
+
+				};
+				//发送数据
+				xhr.send(formData);
+			}
+
+			//调用微信JS api 支付
+			function jsApiCall() {
+				var jsApiParameters = sendAjax();
+				WeixinJSBridge.invoke(
+					'getBrandWCPayRequest',
+					jsApiParameters,
+					function(res) {
+						WeixinJSBridge.log(res.err_msg);
+						if (res.err_msg == "get_brand_wcpay_request:ok") {
+							alert('支付成功');
+						}
+						//alert(res.err_code+res.err_desc+res.err_msg);
+					}
+				);
+			}
+
+			function callpay() {
+				if (typeof WeixinJSBridge == "undefined") {
+					if (document.addEventListener) {
+						document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+					} else if (document.attachEvent) {
+						document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+						document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+					}
+				} else {
+					sendAjax();
+				}
+			}
+		</script>
+	</body>
+
+</html>
