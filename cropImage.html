@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>擅长专科</title>
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<style type="text/css">
+			.mui-content{
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				overflow: hidden;
+			}
+			canvas{
+				border: 1px solid #ccc;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+			}
+			
+			#headImage{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+			}
+			
+			.window,
+			.cover{
+				z-index: 9;
+			}
+			
+			.window{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 200px;
+				height: 200px;
+				box-sizing: border-box;
+				margin-top: -100px;
+				margin-left: -100px;
+				background: transparent;
+				border: 2px dashed #000;
+			}
+			.cover{
+				position: absolute;
+				background: rgba(0,0,0,0.7);
+			}
+			.cover-top,
+			.cover-bottom{
+				left: 0px;
+				right: 0px;
+			}
+			.cover-top{
+				top: 0px;
+				bottom: 50%;
+				margin-bottom: 100px;
+			}
+			.cover-bottom{
+				top: 50%;
+				bottom: 0px;
+				margin-top: 100px;
+			}
+			.cover-left,
+			.cover-right{
+				top: 50%;
+				height: 200px;
+				margin-top: -100px;
+			}
+			.cover-left{
+				left: 0px;
+				right: 50%;
+				margin-right: 100px;
+			}
+			.cover-right{
+				left: 50%;
+				right: 0px;
+				margin-left: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content">
+			<div class="window"></div>
+			<div class="cover cover-top"></div>
+			<div class="cover cover-left"></div>
+			<div class="cover cover-right"></div>
+			<div class="cover cover-bottom"></div>
+			
+			<img src="../tempImages/image4.png" style="display: none;" />
+			<canvas id="canvas"></canvas>
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/hammer.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				gestureConfig: {
+					hold: true,
+					release: true
+				}
+			});
+
+			var content = document.querySelector(".mui-content"),
+				headImage = document.createElement("img"),
+				canvas = document.getElementById("canvas"),
+				ctx = canvas.getContext('2d');
+				
+			var size = 200,
+				damp = 0.03,
+				oWidth = null,
+				oHeight = null,
+				tempWidth = null,
+				tempHeight = null,
+				ratio = 1,
+				marginTop = 0,
+				marginLeft = 0;
+				
+			canvas.width = size;
+			canvas.height = size;
+			
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				var path = self.path;
+				
+				initImage(path);
+			});
+			
+			//initImage('../tempImages/image4.png');
+			
+			function initImage(path){
+				// 图片
+				headImage.src = path;
+				headImage.id = 'headImage';
+				content.appendChild(headImage);
+				
+				var img = new Image();
+				img.onload = function(){
+					oWidth = img.width;
+					oHeight = img.height;
+						
+					ratio = oWidth >= oHeight ? (size / oHeight) : size / oWidth;
+					
+					tempWidth = oWidth * ratio,
+					tempHeight = oHeight * ratio;
+						
+					marginTop = - tempHeight / 2;
+					marginLeft = - tempWidth / 2;
+						
+					headImage.style.width = tempWidth + 'px';
+					headImage.style.height = tempHeight + 'px';
+					headImage.style.marginTop = marginTop + 'px';
+					headImage.style.marginLeft = marginLeft + 'px';
+					
+					var tempSize = size / ratio;
+					
+					var x = (-marginLeft - size / 2) / ratio,
+						y = (-marginTop - size / 2) / ratio;
+					
+					ctx.drawImage(img, x, y, tempSize, tempSize, 0, 0, size, size);
+				};
+				img.src = path;
+				
+				
+				var mc = new Hammer(document.body, {
+				  	recognizers: [
+				      	[Hammer.Pan, { direction: Hammer.DIRECTION_ALL }]
+				  	]
+				});
+				mc.on("panmove", function(ev) {
+					//console.log(ev);
+					var x = ev.deltaX,
+						y = ev.deltaY;
+						
+					marginTop = Math.round(marginTop + y * damp);
+					marginLeft = Math.round(marginLeft + x * damp);
+					
+					//console.log(marginTop, marginLeft);
+					
+					headImage.style.marginTop = marginTop + 'px';
+					headImage.style.marginLeft = marginLeft + 'px';
+					
+					var tempSize = size / ratio;
+					
+					var x = (-marginLeft - size / 2) / ratio,
+						y = (-marginTop - size / 2) / ratio;
+					
+					ctx.clearRect(0, 0, size, size);
+					ctx.drawImage(img, x, y, tempSize, tempSize, 0, 0, size, size);
+				});
+			}
+		</script>
+	</body>
+
+</html>
