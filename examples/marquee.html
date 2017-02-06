@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div {
+				height: 40px;
+				overflow: hidden;
+				border: 1px solid #ccc;
+			}
+			
+			li {
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			ul {
+				margin: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<ul>
+				<li>恭喜你中奖啦</li>
+				<li>抢到红包了</li>
+				<li>哈哈哈哈哈哈哈哈哈哈哈哈哈哈</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var ul = document.body.querySelector('ul');
+			var li = document.createElement('li');
+			li.innerHTML = ul.querySelector('li').innerHTML;
+			ul.appendChild(li);
+			
+			var index = 1;
+			var scrollHeight = 40;
+			var seconds = 2000;
+			var total = ul.querySelectorAll('li').length;
+			
+			scrollList(seconds);
+
+			function scrollList(ms) {
+				setTimeout(function() {
+					ms = seconds;
+					ul.style.transitionDuration = '1000ms';
+					
+					if(index == total) {
+						index = 0;
+						ms = 100;
+						ul.style.transitionDuration = '0ms';
+					}
+					
+					ul.style['-webkit-transform'] = 'translate3d(0, -' + index * scrollHeight + 'px, 0)';
+
+					index++;
+					
+					scrollList(ms);
+
+				}, ms);
+			}
+		</script>
+	</body>
+
+</html>

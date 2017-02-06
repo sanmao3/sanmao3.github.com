@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>首页</title>
+	</head>
+
+	<body>
+		<canvas id="canvas" width="300" height="500" style="border: 1px solid #ccc;">
+			your browser support canvas.
+		</canvas>
+		<script type="text/javascript" src="js/Tree.js"></script>
+		<script type="text/javascript" src="js/natureTree.js"></script>
+		<script type="text/javascript">
+			var canvas = document.getElementById('canvas'),
+				ctx = canvas.getContext('2d');
+
+			/*var tree = new Tree();
+			tree.draw(ctx);*/
+
+			var t = new NatureTree(ctx);
+			t.x = 150;
+			t.y = 400;
+			t.draw();
+		</script>
+	</body>
+
+</html>

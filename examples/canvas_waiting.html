@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>首页</title>
+	</head>
+
+	<body>
+		<canvas id="canvas" style="border: 1px solid #ccc;">
+			your browser support canvas.
+		</canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById('canvas'),
+				ctx = canvas.getContext('2d');
+			
+			var width = window.innerWidth - 60,
+				height = window.innerHeight - 60;
+				
+			canvas.width = width;                                                                          
+			canvas.height = height;
+			
+			var cX = width / 2,
+				cY = height / 2,
+				radius = 100;
+			
+			var angle = -Math.PI / 2,
+				rad = Math.PI * 2 / 100,
+				speed = 1;
+				
+			function drawCircle(){
+				ctx.beginPath();
+				ctx.lineWidth = 1;
+				ctx.arc(cX, cY, radius, 0, Math.PI * 2);
+				ctx.stroke();
+			}
+				
+			function drawText(num){
+				num = parseInt(num.toString());
+				
+				ctx.font = '40px Arial';
+				ctx.textAlign = 'center';
+				ctx.fillText(num + '%', cX, cY + 10);
+			}
+			
+			function drawSpeed(speed){
+				ctx.beginPath();
+				ctx.arc(cX, cY, radius, angle, angle + rad * speed);
+				ctx.lineWidth = 7;
+				ctx.stroke();
+			}
+			
+			function running(){
+				ctx.clearRect(0, 0, width, height);
+				
+				drawCircle();
+				drawText(speed);
+				drawSpeed(speed);
+				
+				if(speed > 100) speed = 0;
+                speed += 0.1;
+				
+				window.requestAnimationFrame(running);
+			}
+			
+			running();
+		</script>
+	</body>
+
+</html>

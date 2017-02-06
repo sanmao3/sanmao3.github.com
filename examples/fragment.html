@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+
+	<body>
+		<ul></ul>
+		<script type="text/javascript">
+			var ul = document.getElementsByTagName("ul")[0]; // assuming it exists
+			var docfrag = document.createDocumentFragment();
+			var browserList = ["Internet Explorer", "Firefox", "Safari", "Chrome", "Opera"];
+
+			browserList.forEach(function(e) {
+				var li = document.createElement("li");
+				li.textContent = e;
+				docfrag.appendChild(li);
+			});
+
+			ul.appendChild(docfrag);
+		</script>
+	</body>
+
+</html>

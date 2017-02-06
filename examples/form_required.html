@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>首页</title>
+	</head>
+
+	<body>
+		<form name="form" action="/">
+			<input type="text" id="t1" name="fruit" list="l1" required pattern="[Bb]anana|[Cc]herry|[Aa]pple|[Ss]trawberry|[Ll]emon|[Oo]range">
+			<datalist id="l1">
+		        <option>Banana</option>
+		        <option>Cherry</option>
+		        <option>Apple</option>
+		        <option>Strawberry</option>
+		        <option>Lemon</option>
+		        <option>Orange</option>
+		    </datalist>
+			<input type="tel" pattern="banana|cherry" title="banana|cherry" />
+			<input type="tel" required="required" />
+			<select name="name" required="required">
+				<option value="">--------</option>
+				<option value="1">jack</option>
+			</select>
+			<button type="submit">save</button>
+		</form>
+	</body>
+
+</html>

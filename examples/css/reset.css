@@ -1,0 +1,60 @@
+* {
+	padding: 0;
+	margin: 0;
+	outline: 0;
+	border: 0;
+	vertical-align: baseline;
+	box-sizing: border-box;
+	/* 防止点击闪烁 */
+	-webkit-tap-highlight-color: transparent;
+	/* 禁止选择 */
+	-webkit-user-select: none;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	/* 修复img默认位置 */
+	vertical-align: top;
+}
+
+input,
+textarea {
+	-webkit-user-select: text;
+	/* 内阴影 */
+	-webkit-appearance: none;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	-webkit-appearance: button;
+	cursor: pointer;
+}
+
+button[disabled],
+input[disabled] {
+	cursor: default;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	font-size: 100%;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

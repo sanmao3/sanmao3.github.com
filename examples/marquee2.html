@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>title</title>
+		<style type="text/css">
+			li {
+				height: 30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ul>
+			<li>单孔但看空单送到家分开囧代发1</li>
+			<li>单孔但看空单送到家分开囧代发2</li>
+			<li>单孔但看空单送到家分开囧代发3</li>
+			<li>单孔但看空单送到家分开囧代发4</li>
+			<li>单孔但看空单送到家分开囧代发5</li>
+		</ul>
+		<script type="text/javascript" src="js/jQuery.1.8.3.js"></script>
+		<script type="text/javascript">
+			var liHeight = $("ul li:first").height(),
+				animateTime = 1200;
+
+			function movement() {
+				$('ul li:first').animate({
+					"margin-top": -liHeight
+				}, 1000, function() {
+					$(this).css("margin-top", 0).appendTo("ul");
+				});
+			}
+			
+			setInterval(movement, animateTime);
+		</script>
+	</body>
+
+</html>

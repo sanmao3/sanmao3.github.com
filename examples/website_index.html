@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>首页</title>
+		<style type="text/css">
+			*{
+				padding: 0px;
+				margin: 0px;
+			}
+			body{
+				font-size: 14px;
+				font-family: "微软雅黑";
+				height: 100vh;
+				display: flex;
+				flex-direction: column;
+			}
+			.clearfix:after{
+				display: block;
+				content: '';
+				clear: both;
+			}
+			header, .content, footer{
+				width: 1000px;
+				margin: 15px auto;
+			}
+			h2, h3{
+				font-weight: normal;
+			}
+			article p{
+				line-height: 25px;
+				text-indent: 26px;
+				margin-bottom: 15px;
+			}
+			header{
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+			}
+			.logo{
+				width: 300px;
+				height: 120px;
+				background: url(img/logo.png) no-repeat;
+				background-size: auto 100%;
+			}
+			.navs{
+				list-style: none;
+				background: #F6FDFD;
+			}
+			.navs li{
+				width: 160px;
+				height: 30px;
+				line-height: 30px;
+				border: 1px solid #ddd;
+				text-align: center;
+				float: left;
+				cursor: pointer;
+			}
+			.navs li.active{
+				background: #8AD9D2;
+			}
+			.content{
+				flex: 1;
+			}
+			.content > div{
+				display: none;
+			}
+			.content > div.active{
+				display: block;
+			}
+			.instruction h2{
+				text-align: center;
+				margin-bottom: 15px;
+			}
+			.instruction .mark{
+				text-align: center;
+				text-indent: 300px;
+			}
+			.instruction section{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.instruction article{
+				width: 30%;
+			}
+			.feedback section{
+				display: flex;
+				justify-content: center;
+			}
+			.feedback .input{
+				display: flex;
+				justify-content: flex-start;
+				margin: 30px 0px;
+			}
+			.feedback label{
+				display: block;
+				width: 80px;
+				line-height: 35px;
+				text-align: right;
+				padding-right: 20px;
+			}
+			.feedback input,
+			.feedback textarea{
+				box-sizing: border-box;
+				width: 300px;
+				border: 1px solid #ccc;
+			}
+			.feedback input{
+				height: 35px;
+				padding: 0px 10px;
+			}
+			.feedback textarea{
+				padding: 10px;
+				resize: none;
+			}
+			.feedback button{
+				width: 300px;
+				height: 40px;
+				background: #08AE9E;
+				border: none;
+				color: #fff;
+				border-radius: 3px;
+				float: right;
+				cursor: pointer;
+			}
+			.partner p:nth-child(3){
+				margin-top: 50px;
+			}
+			.contact h3{
+				text-align: center;
+				margin-bottom: 50px;
+			}
+			footer{
+				text-align: center;
+				font-size: 12px;
+			}
+		</style>
+		<!--[if IE]>
+			<style type="text/css">
+				footer{
+					position: fixed;
+					left: 0px;
+					bottom: 0px;
+					right: 0px;
+				}
+			</style>
+		<![endif]-->
+	</head>
+	<body>
+		<header class="clearfix">
+			<div class="logo"></div>
+			<ul class="navs">
+				<li class="active" data-section="instruction">公司简介</li>
+				<li data-section="feedback">在线反馈</li>
+				<li data-section="partner">合作伙伴</li>
+				<li data-section="contact">联系方式</li>
+			</ul>
+		</header>
+		<div class="content">
+			<div class="instruction active">
+				<h2>杭州道生健康科技发展有限公司</h2>
+				<p class="mark">—君子务本，本立而道生</p>
+				<section>
+					<img src="img/instruction.png" />
+					<article>
+						<p>杭州道生成立于2008年，发“不怕柜上药蒙尘，但愿世间人无病”之宏愿，以“君子务本，本立而道生”的服务理念，乘移动互联网之势，道生推出“扁鹊荟”诊后管理平台，为用户提供诊前咨询、健康资讯、诊后跟踪、平台运营与维护等服务。</p>
+						<p>公司坐落于人间天堂-杭州，下设人事部、开发部、运营部、商务部、财务部共拥有员工近40人，为“不怕柜上药蒙尘，但愿世间人无病”的宏伟愿景，正杨帆，正启航。</p>
+					</article>
+				</section>
+			</div>
+			<div class="feedback">
+				<section>
+					<form name="form">
+						<div class="input">
+							<label>姓名</label>
+							<input type="text" name="name" maxlength="6" />
+						</div>
+						<div class="input">
+							<label>邮箱</label>
+							<input type="email" name="email" />
+						</div>
+						<div class="input">
+							<label>意见描述</label>
+							<textarea name="feedback" rows="6"></textarea>
+						</div>
+						<button type="button">提交</button>
+					</form>
+				</section>
+			</div>
+			<div class="partner">
+				<article>
+					<p>道生合作伙伴计划是道生与合作伙伴之间的协作框架，包含一系列的合作伙伴计划，满足各类合作伙伴的不同合作需求，有针对性的给合作伙伴提供资源和支撑，如培训、咨询、网络开发、运维等支撑，确保合作伙伴与我们一起实现客户价值。</p>
+					<p>道生将秉承开放、合作、共赢理念，以“君子务本，本立而道生”为服务合作理念，以技术合作和人才培养为支撑，携手合作伙伴，打造生机勃勃的健康管理生态。欢迎加入道生合作伙伴网络。</p>
+					<p>客服：86-0571-28110001</p>
+					<p>联系人：陈小姐</p>
+				</article>
+			</div>
+			<div class="contact">
+				<h3>杭州道生健康科技发展有限公司</h3>
+				<article>
+					<p>地址：杭州市江干区机场路一巷31号（营房创意园）</p>
+					<p>邮编：310000</p>
+					<p>电话：86-0571-28110001</p>
+				</article>
+			</div>
+		</div>
+		<footer>
+			<p>建议您使用最新版谷歌浏览器，因为本浏览器存在部分html5语言；为了使界面效果达到最佳化，建议您使用1920*1280的分辨率 </p>
+			<p>copyright@2014-2016杭州道生健康科技发展有限公司</p>
+		</footer>
+		<script type="text/javascript">
+			var lis = document.querySelectorAll('.navs li');
+			for(var i = 0; i < lis.length; i++){
+				lis[i].addEventListener('click', function(){
+					var section = this.getAttribute('data-section');
+					document.querySelector('.navs .active').classList.remove('active');
+					document.querySelector('.content .active').classList.remove('active');
+					this.classList.add('active');
+					document.querySelector('.'+ section).classList.add('active');
+				});
+			}
+			document.querySelector('button').addEventListener('click', function(){
+				var name = form.name.value,
+					email = form.email.value,
+					feedback = form.feedback.value;
+				if(name == '' || email == '' || feedback == ''){
+					alert('所填信息不完整，无法提交');
+					return false;
+				}
+				alert('提交成功');
+			});
+		</script>
+	</body>
+</html>
