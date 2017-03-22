@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>title</title>
+		<style type="text/css">
+			div {
+				margin: 200px;
+			}
+			
+			.test{
+				width: 100px;
+				height: 80px;
+				border-right: 30px solid #EEEEEE;
+				border-radius: 50%;
+			}
+			
+			.div1 {
+				width: 51px;
+				height: 36px;
+				background: #40B9AE;
+				border-radius: 0 0 60px 20px / 0 0 50px 50px;
+				position: relative;
+				-webkit-transform: rotate(-100deg);
+			}
+			
+			.div1:after {
+				content: '';
+				position: absolute;
+				top: -60px;
+				left: -10px;
+				width: 80px;
+				height: 80px;
+				background: #FFFFFF;
+				border-radius: 0 0 50% 50%;
+				-webkit-transform: rotate(100deg);
+			}
+			
+			.div2 {
+				display: inline-block;
+				width: 51px;
+				height: 36px;
+				background: #40B9AE;
+				border-radius: 0 0 20px 60px / 0 0 50px 50px;
+				position: relative;
+				-webkit-transform: rotate(90deg);
+			}
+			
+			.div2:after {
+				content: '';
+				position: absolute;
+				top: -60px;
+				right: -10px;
+				width: 80px;
+				height: 80px;
+				background: #FFFFFF;
+				border-radius: 0 0 50% 50%;
+				-webkit-transform: rotate(-90deg);
+				overflow: hidden;
+			}
+			
+			#tv {
+				position: relative;
+				width: 200px;
+				height: 150px;
+				margin: 20px 0;
+				background: red;
+				border-radius: 50% / 10%;
+				color: white;
+				text-align: center;
+				text-indent: .1em;
+			}
+			
+			#tv:before {
+				content: "";
+				position: absolute;
+				top: 10%;
+				bottom: 10%;
+				right: -5%;
+				left: -5%;
+				background: inherit;
+				border-radius: 5% / 50%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<img src="img/Bubble@3x.png" />
+		
+		<div class="test"></div>
+
+		<div class="div1"></div>
+
+		<div class="div2"></div>
+
+		<div id="tv"></div>
+	</body>
+
+</html>
