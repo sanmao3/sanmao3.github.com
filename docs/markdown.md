@@ -42,23 +42,25 @@
 
 #### 代码
 
-`div:before {
-	content: "";
-	width: 200%;
-	height: 200%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	border: 1px solid #000;
-	transform: scale(0.5);
-	transform-origin: 0 0;
-	padding: 1px;
-	box-sizing: border-box;
-	pointer-events: none;
-	border-radius: 8px;
-}`
+    div:before {
+		content: "";
+		width: 200%;
+		height: 200%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		border: 1px solid #000;
+		transform: scale(0.5);
+		transform-origin: 0 0;
+		padding: 1px;
+		box-sizing: border-box;
+		pointer-events: none;
+		border-radius: 8px;
+	}
 
 #### 分割线
 
 ***
+
+---
 
