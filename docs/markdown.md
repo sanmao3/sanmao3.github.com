@@ -26,7 +26,7 @@
 
 #### 插入图片
 
-![logo](https://github.com/sanmao3/sanmao3.github.com/blob/master/examples/img/logo.png?raw=true)
+![猫咪](http://pic51.nipic.com/file/20141025/11284670_091543201000_2.jpg)
 
 
 **这里是粗体**
