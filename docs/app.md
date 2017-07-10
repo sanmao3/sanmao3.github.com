@@ -54,3 +54,41 @@
 	    };
 	    xhr.send();
     };
+    
+
+#### 背景模糊
+
+    backdrop-filter: blur(2px); // 扩展见mdn
+    
+
+
+#### 裁剪路径
+
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    
+
+#### 文本行数超出省略
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow : hidden;
+  
+#### 两端对齐
+
+    text-align: justify;
+  
+  
+
+
+----------------------------------------------
+
+#### 聊天
+
+* 未读提醒
+* 消息推送
+* 聊天记录
+* 图片缓存
+* 聊天列表

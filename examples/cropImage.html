@@ -4,111 +4,131 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>擅长专科</title>
-		<link rel="stylesheet" href="../css/mui.min.css" />
-		<link rel="stylesheet" href="../css/style.css" />
+		<title>选择图片</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
 		<style type="text/css">
-			.mui-content{
-				position: relative;
-				width: 100vw;
-				height: 100vh;
-				overflow: hidden;
-			}
 			canvas{
 				border: 1px solid #ccc;
-				position: absolute;
-				left: 0;
-				bottom: 0;
 			}
 			
-			#headImage{
+			.crop-area{
+				position: relative;
+				height: 500px;
+				text-align: center;
+				overflow: hidden;
+			}
+			
+			.crop-area img{
 				position: absolute;
 				top: 50%;
 				left: 50%;
-			}
-			
-			.window,
-			.cover{
-				z-index: 9;
 			}
 			
 			.window{
 				position: absolute;
 				top: 50%;
 				left: 50%;
+				-webkit-transform: translateY(-50%) translateX(-50%);
 				width: 200px;
 				height: 200px;
 				box-sizing: border-box;
-				margin-top: -100px;
-				margin-left: -100px;
 				background: transparent;
 				border: 2px dashed #000;
 			}
+			
 			.cover{
 				position: absolute;
 				background: rgba(0,0,0,0.7);
 			}
+			
 			.cover-top,
 			.cover-bottom{
 				left: 0px;
 				right: 0px;
 			}
+			
 			.cover-top{
 				top: 0px;
 				bottom: 50%;
 				margin-bottom: 100px;
 			}
+			
 			.cover-bottom{
 				top: 50%;
 				bottom: 0px;
 				margin-top: 100px;
 			}
+			
 			.cover-left,
 			.cover-right{
 				top: 50%;
 				height: 200px;
 				margin-top: -100px;
 			}
+			
 			.cover-left{
 				left: 0px;
 				right: 50%;
 				margin-right: 100px;
 			}
+			
 			.cover-right{
 				left: 50%;
 				right: 0px;
 				margin-left: 100px;
 			}
+			
+			.add{
+				display: inline-block;
+				width: 100px;
+				height: 35px;
+				line-height: 35px;
+				text-align: center;
+				border: 1px solid orange;
+				border-radius: 8px;
+				color: orange;
+				vertical-align: top;
+				margin: 10px;
+				position: relative;
+			}
+			
+			.add input[type=file]{
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				opacity: 0;
+				cursor: pointer;
+			}
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		</header>
-		<div class="mui-content">
-			<div class="window"></div>
-			<div class="cover cover-top"></div>
-			<div class="cover cover-left"></div>
-			<div class="cover cover-right"></div>
-			<div class="cover cover-bottom"></div>
+		<div class="container">
+			<div class="crop-area">
+				<img src="" />
+				
+				<div class="window"></div>
+				<div class="cover cover-top"></div>
+				<div class="cover cover-left"></div>
+				<div class="cover cover-right"></div>
+				<div class="cover cover-bottom"></div>
+			</div>
 			
-			<img src="../tempImages/image4.png" style="display: none;" />
+			<div class="add">
+				选择图片
+				<input type="file" id="fileInput" accept="image/*" onchange="selectImage();" />
+			</div>
+			
 			<canvas id="canvas"></canvas>
 		</div>
-		<script type="text/javascript" src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/hammer.min.js"></script>
-		<script type="text/javascript" src="../js/common.js"></script>
+			
+		<script src="js/hammer.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init({
-				gestureConfig: {
-					hold: true,
-					release: true
-				}
-			});
-
-			var content = document.querySelector(".mui-content"),
-				headImage = document.createElement("img"),
+			var content = document.querySelector(".crop-area"),
+				fileInput = document.getElementById('fileInput'),
+				headImage = document.querySelector("img"),
 				canvas = document.getElementById("canvas"),
 				ctx = canvas.getContext('2d');
 				
@@ -125,21 +145,19 @@
 			canvas.width = size;
 			canvas.height = size;
 			
-			mui.plusReady(function(){
-				var self = plus.webview.currentWebview();
-				var path = self.path;
-				
-				initImage(path);
-			});
+			var fileReader = new FileReader();
 			
-			//initImage('../tempImages/image4.png');
+			fileReader.onload = function(e){
+				headImage.src = e.target.result;
+				
+				initImage(e.target.result);
+			};
+			
+			function selectImage(){
+				fileReader.readAsDataURL(fileInput.files[0]);
+			}
 			
 			function initImage(path){
-				// 图片
-				headImage.src = path;
-				headImage.id = 'headImage';
-				content.appendChild(headImage);
-				
 				var img = new Image();
 				img.onload = function(){
 					oWidth = img.width;
@@ -168,7 +186,7 @@
 				img.src = path;
 				
 				
-				var mc = new Hammer(document.body, {
+				var mc = new Hammer(content, {
 				  	recognizers: [
 				      	[Hammer.Pan, { direction: Hammer.DIRECTION_ALL }]
 				  	]
