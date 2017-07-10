@@ -81,6 +81,16 @@
     text-align: justify;
   
   
+#### 首字母排序
+
+    var ary = ['你好', '阳光', '美好'];
+			
+	ary.sort(function(a, b) { 
+		return a.localeCompare(b);
+	});
+	
+	console.log(ary); // 美好,你好,阳光
+  
 
 
 ----------------------------------------------
