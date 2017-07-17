@@ -80,6 +80,23 @@
 
     text-align: justify;
   
+#### collapsing margins
+
+1. overflow: hidden; (推荐)
+2. padding: 1px;
+3. border: 1px solid transparent;
+4. position: absolute;
+5. float: left;
+  
+> no line boxes, no clearance, no padding and no border separate them
+
+
+#### CSS
+
+* line-height, mobile垂直居中兼容问题
+* vertical-align
+* border-image
+  
   
 #### 首字母排序
 

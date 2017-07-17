@@ -14,7 +14,7 @@
 			function doPrint() {
 				var headstr = '<style type="text/css">' +
 					'*{margin: 0;padding: 0;}' +
-					'.content{word-wrap: break-word;font-family:"黑体";}' +
+					'.content{word-wrap: break-word;font-family:"黑体";display: -webkit-box;-webkit-line-clamp: 9;-webkit-box-orient: vertical;white-space: normal;text-overflow: ellipsis;overflow : hidden;}' +
 					'.title{text-align:center;margin-bottom:50pt;}'+
 					'.container{width:550mm;height:400mm;overflow:hidden;display: -webkit-flex;-webkit-align-items: center;zoom:0.1;}' +
 					'.left{float: left;width:45%;font-size:10pt;margin-left:5%;}' +
@@ -25,10 +25,10 @@
 				var content = '<div class="container">' +
 								'<div class="left">' +
 									'<div class="content title">京都念慈菴</div>' +
-									'<div class="content"><span>用法用量:</span><br/>口含服,成人每日8次，每次1粒，儿童看情况酌减（4次）。口含服,成人每日8次，每次1粒，儿童看情况酌减（4次）。</div>' +
+									'<div class="content"><span>用法用量:</span><br/>口含服,成人每日8次，每次1粒，儿童看情况酌减（4次）。</div>' +
 								'</div>' +
 								'<div class="right">'+
-									'<img src="http://192.168.2.119:8080/upload/qrcode/1492073949328.png" width="100%" />'+
+									'<img src="https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/home/img/qrcode/zbios_efde696.png" width="100%" />'+
 									'<div>杭州薏生网络</div>'+
 								'</div>' +
 							'</div>';
