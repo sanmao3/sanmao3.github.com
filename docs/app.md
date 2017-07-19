@@ -56,6 +56,16 @@
     };
     
 
+#### Using object URLs to display images
+
+    var img = document.createElement("img");
+    img.src = window.URL.createObjectURL(files[0]);
+    img.height = 60;
+    img.onload = function() {
+    	window.URL.revokeObjectURL(this.src);
+    };
+
+
 #### 背景模糊
 
     backdrop-filter: blur(2px); // 扩展见mdn
@@ -119,3 +129,9 @@
 * 聊天记录
 * 图片缓存
 * 聊天列表
+
+
+----------------------------------------------
+
+
+观察者模式（Observer mode）指的是函数自动观察数据对象，一旦对象有变化，函数就会自动执行。
