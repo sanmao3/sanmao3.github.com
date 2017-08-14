@@ -3,6 +3,24 @@
 
 * box-shadow 盒子阴影
 
+* shape-inside
+
+* shape-outside
+
+* shape-margin
+
+* shape-padding
+
+
+    img.right {
+		float: right;
+		height: 100vh;
+		width: calc(100vh + 100vh/4);
+		shape-outside: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
+		/* clip the image to the defined shape */
+		clip-path: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
+	}
+
 #### flex
 
 弹性容器属性
