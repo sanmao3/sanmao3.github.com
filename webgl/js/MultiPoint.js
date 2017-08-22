@@ -3,7 +3,6 @@ var VSHADER_SOURCE = `
 	attribute vec4 a_Position;
 	void main(){
 		gl_Position = a_Position;
-		gl_PointSize = 10.0;
 	}`;
 	
 // 片元着色器
@@ -48,15 +47,16 @@ function main(){
 	
 	gl.useProgram(program);
 	
-	gl.drawArrays(gl.POINTS, 0, n);
+	// 1.mode
+	gl.drawArrays(gl.TRIANGLE_FAN, 0, n);
 }
 
 function initVertexBuffers(gl, program){
 	var vertices = new Float32Array([
-		0.0, 0.5, -0.5, -0.5, 0.5, -0.5
+		-0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5
 	]);
 	
-	var n = 3;
+	var n = 4;
 	
 	var vertexBuffer = gl.createBuffer();
 	
