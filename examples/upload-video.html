@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.video-wrapper .btn-select-video{
+				width: 150px;
+				height: 30px;
+				line-height: 30px;
+				border: 1px solid #4285f4;
+				border-radius: 4px;
+				position: relative;
+				text-align: center;
+				overflow: hidden;
+				background-color: #4285f4;
+				color: #fff;
+			}
+			
+			.video-wrapper .btn-select-video input[type=file]{
+				display: block;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				opacity: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="video-wrapper">
+			<video src="" controls="controls" width="300" height="200">
+				您的浏览器不支持 video 标签。
+			</video>
+			
+			<div class="btn-select-video">
+				选择上传视频
+				<input type="file" name="file" onchange="changeFile(this);" />
+			</div>
+		</div>
+		
+		
+
+		<button type="button" style="margin-top: 50px;">上传</button>
+
+		<script src="js/jQuery.1.8.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="//imgcache.qq.com/open/qcloud/js/vod/sdk/ugcUploader.js"></script>
+		<script type="text/javascript">
+			var getSignature = function(callback) {
+				$.ajax({
+					url: 'yourinterface', //服务器获取客户端上传签名的URL
+					type: 'POST',
+					dataType: 'json',
+					success: function(result) {
+						//result.returnData.signature为获取到的签名
+						callback(result.returnData.signature);
+					}
+				});
+			};
+			
+			var suffix = 'mp4,ogg';
+			var maxSize = 100;
+			var videoFile = null;
+			
+			function changeFile(fileInput){
+				var vFile = fileInput.files[0];
+				
+				//console.log(videoFile);
+				
+				var postfix = vFile.name.split('.');
+				if(suffix.indexOf(postfix[postfix.length - 1]) == -1){
+					alert('请选择视频文件');
+					return;
+				}
+				
+				if(Math.ceil(vFile.size / (1024 * 1024)) > maxSize){
+					alert('视频文件过大');
+					return;
+				}
+				
+				videoFile = vFile;
+				
+				document.querySelector('video').src = window.URL.createObjectURL(videoFile);
+			}
+			
+			$('button').click(function(){
+				if(videoFile == null){
+					alert('请先选择视频文件');
+					return;
+				}
+				
+				qcVideo.ugcUploader.start({
+					videoFile: videoFile,
+					getSignature: getSignature,
+					success: function(result) {
+						console.log('上传成功的文件类型：' + result.type);
+					},
+					error: function(result) {
+						console.log('上传失败的文件类型：' + result.type);
+						console.log('上传失败的原因：' + result.msg);
+					},
+					progress: function(result) {
+						console.log('上传进度的文件类型：' + result.type);
+						console.log('上传进度的文件名称：' + result.name);
+						console.log('上传进度：' + result.curr);
+					},
+					finish: function(result) {
+						console.log('上传结果的fileId：' + result.fileId);
+						console.log('上传结果的视频名称：' + result.videoName);
+						console.log('上传结果的视频地址：' + result.videoUrl);
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>
