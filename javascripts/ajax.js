@@ -1,3 +1,12 @@
+/*
+ * custom ajax by lsh
+ */
+
+
+/**
+ * 
+ * @param {Object} options
+ */
 function ajax(options){
 	var xhr = new XMLHttpRequest();
     xhr.open(options.type, options.url);
