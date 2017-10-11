@@ -57,7 +57,7 @@
 		components: {
 			ChatArea
 		},
-		created: function(){
+		created(){
 			this.$eventHub.$on('new-message', (senderId, message) => {
 				this.patients = Util.getChatRecords();
 				if(this.personIndex >= 0){
@@ -68,7 +68,7 @@
 			// 医生账户信息
 			console.log(ACCOUNTM.getAccountModel())
 		},
-		activated: function(){
+		activated(){
 			this.patients = Util.getChatRecords();
 			let params = this.$route.params.Chat_page;
 			// 指定与此人聊天
@@ -83,7 +83,7 @@
 			}
 		},
 		computed: {
-			visiblePatients: function(){
+			visiblePatients(){
 				let result = [];
 				
 				this.patients.forEach((item) => {
@@ -96,7 +96,7 @@
 			}
 		},
 		methods: {
-			chatWith: function(item, index){
+			chatWith(item, index){
 				this.person = item;
 				this.personIndex = index;
 				
@@ -108,7 +108,7 @@
 					Vue.prototype.$eventHub.$emit('chat-unread-changed')
 				}
 			},
-			formatMsg: function(person, keyword){
+			formatMsg(person, keyword){
 				if(person.messages.length > 0){
 					var msg = person.messages[person.messages.length - 1];
 					if(keyword == 'datetime'){
@@ -121,7 +121,7 @@
 				}
 			},
 			// 关闭聊天
-			removeChat: function(){
+			removeChat(){
 				this.hideMenu();
 				
 				setTimeout(() => {
@@ -135,16 +135,16 @@
 					}
 				}, 200)
 			},
-			showMenu: function(item, index, e){
+			showMenu(item, index, e){
 				this.chatWith(item, index);
 				this.offsetX = e.layerX;
 				this.offsetY = e.layerY + 62 + 72 * index; // 搜索框高度+前面对话框高度
 			},
-			hideMenu: function(){
+			hideMenu(){
 				this.offsetY = 0;
 			},
 			// 置顶
-			stickTop: function(){
+			stickTop(){
 				this.person.stick = !this.person.stick;
 				this.patients[this.personIndex].stick = this.person.stick;
 				// 置顶或取消置顶

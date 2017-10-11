@@ -111,17 +111,17 @@
 			ChatInsideSheet
 		},
 		watch: {
-			patient: function(val, oldVal){
+			patient(val, oldVal){
 				this.closeSheet();
 				this.hideModule();
 				this.closeReceivers();
 			}
 		},
 		computed: {
-			arrowShown: function(){
+			arrowShown(){
 				return this.moduleName.indexOf('library') >= 0;
 			},
-			messageRecevier: function(){
+			messageRecevier(){
 				if(this.patient.id == -1){
 					let rid = [],
 						rloginName = [],
@@ -145,7 +145,7 @@
 				return this.patient;
 			}
 		},
-		created: function () {
+		created () {
 			this.account = ACCOUNTM.getAccountModel();
 			// editable表示是否可编辑接收人
 			this.$eventHub.$on('chat-mass-receivers', (receivers, editable) => {
@@ -154,32 +154,32 @@
 			})
 		},
 		methods: {
-			showModule: function(name){
+			showModule(name){
 				this.moduleName = name;
 			},
-			hideModule: function(){
+			hideModule(){
 				this.moduleName = '';
 			},
-			preventBubbling: function(e){
+			preventBubbling(e){
 				e.stopPropagation();
 			},
 			// 查看患者简介
-			viewProfile: function(e){
+			viewProfile(e){
 				this.preventBubbling(e);
 				this.showModule('profile');
 			},
-			viewMsgDetail: function(msg, e){
+			viewMsgDetail(msg, e){
 				this.clickedMessage = msg;
 				this.sheetSwitch = true;
 			},
-			closeSheet: function(){
+			closeSheet(){
 				this.sheetSwitch = false;
 			},
-			closeReceivers: function(){
+			closeReceivers(){
 				this.receivers = [];
 			},
 			// 发送文本
-			sendText: function(){
+			sendText(){
 				let el = document.querySelector('.textarea');
 				if(el.innerText != ''){
 					Util.sendText(this.messageRecevier, el.innerText);
@@ -187,34 +187,12 @@
 				}
 			},
 			// 发送图片
-			sendImage: function(){
+			sendImage(){
 				var fileInput = document.querySelector('input[type="file"]');
 				Util.sendImage(this.messageRecevier, fileInput.files[0]);
 			},
-			// 发送问卷
-			sendQuestionnaire: function(items){
-				// 关闭问卷窗口
-				this.hideModule();
-				Util.sendQuestionnaire(this.messageRecevier, items);
-			},
-			// 发送药品
-			sendMedicines: function(items){
-				// 关闭窗口
-				this.hideModule();
-				Util.sendMedicines(this.messageRecevier, items);
-			},
-			// 发送病历
-			sendDossier: function(){
-				Util.sendDossier(this.messageRecevier);
-			},
-			// 发送检查项目
-			sendCheckItems: function(items){
-				// 关闭窗口
-				this.hideModule();
-				Util.sendCheckItems(this.messageRecevier, items);
-			},
 			// 添加群发接收人
-			addReceivers: function(){
+			addReceivers(){
 				VIEWM.showPop(VIEW.ARTICLE_SHARE, {
 	    			id: this.patient.id
 	    		});

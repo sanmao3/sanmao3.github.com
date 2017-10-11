@@ -91,7 +91,7 @@
 	import defaultHeadImage from '__IMG__/icon/headImage@2x.png'
 	
 	export default{
-		data:function(){
+		data(){
 			return {
 				account: {},
 				index: null,
@@ -99,14 +99,14 @@
 			}
 		},
 		props: ['person'],
-		created: function(){
+		created(){
 			this.account = ACCOUNTM.getAccountModel();
 		},
 		components: {
 			gallery: VueGallery
 		},
 		computed: {
-			images: function(){
+			images(){
 				let ary = [];
 				this.person.messages.forEach((item, i) => {
 					if(item.type == 5){
@@ -117,7 +117,7 @@
 				return ary;
 			}
 		},
-		activated: function(){
+		activated(){
 			this.scrollBottom();
 		},
 		watch: {
@@ -126,7 +126,7 @@
 			}
 		},
 		methods: {
-			scrollBottom: function(){
+			scrollBottom(){
 				let el = document.querySelector('.messages');
 				
 				if(el == null) return;
@@ -136,11 +136,11 @@
 				}, 50)
 			},
 			// 消息发送时间
-			formatMsgTime: function(sendTime){
+			formatMsgTime(sendTime){
 				return Util.formatMsgDate(sendTime);
 			},
 			// 头像
-			formatAvater: function(isSelf){
+			formatAvater(isSelf){
 				return isSelf ? (this.account.headUrl || defaultHeadImage) : this.person.headImage
 			},
 			// 图片路径转换
@@ -148,20 +148,20 @@
 			formatArticle: function(content = ''){
 				return content.replace(/&fxg;(r|n)?/g, '');
 			},
-			formatSex: function(sex){
+			formatSex(sex){
 				return sex == 2 ? '女' : '男';
 			},
 			// 点击头像
-			viewProfile: function(isSelf, e){
+			viewProfile(isSelf, e){
 				// 点击患者头像时触发
 				if(!isSelf){
 					this.$emit('avaterClicked', e);
 				}
 			},
-			clickMessage: function(msg, e){
+			clickMessage(msg, e){
 				this.$emit('messageClicked', msg, e);
 			},
-			showMsgTime: function(index){
+			showMsgTime(index){
 				let messages = this.person.messages;
 				if(index > 0){
 					// 3分钟内的消息时间不显示
