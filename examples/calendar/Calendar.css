@@ -1,12 +1,13 @@
 .calendar{
+	min-width: 300px;
 	border: 1px solid #ccc;
 }
 
 .calendar .title {
-	height: 60px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 15px 10px;
 }
 
 .calendar .row {
@@ -21,6 +22,9 @@
 
 .calendar .row-week .cell{
 	text-align: center;
+	background-color: #eee;
+	padding: 5px 0;
+	font-size: 13px;
 }
 
 .calendar-body .cell{
