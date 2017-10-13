@@ -1,6 +1,16 @@
 (function() {
-	function formatDate(dt){
-		return dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
+	/**
+	 * 日期格式化
+	 * @param {Object} format
+	 */
+	Date.prototype.format = function(formatStr){
+		formatStr = formatStr || 'yyyy-MM-dd';
+		
+		var year = this.getFullYear();
+		var month = this.getMonth() + 1;
+		var day = this.getDate();
+		
+		return formatStr.replace('yyyy', year).replace('MM', month).replace('dd', day);
 	}
 	
 	var Calendar = function(options) {
@@ -72,7 +82,7 @@
 					className = 'expired'
 				}
 				
-				html += '<div class="cell '+ className +'" data-date="'+ formatDate(dt) +'"><span>' + (dt.getDate()) + '</span></div>';
+				html += '<div class="cell '+ className +'" data-date="'+ dt.format('yyyy/MM/dd') +'"><span>' + (dt.getDate()) + '</span></div>';
 			}
 			html += '</div>';
 		}
