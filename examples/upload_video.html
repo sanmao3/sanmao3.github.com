@@ -3,7 +3,8 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>upload video</title>
 		<style type="text/css">
 			.video-wrapper .btn-select-video{
 				width: 150px;
@@ -41,12 +42,10 @@
 				<input type="file" name="file" onchange="changeFile(this);" />
 			</div>
 		</div>
-		
-		
 
 		<button type="button" style="margin-top: 50px;">上传</button>
 
-		<script src="js/jQuery.1.8.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jQuery.1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="//imgcache.qq.com/open/qcloud/js/vod/sdk/ugcUploader.js"></script>
 		<script type="text/javascript">
 			var getSignature = function(callback) {

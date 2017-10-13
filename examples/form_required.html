@@ -3,28 +3,65 @@
 
 	<head>
 		<meta charset="utf-8" />
-		<title>首页</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>表单必填验证</title>
 	</head>
 
 	<body>
 		<form name="form" action="/">
-			<input type="text" id="t1" name="fruit" list="l1" required pattern="[Bb]anana|[Cc]herry|[Aa]pple|[Ss]trawberry|[Ll]emon|[Oo]range">
-			<datalist id="l1">
-		        <option>Banana</option>
-		        <option>Cherry</option>
-		        <option>Apple</option>
-		        <option>Strawberry</option>
-		        <option>Lemon</option>
-		        <option>Orange</option>
-		    </datalist>
-			<input type="tel" pattern="banana|cherry" title="banana|cherry" />
-			<input type="tel" required="required" />
-			<select name="name" required="required">
-				<option value="">--------</option>
-				<option value="1">jack</option>
+			<input type="text" name="nickname" placeholder="请填写姓名" required="required" />
+			
+			<input type="number" name="age" placeholder="请填写年龄" required="required" />
+			
+			<select name="gender" placeholder="请选择性别" required="required">
+				<option value="0">男</option>
+				<option value="1">女</option>
 			</select>
-			<button type="submit">save</button>
+			
+			<input type="tel" name="telphone" placeholder="请填写电话号码" required="required" />
+			
+			<input type="email" name="email" placeholder="邮箱" />
+		    
+			<textarea name="about" placeholder="请简单介绍一下自己"></textarea>
+			
+			<button type="button" onclick="validateInfo()">提交</button>
+			<button type="reset">重置</button>
 		</form>
+		
+		
+		<script type="text/javascript">
+			function validateInfo(){
+				var res = validate(document.querySelector('form'));
+				if(res === true){
+					alert('提交成功')
+				}else{
+					alert(res)
+				}
+			}
+			
+			function validate(formEl){
+				var requiredEls = formEl.querySelectorAll('[required]');
+				console.log(requiredEls)
+				// 验证必填
+				for(var i = 0, len = requiredEls.length; i < len; i++){
+					var el = requiredEls[i];
+					if(el.value.trim() == ''){
+						return el.getAttribute('placeholder');
+					}
+				}
+				// 验证特殊格式
+				var telRegexp = /^1(3|5)[0-9]\d{8}$/;
+				var telEls = formEl.querySelectorAll('[type="tel"]');
+				for(var i = 0, len = telEls.length; i < len; i++){
+					var el = telEls[i];
+					if(telRegexp.test(el.value) == false){
+						return '电话格式错误';
+					}
+				}
+				
+				return true;
+			}
+		</script>
 	</body>
 
 </html>
