@@ -4,42 +4,24 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>title</title>
+		<title>clip-path</title>
 		<style type="text/css">
 			body {
-				/*background: #ededf2;*/
+				background: #ededf2;
 			}
 			
-			.image img:first-child {
-				width: 300px;
-				border-radius: 17.5px;
-				
-				-webkit-clip-path: polygon(5px 10px, 16px 3px, 16px 9px, 36px 9px, 36px 3px, 47px 10px, 36px 17px, 36px 11px, 16px 11px, 16px 17px);
-				
-				-webkit-clip-path: polygon(5px 11px, 5px 9px, 16px 3px, 26px 3px, 40px 9px, 48px 15px, 48px 5px, 40px 11px, 26px 17px, 16px 17px);
-				
-				-webkit-clip-path: ellipse(50% 50% at 50% 50%);
-			
-				-webkit-clip-path: url(#clip);
-				
-				-webkit-transform: scale(1);
-				
-				/*-webkit-clip-path: polygon(0 0, 0 100%, 75% 100%, 83% 97%, 86% 93%, 89% 97%, 93% 100%, 100% 100%, 96% 95%, 95% 89%, 95% 81%, 95% 19%, 93% 12%, 87% 6%, 80% 2%, 72% 0%);
-			*/
-			}
-			
-			.pic {
+			div{
 				position: relative;
 				display: inline-block;
 			}
 			
-			.pic img {
-				width: 300px;
-				border-radius: 0px;
-				vertical-align: top;
+			.bubble1{
+				width: 100%;
+				height: 80px;
+				background-image: linear-gradient(-180deg, #3AD88F 0%, #40B9AE 100%);
 			}
 			
-			.pic:after {
+			.bubble1:after {
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -51,57 +33,73 @@
 				border-image: url(img/Bubble2@2x.png) 40;
 			}
 			
-			.image img:last-child {
+			.bubble2 img {
+				width: 300px;
+				vertical-align: top;
+			}
+			
+			.bubble2:after {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				content: '';
+				border: 35px solid transparent;
+				box-sizing: border-box;
+				border-image: url(img/Bubble2@2x.png) 40;
+			}
+			
+			.bubble3 img{
+				width: 300px;
+				border-radius: 17.5px;
+				
+				-webkit-clip-path: polygon(5px 10px, 16px 3px, 16px 9px, 36px 9px, 36px 3px, 47px 10px, 36px 17px, 36px 11px, 16px 11px, 16px 17px);
+				
+				-webkit-clip-path: polygon(5px 11px, 5px 9px, 16px 3px, 26px 3px, 40px 9px, 48px 15px, 48px 5px, 40px 11px, 26px 17px, 16px 17px);
+			
+				-webkit-clip-path: url(#clip);
+				
+				-webkit-transform: scale(1);
+			}
+			
+			.bubble4 img{
 				width: 200px;
 				-webkit-clip-path: inset(0 10px 0 0 round 17.5px);
+			}
+			
+			.bubble5 img{
+				width: 200px;
+				-webkit-clip-path: ellipse(50% 50% at 50% 50%);
 			}
 		</style>
 	</head>
 
 	<body>
-		<div class="pic">
-			<img src="../swiper/images/boy.jpeg" />
+		<div class="bubble1"></div>
+		
+		<div class="bubble2">
+			<img src="swiper/images/boy.jpeg" />
 		</div>
 
-		<svg width="236px" height="56px" viewBox="0 0 236 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-			<!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch preserveAspectRatio="xMinYMin meet" -->
-			<desc>Created with Sketch.</desc>
-			<defs>
-				<linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-					<stop stop-color="#3AD88F" offset="0%"></stop>
-					<stop stop-color="#40B9AE" offset="100%"></stop>
-				</linearGradient>
-			</defs>
-			<path d="M231.925343,40.1203721 C231.889483,42.6264173 231.898446,46.7553278 232.269512,49.1319246 C232.828312,52.7109147 235.598523,54.7310538 235.598523,54.7310538 C235.807941,54.9034776 235.757445,55.0406109 235.483064,55.0308026 C235.483064,55.0308026 230.377522,55.1075681 225.696202,51.947128 C222.660371,54.47764 218.754202,56 214.490989,56 L17.5090113,56 C7.83905139,56 0,48.1692322 0,38.4924317 L0,17.5075683 C0,7.83840531 7.83531905,0 17.5090113,0 L214.490989,0 C224.160949,0 232,7.83076778 232,17.5075683 L232,38.4924317 C232,39.041345 231.974749,39.5843582 231.925343,40.1203721 Z" id="Combined-Shape" stroke="none" fill="url(#linearGradient-1)" fill-rule="evenodd"></path>
-		</svg>
-
+		<div class="bubble3">
+			<img src="swiper/images/boy.jpeg" />
+		</div>
+		
+		<div class="bubble4">
+			<img src="swiper/images/boy.jpeg" />
+		</div>
+		
+		<div class="bubble5">
+			<img src="swiper/images/boy.jpeg" />
+		</div>
+		
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 0 236 56" width="0" height="0">
 			<title>bubble-path</title>
 			<clipPath id="clip">
 				<path d="M231.925343,40.1203721 C231.889483,42.6264173 231.898446,46.7553278 232.269512,49.1319246 C232.828312,52.7109147 235.598523,54.7310538 235.598523,54.7310538 C235.807941,54.9034776 235.757445,55.0406109 235.483064,55.0308026 C235.483064,55.0308026 230.377522,55.1075681 225.696202,51.947128 C222.660371,54.47764 218.754202,56 214.490989,56 L17.5090113,56 C7.83905139,56 0,48.1692322 0,38.4924317 L0,17.5075683 C0,7.83840531 7.83531905,0 17.5090113,0 L214.490989,0 C224.160949,0 232,7.83076778 232,17.5075683 L232,38.4924317 C232,39.041345 231.974749,39.5843582 231.925343,40.1203721 Z"></path>
 			</clipPath>
 		</svg>
-
-		<div class="image">
-			<img src="../swiper/images/boy.jpeg" />
-			<img src="../swiper/images/boy.jpeg" />
-		</div>
-
-		<svg version="1.1" width="300" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="border: 1px solid #000000;">
-			<defs>
-				<clipPath id="cut-off-bottom">
-					<rect x="0" y="0" width="200" height="100" />
-				</clipPath>
-			</defs>
-
-			<circle cx="100" cy="100" r="100" clip-path="url(#cut-off-bottom)" />
-		</svg>
-
-		<svg width="13" height="18" style="zoom: 3;" viewBox="-1 39 13 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-			<defs></defs>
-			<path d="M4.00306307,39 C4.00306307,39 4.26545203,46.5529346 3.70665198,50.1319246 C3.14785193,53.7109147 0.139242865,55.7148817 0.139242865,55.7148817 C-0.0793350154,55.8792479 -0.036263558,56.0098492 0.238117709,56.0000409 C0.238117709,56.0000409 5.73558065,56.0826992 10.5519475,52.5452224 C15.3683143,49.0077455 4.00306307,39 4.00306307,39 Z" id="Bubble" stroke="none" fill="#E5E6EA" fill-rule="evenodd"></path>
-		</svg>
-
 	</body>
 
 </html>
