@@ -26,7 +26,7 @@
 		var btnNext = this.options.container.querySelector('.next');
 		
 		btnPrev.addEventListener('click', function(){
-			self.preMonth();
+			self.prevMonth();
 		});
 		
 		btnNext.addEventListener('click', function(){
@@ -80,7 +80,7 @@
 		this.options.container.querySelector('.calendar-body').innerHTML = html;
 	}
 	
-	Calendar.prototype.preMonth = function(){
+	Calendar.prototype.prevMonth = function(){
 		this.options.monthDis--;
 		this.renderCells();
 	}
