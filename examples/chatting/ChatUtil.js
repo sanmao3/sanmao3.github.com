@@ -247,29 +247,6 @@ export default {
 		
 		// PC上存储的消息格式和APP上不同，所以，这里需要过滤一下
 		
-		if(message.type == 4 && message.qnKey){
-			// 患者答卷后的消息
-			Object.assign(msg, {
-				orders: message.orders,
-				qnKey: message.qnKey,
-				scores: message.scores
-			})
-		}else if(message.type == 9){
-			// 患者发送的病例
-			Object.assign(msg, {
-				dossierId: message.dossierId,
-				dossierName: message.dossierName,
-				content: '【病例】' + message.dossierName
-			})
-		}else if(msg.type == 11){
-			// 医生分享的文章
-			Object.assign(msg, {
-				articleContent: message.articleContent,
-				articleId: message.articleId,
-				articleTitle: message.articleTitle
-			})
-		}
-		
 		var isExist = this.storageChatMessage(patientId, msg, true);
 		
 		if(isExist == false){
@@ -318,8 +295,6 @@ export default {
 			Object.assign(message, {
 				content: this.formatImageUrl(msg.content)
 			})
-		}else if(msg.type == 6){
-			message.content.imageUrl = this.formatImageUrl(msg.content.imageUrl)
 		}
 		
 		// 发送消息至socket

@@ -1,0 +1,23 @@
+{
+  "name": "sanmao3.github.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanmao3/sanmao3.github.com.git"
+  },
+  "author": "sanmao3",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanmao3/sanmao3.github.com/issues"
+  },
+  "homepage": "https://github.com/sanmao3/sanmao3.github.com#readme"
+}

@@ -4,14 +4,7 @@
 		<div class="chat-top">
 			{{patient.name}}
 			<span class="add" v-if="patient.id == -1" @click="addReceivers"></span>
-			<span class="more" v-else-if="patient.id" @click.stop="showModule('menu')"></span>
 		</div>
-		
-		<ul class="menu" v-if="moduleName == 'menu'">
-			<li @click.stop="showModule('medical-record')">病历夹</li>
-			<li>随访记录</li>
-			<li @click.stop="showModule('medicine-record')">用药记录</li>
-		</ul>
 		
 		<div class="chat-content" v-if="patient.id" :class="{filled: receivers.length > 0}">
 			<keep-alive>
@@ -26,33 +19,11 @@
 			<div class="send-controller">
 				<div class="toolbar">
 					<span :title="'图片'"><input type="file" accept="image/*" @change="sendImage" /></span>
-					<span :title="'随访问卷'" v-on:click.stop="showModule('library-q')"></span>
-					<span :title="'药品'" v-on:click.stop="showModule('library-medicine')"></span>
-					<span :title="'病历'" @click="sendDossier"></span>
-					<span :title="'检查项目'" v-on:click.stop="showModule('library-check')"></span>
 				</div>
 				<div class="textarea" contenteditable="plaintext-only" @keydown.enter.prevent="" @keyup.enter="sendText"></div>
 				<button type="button" @click="sendText">发送</button>
 			</div>
 		</div>
-		
-		<div class="chat-content empty" v-else>
-			<span>未选择聊天</span>
-		</div>
-		
-		<keep-alive>
-			<!-- 患者病历夹 -->
-			<medical-record class="patient-info" :patientId="patient.id" v-if="moduleName == 'medical-record'" @click.native="preventBubbling"></medical-record>
-			<!-- 患者用药 -->
-			<medicine-record class="patient-info" :patientId="patient.id" :isTab="true" v-if="moduleName == 'medicine-record'" @click.native="preventBubbling"></medicine-record>
-			
-			<!-- 可发送随访问卷 -->
-			<chat-q-library class="chat-library" v-on:sendQuestionnaire="sendQuestionnaire" v-if="moduleName == 'library-q'" @click.native="preventBubbling"></chat-q-library>
-			<!-- 可发送药品 -->
-			<chat-medicine-library class="chat-library library-medicine" v-on:sendMedicines="sendMedicines" v-if="moduleName == 'library-medicine'" @click.native="preventBubbling"></chat-medicine-library>
-			<!-- 检查项目 -->
-			<chat-check-library class="chat-library library-check" v-on:sendCheckItems="sendCheckItems" v-if="moduleName == 'library-check'" @click.native="preventBubbling"></chat-check-library>
-		</keep-alive>
 		
 		<!-- 箭头，因library需要overflow:hidden;不能使用after伪元素实现 -->
 		<div class="library-arrow" v-if="arrowShown"></div>
@@ -66,24 +37,12 @@
 			<p>{{patient.age}}岁</p>
 			<p>{{patient.address}}</p>
 		</div>
-		
-		<chat-inside-sheet v-if="sheetSwitch" :message="clickedMessage" v-on:closeSheet="closeSheet"></chat-inside-sheet>
 	</div>
 </template>
 
 <script>
 	import ChatMessages from '__TEMP__/ChatMessages.vue'
-	import ChatMassMessages from '__TEMP__/ChatMassMessages.vue'
 	import ChatMassReceivers from '__TEMP__/ChatMassReceivers.vue'
-	
-	import ChatQLibrary from '__TEMP__/ChatQLibrary.vue'
-	import ChatMedicineLibrary from '__TEMP__/ChatMedicineLibrary.vue'
-	import ChatCheckLibrary from '__TEMP__/ChatCheckLibrary.vue'
-	
-	import ChatInsideSheet from '__TEMP__/ChatInsideSheet.vue'
-	
-	import MedicalRecord from '__TEMP__/MedicalRecord.vue'
-	import MedicineRecord from '__TEMP__/MedicineRecord.vue'
 	
 	import Util from '__UTIL__/ChatUtil.js'
 	
@@ -101,14 +60,7 @@
 		props: ['patient'],
 		components: {
 			ChatMessages,
-			ChatMassMessages,
-			ChatMassReceivers,
-			ChatQLibrary,
-			ChatMedicineLibrary,
-			ChatCheckLibrary,
-			MedicalRecord,
-			MedicineRecord,
-			ChatInsideSheet
+			ChatMassReceivers
 		},
 		watch: {
 			patient(val, oldVal){
@@ -154,26 +106,9 @@
 			})
 		},
 		methods: {
-			showModule(name){
-				this.moduleName = name;
-			},
-			hideModule(){
-				this.moduleName = '';
-			},
-			preventBubbling(e){
-				e.stopPropagation();
-			},
 			// 查看患者简介
 			viewProfile(e){
-				this.preventBubbling(e);
 				this.showModule('profile');
-			},
-			viewMsgDetail(msg, e){
-				this.clickedMessage = msg;
-				this.sheetSwitch = true;
-			},
-			closeSheet(){
-				this.sheetSwitch = false;
 			},
 			closeReceivers(){
 				this.receivers = [];
@@ -193,9 +128,7 @@
 			},
 			// 添加群发接收人
 			addReceivers(){
-				VIEWM.showPop(VIEW.ARTICLE_SHARE, {
-	    			id: this.patient.id
-	    		});
+				
 			}
 		}
 	}
@@ -226,21 +159,6 @@
 		background-color: #FFFFFF;
 	}
 	
-	.more{
-		display: inline-block;
-		width: 30px;
-		height: 30px;
-		float: right;
-		position: relative;
-		top: 16px;
-		background: url(../img/icon/icon-81@1x.png) no-repeat;
-		background-position: center;
-		
-		&:hover{
-			opacity: 0.5;
-		}
-	}
-	
 	.add{
 		display: inline-block;
 		width: 40px;
@@ -255,45 +173,6 @@
 		
 		&:hover{
 			background-color: #F9F9F9;
-		}
-	}
-	
-	.menu{
-		width: 204px;
-		position: absolute;
-		top: 30px;
-		right: 45px;
-		z-index: 9;
-		background: #FFFFFF;
-		font-size: 14px;
-		border-radius: 8px;
-		border: 1px solid #eee;
-		box-shadow: 0px 0px 18px #ccc;
-		overflow: hidden;
-		
-		li{
-			height: 52px;
-			line-height: 52px;
-			padding-left: 70px;
-			border-bottom: 1px solid #eee;
-			cursor: default;
-			
-			background-image: url(../img/icon/icon-94@1x.png);
-			background-repeat: no-repeat;
-			background-position: 30px center;
-			
-			&:nth-child(2){
-				background-image: url(../img/icon/icon-95@1x.png);
-			}
-			
-			&:last-child{
-				background-image: url(../img/icon/icon-96@1x.png);
-				border-bottom: none;
-			}
-			
-			&:hover{
-				background-color: #F9F9F9;
-			}
 		}
 	}
 	
@@ -389,23 +268,7 @@
 		background-position: center;
 		
 		&:nth-child(1){
-			background-image: url(../img/icon/icon-51@1x.png);
-		}
-		
-		&:nth-child(2){
-			background-image: url(../img/icon/icon-52@1x.png);
-		}
-		
-		&:nth-child(3){
-			background-image: url(../img/icon/icon-53@1x.png);
-		}
-		
-		&:nth-child(4){
-			background-image: url(../img/icon/icon-54@1x.png);
-		}
-		
-		&:nth-child(5){
-			background-image: url(../img/icon/icon-55@1x.png);
+			background-image: url(icon-51@1x.png);
 		}
 		
 		input[type="file"]{
@@ -443,22 +306,6 @@
 		}
 	}
 	
-	.empty{
-		font-size: 12px;
-		color: #8A8A8F;
-		text-align: center;
-		background: url(../img/bg/bg-2@1x.png) no-repeat;
-		background-position: center;
-		
-		span{
-			display: block;
-			position: relative;
-			top: calc(50% + 100px);
-			transform: translateY(-50%);
-			-webkit-transform: translateY(-50%);
-		}
-	}
-	
 	.patient-info{
 		position: absolute;
 		top: 62px;
@@ -487,14 +334,6 @@
 		overflow: hidden;
 	}
 	
-	.chat-library.library-medicine{
-		left: -135px;
-	}
-	
-	.chat-library.library-check{
-		left: -36px;
-	}
-	
 	.chat-library ~ .library-arrow{
 		width: 24px;
 		height: 24px;
@@ -511,13 +350,5 @@
 		position: absolute;
 		left: 70px;
 		bottom: 197px;
-	}
-	
-	.chat-library.library-medicine ~ .library-arrow{
-		left: 122px;
-	}
-	
-	.chat-library.library-check ~ .library-arrow{
-		left: 222px;
 	}
 </style>

@@ -1,80 +1,19 @@
 <template>
 	<!-- 聊天消息 -->
 	<div class="messages">
-		<div class="message" v-for="(msg, msgIndex) in person.messages" :class="{self: msg.self, 'q-answer-msg': msg.qnKey}">
+		<div class="message" v-for="(msg, msgIndex) in messages" :class="{self: msg.self}">
 			<p class="datetime" v-if="showMsgTime(msgIndex)">{{formatMsgTime(msg.sendTime)}}</p>
 			<img class="avater" :src="formatAvater(msg.self)" @click="viewProfile(msg.self, $event)" />
 			<div class="msg-content">
-				<!-- 问卷回复 -->
-				<div class="q-answer" v-if="msg.type == 4 && msg.qnKey">
-					{{person.name}}更新了「{{msg.content}}」，<span @click="clickMessage(msg, $event)">点击查看</span>
-				</div>
 				<!-- 文本 -->
-				<div class="text" v-else-if="msg.type == 4">{{msg.content}}</div>
+				<div class="text" v-if="msg.type == 4">{{msg.content}}</div>
 				<!-- 图片 -->
 				<div class="image" v-else-if="msg.type == 5">
 					<img :src="formatImageUrl(msg.content)" @click="index = indexMap['index_' + msgIndex]" />
 				</div>
-				<!-- 药品 -->
-				<div class="card medicine link-card" v-else-if="msg.type == 6" @click="clickMessage(msg, $event)">
-					<div class="inner">
-						<h3>{{msg.content.name}}</h3>
-						<img :src="formatImageUrl(msg.content.imageUrl)" />
-						<p class="desc">{{msg.content.majorFunction}}</p>
-					</div>
-					<p>用药助手<span>点击查看</span></p>
-				</div>
-				<!-- 病历 -->
-				<div class="card" v-else-if="msg.type == 7">
-					<div class="inner">
-						<h3>病历很重要，快去完善，扁鹊医生会更好的了解你的病情！</h3>
-						<p class="desc">病历完善后，您的健康由医生实时掌握，行动起来吧！</p>
-					</div>
-					<p>扁鹊荟</p>
-				</div>
-				<!-- 问卷调查 -->
-				<div class="card link-card questionnaire" v-else-if="msg.type == 8" @click="clickMessage(msg, $event)">
-					<div class="inner">
-						<h3>{{msg.content}}</h3>
-						<p class="desc">认真填写问卷，让医生更好地掌握病情治疗情况！</p>
-					</div>
-					<p>扁鹊荟</p>
-				</div>
-				<!-- 病历 -->
-				<div class="card link-card dossier" v-else-if="msg.type == 9" @click="clickMessage(msg, $event)">
-					<div class="inner">
-						<h3><span>【病例】&nbsp;&nbsp;</span>{{msg.dossierName}}</h3>
-						<div class="detail">
-							<p>姓名：{{person.name}}</p>
-							<p>性别：{{formatSex(person.sex)}}</p>
-							<p>年龄：{{person.age}}岁</p>
-						</div>
-					</div>
-					<p>扁鹊荟</p>
-				</div>
-				<!-- 病历提醒 -->
-				<div class="text" v-else-if="msg.type == 10">
-					您已提醒患者上传病历，稍后可到病历夹查看。
-				</div>
-				<!-- 文章分享-->
-				<div class="card article link-card" v-else-if="msg.type == 11" @click="clickMessage(msg, $event)">
-					<div class="inner">
-						<h3>{{msg.articleTitle}}</h3>
-						<p class="desc" v-html="formatArticle(msg.articleContent)"></p>
-					</div>
-					<p>扁鹊荟</p>
-				</div>
-				<!-- 检查项目 -->
-				<div class="card check link-card" v-else-if="msg.type == 12" @click="clickMessage(msg, $event)">
-					<div class="inner">
-						<h3>建议检查项目</h3>
-						<p class="desc">建议到医院做该项检查，方便及时获知病情发展的情况。</p>
-					</div>
-					<p>扁鹊荟</p>
-				</div>
 				<!-- 消息类型不支持 -->
 				<div class="text" v-else="msg.type > 12">
-					当前版本不支持该消息，请更新到最新版本。
+					不支持该消息。
 				</div>
 			</div>
 		</div>
@@ -98,7 +37,7 @@
 				indexMap: {}
 			}
 		},
-		props: ['person'],
+		props: ['messages'],
 		created(){
 			this.account = ACCOUNTM.getAccountModel();
 		},
@@ -108,7 +47,7 @@
 		computed: {
 			images(){
 				let ary = [];
-				this.person.messages.forEach((item, i) => {
+				this.messages.forEach((item, i) => {
 					if(item.type == 5){
 						ary.push(this.formatImageUrl(item.content))
 						this.indexMap['index_' + i] = ary.length - 1;
@@ -147,9 +86,6 @@
 			formatImageUrl: Util.formatImageUrl,
 			formatArticle: function(content = ''){
 				return content.replace(/&fxg;(r|n)?/g, '');
-			},
-			formatSex(sex){
-				return sex == 2 ? '女' : '男';
 			},
 			// 点击头像
 			viewProfile(isSelf, e){
