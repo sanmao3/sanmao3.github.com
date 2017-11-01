@@ -1,6 +1,9 @@
 .calendar{
 	min-width: 300px;
 	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: #FFFFFF;
+	font-size: 14px;
 }
 
 .calendar .title {
@@ -8,6 +11,14 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 15px 10px;
+	font-size: 16px;
+}
+
+.calendar button{
+	width: 50px;
+	background: transparent;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 
 .calendar .row {
@@ -46,4 +57,9 @@
 
 .calendar .cell.expired span{
 	color: #ccc;
+}
+
+.calendar-body .cell:not(.expired):hover span{
+	color: coral;
+	font-size: 16px;
 }

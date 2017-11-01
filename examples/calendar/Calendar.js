@@ -76,7 +76,7 @@
 				
 				var className = '';
 				
-				if(dt.getDate() == day){
+				if(dt.getMonth() == month && dt.getDate() == day){
 					className = 'today'
 				}else if(dt.getMonth() != month){
 					className = 'expired'
