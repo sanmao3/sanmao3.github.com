@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+    <style type="text/css">
+      canvas{
+        border: 1px solid #000000;
+      }
+    </style>
+	</head>
+	<body>
+    <canvas id="canvas" width="150" height="150"></canvas>
+    
+    <script type="text/javascript">
+      init();
+      
+      function init(){
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext('2d');
+        
+        let width = 150; // 画布宽
+        let height = 150; // 画布高
+        
+        let cx = width / 2; // 圆心x坐标
+        let cy = height / 2; // 圆心y坐标
+        let radius = 50; // 圆半径
+        let startAngle = (Math.PI / 180) * 135; // 开始弧度
+        let endAngle = (Math.PI / 180) * 45; // 结束弧度
+        
+        let axisLineWidth = 10; // 轴线宽度
+        let axisLineColor = '#ddd'; // 轴线颜色
+        let progressColor = '#29BCC4'; // 进度条颜色
+        
+        let curPercent = 0.46;
+        let proAngle = (Math.PI / 180) * (270 * curPercent + 135); // 进度条弧度
+        let title = '系统成功率'; // 标题
+        let num = '46%';
+        
+        // 绘制仪表盘
+        ctx.beginPath();
+        ctx.lineWidth = axisLineWidth;
+        ctx.strokeStyle = axisLineColor;
+        ctx.arc(cx, cy, radius, startAngle, endAngle); // 默认顺时针
+        ctx.stroke();
+        
+        // 绘制进度条
+        ctx.beginPath();
+        ctx.strokeStyle = progressColor;
+        ctx.arc(cx, cy, radius, startAngle, proAngle);
+        ctx.stroke();
+        
+        // 绘制标题
+        ctx.beginPath();
+        ctx.textAlign = 'center';
+        ctx.fillText(title, cx, cy * 1.6);
+        
+        // 绘制进度条显示数据
+        ctx.beginPath();
+        ctx.textAlign = 'center';
+        ctx.font = "bold 18px sans-serif";
+        ctx.fillText(num, cx, cy * 1.1);
+        
+        
+        let splitLineWidth = 2; // 分割线宽度
+        let splitLineHeight = 15; // 分割线长度
+        
+        // 绘制分割线
+        function drawSplitLine(percent){
+          let angle = (Math.PI / 180) * (360 - (270 * percent + 135));
+          
+          let sx = cx + (radius - axisLineWidth / 2) * Math.cos(angle);
+          let sy = cy - (radius - axisLineWidth / 2) * Math.sin(angle);
+          
+          let ex = cx + (radius - splitLineHeight) * Math.cos(angle);
+          let ey = cy - (radius - splitLineHeight) * Math.sin(angle);
+          
+          ctx.beginPath();
+          ctx.lineWidth = splitLineWidth;
+          ctx.moveTo(sx, sy);
+          ctx.lineTo(ex, ey);
+          ctx.stroke();
+        }
+        
+        let labelColor = '#999999'; // 标签颜色
+        let labelDis = 10; // 标签距离仪表盘距离
+        
+        // 绘制刻度标签
+        function drawAxisLabel(percent, labelText){
+          let angle = (Math.PI / 180) * (360 - (270 * percent + 135));
+          
+          let sx = cx + (radius + labelDis + 5) * Math.cos(angle);
+          let sy = cy - (radius + labelDis) * Math.sin(angle);
+          
+          ctx.beginPath();
+          ctx.moveTo(sx, sy);
+          ctx.font = "normal 13px sans-serif";
+          ctx.fillStyle = labelColor;
+          ctx.fillText(labelText, sx, sy);
+          ctx.stroke();
+        }
+        
+        
+        drawSplitLine(0.2);
+        drawSplitLine(0.7);
+        
+        drawAxisLabel(0.1, '低');
+        drawAxisLabel(0.5, '中');
+        drawAxisLabel(0.9, '高');
+        
+      }
+    </script>
+	</body>
+</html>
