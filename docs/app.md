@@ -1,3 +1,8 @@
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #999;
+}
+
+
 #### 0.5px边框
 
     div {
