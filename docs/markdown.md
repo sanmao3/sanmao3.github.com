@@ -3,7 +3,7 @@
 ### 三级标题
 #### 四级标题
 ##### 五级标题
-##### 六级标题
+###### 六级标题
 
 #### 无序列表
 
@@ -48,21 +48,29 @@
 
 #### 代码
 
-    div:before {
-		content: "";
-		width: 200%;
-		height: 200%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		border: 1px solid #000;
-		transform: scale(0.5);
-		transform-origin: 0 0;
-		padding: 1px;
-		box-sizing: border-box;
-		pointer-events: none;
-		border-radius: 8px;
-	}
+1. 多行代码
+
+```
+div:before {
+	content: "";
+	width: 200%;
+	height: 200%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 1px solid #000;
+	transform: scale(0.5);
+	transform-origin: 0 0;
+	padding: 1px;
+	box-sizing: border-box;
+	pointer-events: none;
+	border-radius: 8px;
+}
+```
+
+2. 行内代码
+
+这里是文字描述`color: #999;`插入代码描述
 
 #### 分割线
 
