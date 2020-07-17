@@ -11,12 +11,14 @@ project
 ├── node_modules           # 第三方依赖
 ├── src                    # 项目源码（核心文件）
 │   ├── assets             # 资源文件，只存放公共的静态资源，这里的资源会被webpack构建
+│   │   ├── images         # 图片
+│   │   ├── demo           # 测试用图片
 │   │   ├── css            # css模块化，UI 组件
 │   │       ├── main.scss  # 一个包含所有样式（公共样式）的样式表文件
 │   ├── components         # 所有组件
 │   │   ├── com1           # 组件1
 │   │       ├── images     # 组件1静态资源
-│   │       └── com1.vue   # 组件1
+│   │       └── Com1.vue   # 组件1
 │   ├── mixins             # 混合
 │   ├── router             # 路由
 │   ├── services           # 抽取出API请求
@@ -28,7 +30,7 @@ project
 │   │   ├── module1        # 模块1
 │   │       ├── page1      # 页面1
 │   │           ├── components
-│   │           └── page1.vue
+│   │           └── Page1.vue
 │   ├── App.vue            # 根组件
 │   └── main.js            # 入口文件
 ├── static                 # 纯静态资源，不会被webpack构建
@@ -90,7 +92,7 @@ export default new MsgService()
 ```
 
 ```
-// .vue
+// Hello.vue
 
 import msgService from '@/services/msgService'
 
@@ -99,9 +101,11 @@ msgService.fetchList().then(() => {});
 
 > service设计参考了[这个仓库](https://github.com/kenberkeley/vue-demo/tree/master/src/services)
 
+
 ### 部署
 
 * 指派专人负责
+
 
 ### HTML
 
@@ -111,6 +115,9 @@ msgService.fetchList().then(() => {});
 * 重要图片必须加上alt属性。给重要的元素和截断的元素加上title
 * 使用须以"data-"为前缀来添加自定义属性
 * 在页面中尽量避免使用style属性，即style="…"。
+* 必须为含有描述性表单元素(input，textarea)添加label
+
+#### HTML5元素
 
 
 ### CSS
@@ -147,6 +154,7 @@ msgService.fetchList().then(() => {});
 
 > bootstrap => scss, ant-design => less
 
+
 ### JavaScript
 
 * 标准变量采用驼峰式命名
@@ -167,15 +175,38 @@ msgService.fetchList().then(() => {});
 
 > 主流框架源码均采用缩进2个空格
 
+
 ### 命名规范
 
 * 图片命名全部用小写英文字母||数字||_的组合
+
+
+### 版本管理工具
+
+* Git
+
+##### .gitignore
+
+```
+.DS_Store
+node_modules
+dist
+
+# Log files
+*.log
+
+# Editor directories
+.idea
+.vscode
+```
+
+> 警告：gitignore 的忽略规则只适用还没管理的文件，假如有在忽略规则添加之前已经被管理的文件，那添加的忽略规则将无法适用已经管理的文件
+
 
 ### Code Review
 
 * Code Review 的首要目的是改善和保证代码质量，预防 bug。此外还有益于制定团队代码规范，形成团队技术氛围，加深技术团队成员沟通，老带新互助成长等等。
 * Code Review 是代码编写到部署的必经部分，所有代码都必须经过 Review 才能 merge。
-
 
 ##### 代码审查工具
 
@@ -189,20 +220,315 @@ msgService.fetchList().then(() => {});
 * [Sider](https://sider.review/)：GitHub 自动代码审查辅助工具；
 
 
-###### 前期笔记
+### 编辑器
+
+* vscode
+
+
+### 单元测试
+
+测试用例的逻辑很简单，首先构建一个我们期望的结果，然后调用业务代码，最后验证业务代码的运行结果与期望是否一致。这就是写测试用例的基本套路。
+
+在写测试用例时尽量保持用例的单一职责，不要覆盖太多不同的业务范围。测试用例数量可以有很多个，但每个都不应该很复杂。
+
+单元测试是TDD（Test Driven Development）**测试驱动开发**的基础。好的设计分层是很容易编写测试用例的，单元测试不单单只是为了保证代码质量，它会逼着你思考代码设计的合理性，拒绝面条代码。
+
+> 改善代码质量不一定只能从测试入手，良好的代码规范，强制性的lint，强化代码审查，将不健壮的代码挡在review阶段才是比较靠谱的。
+
+#### 测试框架
+
+* Mocha 
+* Jest
+* Karma
+
+
+### 其它
 
 * 入口文件使用index.html
 * 通用initial.css，初始化base.css，首页index.css
 * 通用common.js，初始化base.js
-* 必须为含有描述性表单元素(input，textarea)添加label
-* 类名使用小写字母，以中划线分隔。id采用驼峰式命名
-* 所有页面元素类图片均放入img文件夹，测试用图片放于demo文件夹。
-* a_b a-b
-* 中划线可能由于在某些平台上有问题，建议使用下划线
 * 文件夹或文件命名全部采用小写方式，以下划线分隔
-* 函数驼峰式
-* [github](https://styleguide.github.com/)
+* [github styleguide](https://styleguide.github.com/)
 * [腾讯开发规范](http://alloyteam.github.io/CodeGuide/)
 
 
+---
+
+
+# Vue开发
+
+> 除了专业前端外，我们还有些后端开发也会在这个框架基础上做些vue的开发
+
+### Vue核心概念
+
+* 数据驱动
+* 组件系统
+
+```
+<!-- Hello.vue -->
+
+<template>
+  <div>
+    计数：<span>{{count}}</span><button type="button" @click="add">click me</button>
+    
+    <other-component></other-component>
+  </div>
+</template>
+
+<script>
+  import OtherComponent from './OtherComponent.vue'
+  
+  export default{
+    data(){
+      return {
+        count: 0
+      }
+    },
+    components: {
+      OtherComponent
+    },
+    methods: {
+      add(){
+        this.count++;
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>
+```
+
+* 使用 scoped 后，父组件的样式将不会渗透到子组件中。
+* CSS 作用域不能代替 class。考虑浏览器性能问题，使用 class 或者 id 取代元素选择器。
+
+### 核心代码结构
+
+> 开发过程中修改频率高的目录
+
+```
+project
+├── src                    # 项目源码（核心文件）
+│   ├── assets             # 资源文件，只存放公共的静态资源，这里的资源会被webpack构建
+│   │   ├── images         # 图片
+│   │   ├── css            # css模块化，UI 组件
+│   │       ├── base.scss  # 
+│   │       ├── table.scss # 
+│   │       ├── main.scss  # 一个包含所有样式（公共样式）的样式表文件
+│   ├── components         # 存放基础组件、公共组件
+│   │   ├── AppChart.vue   # 图表组件
+│   │   ├── AppTable.vue   # 表格组件
+│   ├── mixins             # 混合
+│   ├── services           # 抽取出API请求
+│   │   ├── msgService.js  # 示例：消息模块服务，每个模块的API封装在一个js文件中
+│   ├── utils              # 自己写的 js，里面各种工具类方法等
+│   ├── views              # 所有页面
+│   │   ├── warnConfig     # 报警配置模块
+│   │   │   ├── components # 该模块的业务组件
+│   │   │   ├── Page1.vue  # 页面1
+│   │   └── subSystem      # 子系统模块
+│   ├── App.vue            # 根组件
+│   └── main.js            # 入口文件
+```
+
+
+### ES6语法
+
+
+* **属性的简洁表示法**
+
+ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。
+
+```
+let birth = '2000/01/01';
+
+const Person = {
+
+  name: '张三',
+
+  // 等同于 birth: birth
+  birth,
+
+  // 等同于 hello: function (){}
+  hello() { 
+    console.log('我的名字是', this.name); 
+  }
+
+};
+```
+
+这种写法用于函数的返回值，将会非常方便。
+
+```
+function getPoint() {
+  const x = 1;
+  const y = 10;
+  return {x, y}; // 等同于 {x: x, y: y}
+}
+```
+
+
+* **变量声明**
+
+1. **let**
+
+let的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效，不存在变量提升。
+
+```
+function fn() {
+  let n = 5;
+  if (true) {
+    let n = 10;
+  }
+  console.log(n);
+}
+```
+
+上面的函数有两个代码块，都声明了变量n，运行后输出 5。这表示外层代码块不受内层代码块的影响。如果两次都使用var定义变量n，最后输出的值才是 10。
+
+> ES6 的块级作用域必须有大括号，如果没有大括号，JavaScript 引擎就认为不存在块级作用域。
+
+除了let，还有const、class均不存在变量提升。
+
+```
+console.log(n); // ReferenceError
+let n = 10;
+```
+
+2. **const**
+
+const声明一个只读的常量。一旦声明，常量的值就不能改变。
+
+```
+const PI = 3.1415;
+PI // 3.1415
+
+PI = 3;
+// TypeError: Assignment to constant variable.
+```
+
+const声明的变量不得改变值，这意味着，const一旦声明变量，就必须立即初始化，不能留到以后赋值。
+
+```
+const foo;
+// SyntaxError: Missing initializer in const declaration
+```
+
+对于const来说，只声明不赋值，就会报错。
+
+3. **class**
+
+通过class关键字，可以定义类。
+
+```
+class Foo {
+  // 实例属性
+  bar = 'hello';
+  baz = 'world';
+  
+  // 静态属性
+  static myStaticProp = 42;
+
+  // 方法
+  toString() {
+    return this.bar + ' ' + this.baz;
+  }
+}
+```
+
+注意，定义“类”的方法的时候，前面不需要加上function这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。
+
+> 静态属性指的是 Class 本身的属性
+
+> 基本上，ES6 的class可以看作只是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
+
+4. **import**
+
+import命令用于输入其他模块提供的功能。
+
+> 模块功能主要由两个命令构成：export和import。export命令用于规定模块的对外接口。
+
+```
+// profile.js
+
+// 写法一
+export var firstName = 'Michael';
+export var lastName = 'Jackson';
+export var year = 1958;
+
+export function getFullname() {
+  return 'Michael Jackson';
+};
+
+// 写法二
+var firstName = 'Michael';
+var lastName = 'Jackson';
+var birthYear = 1958;
+
+function getFullname() {
+  return 'Michael Jackson';
+}
+
+export { firstName, lastName, birthYear as year, getFullname };
+
+
+// 引用profile模块文件
+
+// 写法一
+import { firstName, lastName as surname, year, getFullname } from './profile.js';
+
+// 写法二
+import * as profile from './profile';
+
+profile.firstName
+profile.getFullname()
+
+
+// default写法
+
+// 写法三
+// export default命令用于指定模块的默认输出。一个模块只能有一个默认输出。
+export default {
+  firstName,
+  lastName,
+  year,
+  getFullname
+}
+
+// 这时import命令后面，不使用大括号。import命令可以为default变量指定任意名字
+import profile from './profile';
+
+profile.firstName
+profile.getFullname()
+
+
+// 错误写法
+
+export 1;
+
+var m = 1;
+export m;
+
+function f() {}
+export f;
+
+export default var a = 1;
+
+
+// 正确写法
+export var a = 1;
+
+var a = 1;
+export {a}
+
+var a = 1;
+export default a;
+
+export default 1;
+```
+
+> import后面的from指定模块文件的位置，可以是相对路径，也可以是绝对路径，.js后缀可以省略。
+
+> export default命令的本质是将后面的值，赋给default变量，输出一个叫做default的变量或方法，所以它后面不能跟变量声明语句。
 
