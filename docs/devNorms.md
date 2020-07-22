@@ -9,6 +9,8 @@ project
 ├── dist                   # 打包文件
 ├── docs                   # 说明文档
 ├── node_modules           # 第三方依赖
+├── public                 # 纯静态资源，不会被webpack构建
+│   ├── index.html         # 入口模板
 ├── src                    # 项目源码（核心文件）
 │   ├── assets             # 资源文件，只存放公共的静态资源，这里的资源会被webpack构建
 │   │   ├── images         # 图片
@@ -33,7 +35,6 @@ project
 │   │           └── Page1.vue
 │   ├── App.vue            # 根组件
 │   └── main.js            # 入口文件
-├── static                 # 纯静态资源，不会被webpack构建
 ├── test                   # 测试代码
 ├── .babelrc               # babel 编译配置
 ├── .editorconfig          # 代码格式
@@ -41,6 +42,7 @@ project
 ├── .postcssrc.js          # 转换 css 的工具配置文件
 ├── package-lock.json      # 用来锁定依赖的版本号（NPM 自动生成）
 ├── package.json           # 项目基本信息
+├── vue.config.js          # 一个可选的配置文件
 ```
 
 1. 文件夹和文件夹内部文件的语义一致性
@@ -220,10 +222,8 @@ msgService.fetchList().then(() => {});
 node_modules
 dist
 
-# Log files
 *.log
 
-# Editor directories
 .idea
 .vscode
 ```
@@ -297,6 +297,7 @@ dist
 
 <template>
   <div>
+    <input type="number" v-model="count" placeholder="输入一个数字"> 
     计数：<span>{{count}}</span><button type="button" @click="add">click me</button>
     
     <other-component></other-component>
@@ -337,6 +338,38 @@ dist
 * 使用 scoped 后，父组件的样式将不会渗透到子组件中。
 * CSS 作用域不能代替 class。考虑浏览器性能问题，使用 class 或者 id 取代元素选择器。
 
+### 创建一个项目
+
+> Vue CLI 需要 Node.js 8.9 或更高版本 (推荐 8.11.0+)。
+
+1. 安装命令行工具 (CLI)
+  
+  `npm install -g @vue/cli`
+
+2. 验证是否安装成功
+
+  `vue --version`
+
+3. 创建一个新项目
+
+  `vue create hello-world`
+
+4. 进入项目目录
+
+  `cd hello-world`
+
+5. 启动服务
+
+  `npm run serve`
+
+
+### 开发者工具
+
+> Chrome and Firefox DevTools extension for debugging Vue.js applications.
+
+[vue-devtools](https://github.com/vuejs/vue-devtools)
+
+
 ### 核心代码结构
 
 > 开发过程中修改频率高的目录
@@ -366,11 +399,21 @@ project
 │   └── main.js            # 入口文件
 ```
 
+### 指令
+
+* `v-show`
+* `v-if`
+* `v-else-if`
+* `v-else`
+* `v-for`
+* `v-on` 或 `@`
+* `v-bind` 或 `:`
+* `v-model`
+
 
 ### ES6语法
 
-
-* **属性的简洁表示法**
+#### 属性的简洁表示法
 
 ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。
 
@@ -403,7 +446,7 @@ function getPoint() {
 ```
 
 
-* **变量声明**
+#### 变量声明
 
 1. **let**
 
@@ -569,3 +612,22 @@ export default 1;
 
 参考：
 [ES6 入门教程](https://es6.ruanyifeng.com/)
+
+
+
+### Vue Router
+
+#### 完整的导航解析流程
+
+1. 导航被触发。
+2. 在失活的组件里调用 `beforeRouteLeave` 守卫。
+3. 调用全局的 `beforeEach` 守卫。
+4. 在重用的组件里调用 `beforeRouteUpdate` 守卫 (2.2+)。
+5. 在路由配置里调用 `beforeEnter`。
+6. 解析异步路由组件。
+7. 在被激活的组件里调用 `beforeRouteEnter`。
+8. 调用全局的 `beforeResolve` 守卫 (2.5+)。
+9. 导航被确认。
+10. 调用全局的 `afterEach` 钩子。
+11. 触发 DOM 更新。
+12. 用创建好的实例调用 `beforeRouteEnter` 守卫中传给 `next` 的回调函数。
