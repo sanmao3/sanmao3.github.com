@@ -35,7 +35,7 @@ project
 │   │           └── Page1.vue
 │   ├── App.vue            # 根组件
 │   └── main.js            # 入口文件
-├── test                   # 测试代码
+├── tests                   # 测试代码
 ├── .babelrc               # babel 编译配置
 ├── .editorconfig          # 代码格式
 ├── .gitignore             # Git 提交忽略的文件配置
@@ -263,11 +263,34 @@ dist
 
 > 改善代码质量不一定只能从测试入手，良好的代码规范，强制性的lint，强化代码审查，将不健壮的代码挡在review阶段才是比较靠谱的。
 
-#### 测试框架
+#### Jest
 
-* Mocha 
-* Jest
-* Karma
+安装 Jest 和 Vue Test Utils
+
+```
+npm install --save-dev jest @vue/test-utils
+```
+
+在 `package.json` 中定义一个单元测试的脚本
+
+```
+// package.json
+{
+  "scripts": {
+    "test": "jest"
+  }
+}
+```
+
+运行
+
+```
+npm run test
+```
+
+参考：[单元测试](https://vue-test-utils.vuejs.org/zh/installation/#%E7%94%A8-jest-%E6%B5%8B%E8%AF%95%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6)
+
+[JEST](https://jestjs.io/docs/zh-Hans/getting-started)
 
 
 ### 其它
@@ -344,23 +367,33 @@ dist
 
 1. 安装命令行工具 (CLI)
   
-  `npm install -g @vue/cli`
+```
+npm install -g @vue/cli
+```
 
 2. 验证是否安装成功
 
-  `vue --version`
+```
+vue --version
+```
 
 3. 创建一个新项目
 
-  `vue create hello-world`
+```
+vue create hello-world
+```
 
 4. 进入项目目录
 
-  `cd hello-world`
+```
+cd hello-world
+```
 
 5. 启动服务
 
-  `npm run serve`
+```
+npm run serve
+```
 
 
 ### 开发者工具
@@ -610,9 +643,74 @@ export default 1;
 > export default命令的本质是将后面的值，赋给default变量，输出一个叫做default的变量或方法，所以它后面不能跟变量声明语句。
 
 
+#### 箭头函数
+
+```
+var f = v => v;
+
+// 等同于
+var f = function (v) {
+  return v;
+};
+
+// 箭头函数可以简化回调函数
+
+// 正常函数写法
+[1,2,3].map(function (x) {
+  return x * x;
+});
+
+// 箭头函数写法
+[1,2,3].map(x => x * x);
+```
+
+**使用注意点**
+
+箭头函数有几个使用注意点。
+
+1. 箭头函数不会创建自己的this，它只会从自己的作用域链的上一层继承this。
+
+2. 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+
+3. 不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+
+#### Promise
+
+Promise 是异步编程的一种解决方案。
+
+Promise对象代表一个异步操作，有三种状态：pending（进行中）、fulfilled（已成功）和rejected（已失败）。
+
+有了Promise对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。
+
+```
+function getList(){
+  return new Promise(function(resolve, reject) { // resolve和reject是两个函数，由 JavaScript 引擎提供，不用自己部署。
+    // ... some code
+
+    if (/* 异步操作成功 */){
+      resolve(value);
+    } else {
+      reject(error);
+    }
+  });
+}
+
+getList().then(value => {
+  
+}).catch(error => {
+  
+}).finally(() => {
+  
+});
+```
+
 参考：
 [ES6 入门教程](https://es6.ruanyifeng.com/)
 
+
+### Webpack
+
+webpack 是一个现代 JavaScript 应用程序的静态模块打包器
 
 
 ### Vue Router
