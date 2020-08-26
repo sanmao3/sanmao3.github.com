@@ -14,7 +14,6 @@
 				min-height: 100vh;
 				background: #fffae8;
 			}
-			
 			.main_content{
 				flex: 1;
 				width: 80%;
@@ -22,17 +21,12 @@
 				align-self: center;
 				padding: 20px;
 			}
-			footer{
+			.footer{
 				text-align: center;
 			}
-			footer a{
+			.footer a{
 				text-decoration: underline;
 				margin-left: 5px;
-			}
-			
-			iframe{
-				width: 100%;
-				max-width: 400px;
 			}
 		</style>
 	</head>
@@ -41,20 +35,36 @@
 		<!-- HEADER -->
 		<header></header>
 		<!-- MAIN CONTENT -->
-		<div class="main_content">
+		<div id="app" class="main_content">
 			<ul>
-				<li><a href="examples/swiper/index.html" target="_blank">card</a></li>
-				<li><a href="examples/webgl/threejs/threejs.html" target="_blank">threejs动画</a></li>
+				<li v-for="(item, index) in list">
+          <a :href="item.url">{{item.title}}</a>
+        </li>
 			</ul>
-			<iframe src="examples/calendar/calendar.html" height="500"></iframe>
 		</div>
 		<!-- FOOTER  -->
-		<footer>
+		<footer class="footer">
 			<p>Published with 
 				<a href="https://pages.github.com" target="_blank">GitHub Pages</a>
 				<a href="https://github.com/sanmao3" target="_blank">View on GitHub</a>
 			</p>
 		</footer>
+    
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data(){
+          return {
+            list: [{
+              url: './docs/devNorms.md',
+              title: '开发文档'
+            }]
+          }
+        }
+      })
+    </script>
 	</body>
 
 </html>
