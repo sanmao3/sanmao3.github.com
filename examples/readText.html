@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+    <input type="file" onchange="readFile(this);" />
+    
+    
+    <script>
+      function readFile(fileInput){
+        let file = fileInput.files[0];
+        
+        let reader = new FileReader();
+        reader.onload = function(e) {
+          let txt = e.target.result;
+          let lines = txt.split('\n');
+          
+          lines.forEach(line => {
+            let p = document.createElement('p');
+            p.innerText = line;
+            document.body.appendChild(p);
+          })
+          
+          
+          /**
+           * 解析文本
+           *       n
+           * a b   c
+           * d env f g
+           * o     q
+           * 
+           * [['', '', n, ''], [a, b, c, ''], [d, env, f, g], [o, '', q, '']]
+           */
+          
+          let rows = new Array(lines.length);
+          
+          let indexStart = 0;
+          
+          let indexEnd = 0;
+          
+          let maxLen = 0;
+          
+          lines.forEach((line, i) => {
+            maxLen = line.length > maxLen ? line.length : maxLen;
+          })
+          
+          while(indexEnd < maxLen){
+            let temp = [];
+            
+            lines.forEach((line, i) => {
+              let a = ''
+              
+              if(indexEnd < line.length){
+                a = line.charAt(indexEnd)
+              }
+              
+              temp.push(a)
+            })
+            
+            if(temp.join('').replace(/\s/g, '') == ''){
+              // 换列
+              lines.forEach((line, i) => {
+                if(rows[i] === undefined){
+                  rows[i] = [];
+                }
+                rows[i].push(line.substring(indexStart, indexEnd))
+              })
+              indexStart = indexEnd + 1;
+            }
+            
+            indexEnd++;
+          }
+          
+          console.log(rows)
+        };
+        reader.readAsText(file, 'gb2312');
+      }
+    </script>
+	</body>
+</html>
