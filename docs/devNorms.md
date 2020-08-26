@@ -5,7 +5,6 @@
 ```
 project
 ├── build                  # Webpack 配置文件放在这里
-├── config                 # Vue 基本配置文件放在这里
 ├── dist                   # 打包文件
 ├── docs                   # 说明文档
 ├── node_modules           # 第三方依赖
@@ -17,10 +16,10 @@ project
 │   │   ├── demo           # 测试用图片
 │   │   ├── css            # css模块化，UI 组件
 │   │       ├── main.scss  # 一个包含所有样式（公共样式）的样式表文件
-│   ├── components         # 所有组件
-│   │   ├── com1           # 组件1
-│   │       ├── images     # 组件1静态资源
-│   │       └── Com1.vue   # 组件1
+│   ├── components         # 公用组件
+│   │   ├── images         # 组件静态资源
+│   │   └── Com1.vue       # 组件1
+│   ├── constants          # 常量文件
 │   ├── mixins             # 混合
 │   ├── router             # 路由
 │   ├── services           # 抽取出API请求
@@ -30,14 +29,16 @@ project
 │   ├── vuex               # 状态管理
 │   ├── views              # 所有页面
 │   │   ├── module1        # 模块1
-│   │       ├── page1      # 页面1
-│   │           ├── components
-│   │           └── Page1.vue
+│   │       ├── components # 模块组件
+│   │       └── Page1.vue  # 页面1
 │   ├── App.vue            # 根组件
 │   └── main.js            # 入口文件
 ├── tests                   # 测试代码
 ├── .babelrc               # babel 编译配置
 ├── .editorconfig          # 代码格式
+├── .env.development       # 只在开发模式中被载入，用来指定环境变量
+├── .env.production        # 只在生产模式中被载入
+├── .env.test              # 用来配置测试生产模式中的环境变量
 ├── .gitignore             # Git 提交忽略的文件配置
 ├── .postcssrc.js          # 转换 css 的工具配置文件
 ├── package-lock.json      # 用来锁定依赖的版本号（NPM 自动生成）
@@ -206,21 +207,145 @@ msgService.fetchList().then(() => {});
 > 主流框架源码均采用缩进2个空格
 
 
+### 代码检查
+
+#### ESLint
+#### Prettier
+
+
 ### 命名规范
 
 * 图片命名全部用小写英文字母||数字||_的组合
 
 
-### 版本管理工具
+### Git
 
-* Git
+#### Git命令
 
-##### .gitignore
+1. 创建分支
+```
+git checkout -b branchname
+```
+它是下面两条命令的简写：
+```
+git branch branchname
+git checkout branchname
+```
+
+2. 删除分支
+```
+git branch -D branchname
+```
+
+3. 添加一个新的远程 Git 仓库，同时指定一个方便使用的简写
+```
+git remote add <remote-shortname> <remote-url>
+```
+
+4. 从远程仓库中抓取
+```
+git fetch <remote>
+```
+
+5. 检出远程仓库的分支
+```
+git checkout -b <branch> --track <remote>/<branch>
+```
+
+6. rebase
+```
+git rebase master
+```
+
+
+基于cmp开发的项目关于与cmp框架同步更新的操作流程如下：
+> 可以使用rebase命令实现如下功能
+
+1. 添加cmp远程仓库
+```
+git remote add cmp-vue <cmp-vue-git-url>
+```
+2. 抓取cmp远程仓库资源到本地仓库
+```
+git fetch cmp-vue
+```
+3. 检出一个指向cmp/master的本地分支cmp-vue-master
+```
+git checkout -b cmp-vue-master --track cmp-vue/master
+```
+4. 切换到一个新分支
+```
+git checkout -b dev-branch-v2
+```
+5. 将dev-branch分支合并过来，操作成功后就可以在dev-branch-v2分支上继续开发了
+```
+git merge dev-branch
+```
+> 每当cmp有更新时，本地git pull后切换到cmp-vue-master分支，然后重复操作第4、5步操作。
+
+#### commit messages 格式规范
+
+commit message 由`header`、`body`、`footer`组成。
+
+`header` 包含 `type`、`scope`、`subject`。
+
+`header`是必需的，`body` 和 `footer` 可以省略。
+
+##### Type类型必须是以下几种之一：
+
+* **feat**: 新功能
+* **fix**: bug 修复
+* **docs**: 仅修改文档
+* **style**: 修改格式（空格，格式化，省略分号等），对代码运行没有影响
+* **refactor**: 重构（既不是修bug，也不是加功能）
+* **build**: 构建流程、外部依赖变更，比如升级npm包、修改webpack配置等
+* **perf**: 性能优化
+* **test**: 测试相关
+* **chore**: 对构建过程或辅助工具和库（如文档生成）的更改
+* **ci**: ci相关的更改
+* **revert**: 当前提交是为了撤销之前的某次提交。在revert后面加上被撤销的提交的`header`，在`body`中注明`This reverts commit <hash>.`，hash指的就是将要被撤销的commit SHA。
+
+```
+revert: feat(user): add user type
+
+This reverts commit xxxxxxxxxx
+```
+
+##### Scope
+
+scope可以指定提交更改的影响范围，这个视项目而定，当修改影响超过单个的scope时，可以指定为`*`。
+
+##### Subject
+
+subject是指更改的简洁描述，长度约定在50个字符以内，通常遵循以下几个规范：
+
+* 用动词开头，第一人称现在时表述，例如`change xxxx`
+* 第一个字母小写
+* 结尾不加句号(.)
+
+##### Body
+
+body部分是对本地commit的详细描述，可以分成多行（|）。
+
+body应该说明修改的原因和更改前后的行为对比。
+
+
+##### Footer
+
+footer基本用在这两种情况：
+
+* 不兼容的改动（Breaking Changes），通常用`BREAKING CHANGE:`开头，后面跟一个空格或两个换行符。剩余的部分就是用来说明这个变动的信息和迁移方法等。
+* 关闭Issue
+
+#### .gitignore
 
 ```
 .DS_Store
 node_modules
 dist
+
+.env.local
+.env.*.local
 
 *.log
 
@@ -229,6 +354,13 @@ dist
 ```
 
 > 警告：gitignore 的忽略规则只适用还没管理的文件，假如有在忽略规则添加之前已经被管理的文件，那添加的忽略规则将无法适用已经管理的文件
+
+
+
+### 编辑器
+
+* vscode
+
 
 
 ### Code Review
@@ -247,10 +379,6 @@ dist
 * [Reviewable](https://reviewable.io/)：基于 GitHub pull requests 的代码审查辅助工具；
 * [Sider](https://sider.review/)：GitHub 自动代码审查辅助工具；
 
-
-### 编辑器
-
-* vscode
 
 
 ### 单元测试
@@ -396,6 +524,11 @@ npm run serve
 ```
 
 
+### vue.config.js
+
+`devServer`配置的是开发环境下API请求代理功能，与生产环境不相关。
+
+
 ### 开发者工具
 
 > Chrome and Firefox DevTools extension for debugging Vue.js applications.
@@ -424,7 +557,7 @@ project
 │   │   ├── msgService.js  # 示例：消息模块服务，每个模块的API封装在一个js文件中
 │   ├── utils              # 自己写的 js，里面各种工具类方法等
 │   ├── views              # 所有页面
-│   │   ├── warnConfig     # 报警配置模块
+│   │   ├── warnSetting    # 报警配置模块
 │   │   │   ├── components # 该模块的业务组件
 │   │   │   ├── Page1.vue  # 页面1
 │   │   └── subSystem      # 子系统模块
@@ -477,6 +610,10 @@ function getPoint() {
   return {x, y}; // 等同于 {x: x, y: y}
 }
 ```
+
+#### 对象展开运算符
+
+
 
 
 #### 变量声明
@@ -704,18 +841,68 @@ getList().then(value => {
 });
 ```
 
-参考：
+参考资源：
 [ES6 入门教程](https://es6.ruanyifeng.com/)
 
 
-### Webpack
 
-webpack 是一个现代 JavaScript 应用程序的静态模块打包器
+### 技术栈
+
+node > npm > vue > webpack > Vue CLI
+
+#### node
+
+Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时。
+
+Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+
+Node.js 是一个开源与跨平台的 JavaScript 运行时环境。 它是一个可用于几乎任何项目的流行工具！
+
+Node.js 在浏览器外运行 V8 JavaScript 引擎（Google Chrome 的内核）。 这使 Node.js 表现得非常出色。
+
+Node.js 使用 CommonJS 模块系统
 
 
-### Vue Router
+#### npm
 
-#### 完整的导航解析流程
+node package manager
+
+npm consists of three distinct components:
+
+* the website
+* the Command Line Interface (CLI)
+* the registry
+
+Use the website to discover packages, set up profiles, and manage other aspects of your npm experience. For example, you can set up Orgs (organizations) to manage access to public or private packages.
+
+The CLI runs from a terminal, and is how most developers interact with npm.
+
+The registry is a large public database of JavaScript software and the meta-information surrounding it.
+
+
+[npm由来](https://www.zhihu.com/question/327989736/answer/787995048)
+
+
+#### webpack
+
+webpack 是一个现代 JavaScript 应用程序的静态模块打包器。
+
+webpack 只能理解 JavaScript 和 JSON 文件，这是 webpack 开箱可用的自带能力。loader 让 webpack 能够去处理其他类型的文件。
+
+
+#### babel
+
+Babel 是一个 JavaScript 编译器。
+
+主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。
+
+
+
+### Vue全家桶
+
+#### Vue Router
+
+完整的导航解析流程
 
 1. 导航被触发。
 2. 在失活的组件里调用 `beforeRouteLeave` 守卫。
@@ -729,3 +916,110 @@ webpack 是一个现代 JavaScript 应用程序的静态模块打包器
 10. 调用全局的 `afterEach` 钩子。
 11. 触发 DOM 更新。
 12. 用创建好的实例调用 `beforeRouteEnter` 守卫中传给 `next` 的回调函数。
+
+
+#### Vuex
+
+Vuex 通过 store 选项，提供了一种机制将状态从根组件“注入”到每一个子组件中（需调用 Vue.use(Vuex)）
+
+创建一个 store
+```
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  }
+})
+```
+以 `store` 选项的方式“注入”该 store 的机制
+```
+new Vue({
+  el: '#app',
+  store
+})
+```
+现在可以从组件的方法提交一个变更
+```
+methods: {
+  increment() {
+    this.$store.commit('increment')
+    console.log(this.$store.state.count)
+  }
+}
+```
+
+### Vue3.0
+
+#### TypeScript
+
+
+# Shell命令
+
+* telnet
+* ping
+* unzip
+* mkdir
+* cd
+* ls
+* pwd	显示当前的目录路径
+
+
+# JavaScript
+
+### Array
+
+* forEach
+* map
+* filter
+* sort
+* slice
+* splice
+* join
+
+### String
+
+* substr 未来将可能会被移除掉，使用`substring()`替代它
+* substring(indexStart[, indexEnd])
+* slice(beginIndex[, endIndex])
+* charAt(index)
+
+
+# 其它
+
+### 本地服务
+
+* `http-server`
+
+### 热更新
+
+`webpack-dev-server`使用`sockjs`发送`websocket`
+
+Webpack 将对代码重新打包，并将新的模块发送到浏览器端，浏览器通过新的模块替换老的模块，这样在不刷新浏览器的前提下就能够对应用进行更新。
+
+
+
+### 优化
+
+* 减少HTTP请求数
+
+
+
+### 提示语
+
+通过在list页面定义refresh方法，在detail页面的beforeDestroy钩子函数调用this.$parent.refresh()刷新页面，也看出event bus不适用于父子组件，官网也提到适用于兄弟组件的数据通讯
+
+
+如何做出项目的亮点？
+1. 项目中遇到了什么问题？
+2. 解决问题的过程并且如何思考？
+3. 思考之后通过什么方式解决？
+4. 最后这一个任务你学到了什么，给团队带来了什么价值，解决了哪些痛点
