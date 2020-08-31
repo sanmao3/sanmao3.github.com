@@ -1,4 +1,6 @@
-媒体类型MIME的英文名称是Mutipurpose internet mail extensions—多功能internet邮件扩充服务。
+MIME的英文名称是Mutipurpose internet mail extensions—多功能internet邮件扩充服务。
+
+媒体类型是一种标准，用来表示文档、文件或字节流的性质和格式。
 
 ### 常见的MIME类型
 
