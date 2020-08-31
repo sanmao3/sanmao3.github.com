@@ -11,15 +11,16 @@
 
 * shape-padding
 
-
-    img.right {
-		float: right;
-		height: 100vh;
-		width: calc(100vh + 100vh/4);
-		shape-outside: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
-		/* clip the image to the defined shape */
-		clip-path: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
-	}
+```
+img.right {
+	float: right;
+	height: 100vh;
+	width: calc(100vh + 100vh/4);
+	shape-outside: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
+	/* clip the image to the defined shape */
+	clip-path: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
+}
+```
 
 #### flex
 
@@ -41,8 +42,9 @@
 * flex
 * align-self
 
-
+```
 transform: matrix(a,b,c,d,e,f);
+```
 
 matrix矩阵是transform变换的基础
 

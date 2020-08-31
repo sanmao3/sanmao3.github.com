@@ -1,11 +1,13 @@
+```
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #999;
+  color: #999;
 }
-
+```
 
 #### 0.5px边框
 
-    div {
+```
+  div {
 		position: relative;
 		padding: 15px;
 		border-radius: 4px;
@@ -26,74 +28,87 @@
 		pointer-events: none;
 		border-radius: 8px;
 	}
+```
 
 ##### 上边框
 
-    div:before{
-    	content: '';
+```
+  div:before{
+    content: '';
 		display: block;
 		height: 1px;
-	    position: absolute;
+	  position: absolute;
 		left: 0;
 		right: 0;
 		top: 0;
 		background: #c8c7cc;
 		-webkit-transform: scaleY(0.5);
 		-webkit-transform-origin: top;
-    }
+  }
+```
 
 
 #### 图片URI转base64字符串
 
-    var generateBase64 = function(uri, callback){
-		// 本地路径转base64
-		var xhr = new XMLHttpRequest();       
-	    xhr.open("GET", uri, true); 
-	    xhr.responseType = "blob";
-	    xhr.onload = function (e) {
-            var reader = new FileReader();
-            reader.onload = function(event) {
-            	callback(event.target.result);
-            };
-            reader.readAsDataURL(this.response);
-	    };
-	    xhr.send();
+```
+var generateBase64 = function(uri, callback){
+	// 本地路径转base64
+	var xhr = new XMLHttpRequest();       
+	xhr.open("GET", uri, true); 
+	xhr.responseType = "blob";
+	xhr.onload = function (e) {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      callback(event.target.result);
     };
+    reader.readAsDataURL(this.response);
+	};
+	xhr.send();
+};
+```
     
 
 #### Using object URLs to display images
 
-    var img = document.createElement("img");
-    img.src = window.URL.createObjectURL(files[0]);
-    img.height = 60;
-    img.onload = function() {
-    	window.URL.revokeObjectURL(this.src);
-    };
-
+```
+  var img = document.createElement("img");
+  img.src = window.URL.createObjectURL(files[0]);
+  img.height = 60;
+  img.onload = function() {
+    window.URL.revokeObjectURL(this.src);
+  };
+```
 
 #### 背景模糊
 
-    backdrop-filter: blur(2px); // 扩展见mdn
+```
+backdrop-filter: blur(2px); // 扩展见mdn
+```
     
 
 
 #### 裁剪路径
 
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    
+```
+clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+``` 
 
 #### 文本行数超出省略
 
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    white-space: normal;
-    text-overflow: ellipsis;
-    overflow : hidden;
+```
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow : hidden;
+```
   
 #### 两端对齐
 
-    text-align: justify;
+```
+  text-align: justify;
+```
   
 #### collapsing margins
 
@@ -115,14 +130,15 @@
   
 #### 首字母排序
 
-    var ary = ['你好', '阳光', '美好'];
+```
+  var ary = ['你好', '阳光', '美好'];
 			
 	ary.sort(function(a, b) { 
 		return a.localeCompare(b);
 	});
 	
 	console.log(ary); // 美好,你好,阳光
-  
+``` 
 
 
 ----------------------------------------------
@@ -142,9 +158,9 @@
 
 * 协议标识符是ws（如果加密，则为wss），服务器网址就是 URL
 
-
-    ws://example.com:80/some/path
-
+```
+ws://example.com:80/some/path
+```
 
 1. webSocket.readyState
 
@@ -198,7 +214,8 @@ dpr设备像素比及其相关概念与计算、分辨率
 
 函数在创建之后直接自动执行，通常称之为自调用匿名函数（Self-Invoked Anonymous Function）或直接调用函数表达式（Immediately Invoked Function Expression）。
 
-    (function(){
+```
+  (function(){
     	// 置于此处的代码将自动执行
 	})();  
 	
@@ -206,3 +223,4 @@ dpr设备像素比及其相关概念与计算、分辨率
 	    var result = a+b;
 	    return result;
 	})(10,20)
+```
