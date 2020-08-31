@@ -576,6 +576,9 @@ project
 * `v-bind` 或 `:`
 * `v-model`
 
+### 生命周期
+
+![生命周期图示](https://cn.vuejs.org/images/lifecycle.png)
 
 ### ES6语法
 
@@ -613,8 +616,25 @@ function getPoint() {
 
 #### 对象展开运算符
 
+```
+let z = { a: 3, b: 4 };
+let n = { ...z }; // { a: 3, b: 4 }
+```
 
+```
+var arr1 = [0, 1, 2];
+var arr2 = [3, 4, 5];
+var arr3 = [...arr1, ...arr2];
+```
 
+```
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+x // 1
+y // 2
+z // { a: 3, b: 4 }
+```
+
+> 解构赋值必须是最后一个参数，否则会报错。
 
 #### 变量声明
 
@@ -801,6 +821,8 @@ var f = function (v) {
 [1,2,3].map(x => x * x);
 ```
 
+> 箭头函数没有 this，this 会作为变量一直向上级词法作用域查找，直至找到为止
+
 **使用注意点**
 
 箭头函数有几个使用注意点。
@@ -960,6 +982,13 @@ methods: {
 ### Vue3.0
 
 #### TypeScript
+
+
+### 注意事项
+
+* 避免v-if和v-for组合使用
+* v-for需配合key使用
+* 
 
 
 # Shell命令
