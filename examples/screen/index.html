@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>手机银行系统数据</title>
+		<link rel="stylesheet" href="./assets/index.css" />
+		<style type="text/css">
+			.container{
+				grid-template-columns: repeat(12, 1fr);
+				grid-template-rows: auto 1fr 1fr;
+			}
+			
+			.datetime, h1, .placeholder, .box{
+				grid-column: span 4;
+			}
+			
+			.box--local, .box--main{
+				grid-column: span 3;
+			}
+			
+			.center{
+				grid-column: span 6;
+			}
+			
+			.chart{
+				height: 190px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- 头部 -->
+			<div class="datetime">
+				<text>数据更新时间：2020-08-20 18:21:34</text>
+			</div>
+			<h1 class="title title--shadow">手机银行系统数据</h1>
+			<div class="placeholder"></div>
+
+			<!-- 主机房统计 -->
+			<div class="box box--main">
+				<h2 class="title title--shadow">主机房</h2>
+				<h3>应用进程数</h3>
+				<div class="screen">
+					<h4>手机银行app</h4>
+					<text class="screen__count">11</text>
+				</div>
+				<div class="screen">
+					<h4>手机银行app登录</h4>
+					<text class="screen__count">5</text>
+				</div>
+			</div>
+			
+			<!-- C位 -->
+			<div class="center">
+				<div class="host">
+					<img src="./assets/icon_host_main.png" />
+					<text>主机房</text>
+				</div>
+				<div class="host">
+					<img src="./assets/icon_host_local.png" />
+					<text>同城机房</text>
+				</div>
+				<!-- svg线条 -->
+				<div class="svg-container">
+					<svg id="svg" width="380" height="150" version="1.1" xmlns="http://www.w3.org/2000/svg">
+						<defs>
+							<linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+								<stop offset="0%" stop-color="#007FB8" />
+								<stop offset="50%" stop-color="#F4F7FC" />
+								<stop offset="100%" stop-color="#0099D2" />
+							</linearGradient>
+						</defs>
+						<g>
+							<path id="path" d="M10,80 Q52.5,10, 95,60 T180,60 M180,60 Q225.5,10, 268,70 T353,80" fill="none" stroke="url(#gradient)"
+							 stroke-width="1" />
+						</g>
+					</svg>
+
+					<!--<embed src="line.svg"></embed>-->
+				</div>
+			</div>
+
+			<!-- 同城机房统计 -->
+			<div class="box box--local">
+				<h2 class="title title--shadow">同城机房</h2>
+				<h3>应用进程数</h3>
+				<div class="screen">
+					<h4>手机银行app</h4>
+					<text class="screen__count">11</text>
+				</div>
+				<div class="screen">
+					<h4>手机银行app登录</h4>
+					<text class="screen__count">5</text>
+				</div>
+			</div>
+
+			<!-- 图表 -->
+			<div class="box">
+				<h2 class="title title--shadow">主机房</h2>
+				<h3>cpu利用率</h3>
+				<div id="chart-local-1" class="chart"></div>
+			</div>
+
+			<div class="box">
+				<div class="title--bar"></div>
+				<h3>网络流量</h3>
+			</div>
+
+			<div class="box">
+				<h2 class="title title--shadow">同城机房</h2>
+				<h3>cpu利用率</h3>
+				<div id="chart-local-2" class="chart"></div>
+			</div>
+		</div>
+
+		<script src="./assets/js/snap.svg-min.js"></script>
+		<script src="assets/js/echarts.min.js"></script>
+		<script>
+			var svg = Snap('#svg');
+			var circle = svg.circle(50, 50, 10);
+			circle.attr({
+				fill: "#6CC3E5"
+			});
+
+			var path = Snap('#path');
+
+			function animate() {
+				var length = path.getTotalLength(); // 获取path的长度
+				Snap.animate(0, length, function(val) {
+					var point = path.getPointAtLength(val); // 根据path长度变化获取坐标
+					circle.attr({
+						cx: point.x,
+						cy: point.y
+					});
+				}, 3000, mina.easeout(), function() {
+					animate();
+				});
+			}
+
+			animate();
+			
+			
+			// 图表
+			var myChart = echarts.init(document.getElementById('chart-local-1'));
+			var myChart2 = echarts.init(document.getElementById('chart-local-2'));
+			
+			// 指定图表的配置项和数据
+			var option = {
+				tooltip: {},
+				color: ['#7B41D5', '#5FEAEE'],
+				legend: {
+					data: ['销量', '销量2'],
+					textStyle: {
+						color: '#fff'
+					},
+					icon: 'roundRect',
+					itemWidth: 30,
+					itemHeight: 6,
+					top: 0,
+					right: 0
+				},
+				grid: {
+					top: 30,
+					bottom: 20
+				},
+				xAxis: {
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+					axisLabel: {
+						color: '#D6EDFF'
+					},
+					axisLine: {
+						show: false
+					},
+					axisTick: {
+						show: false
+					},
+					boundaryGap: false
+				},
+				yAxis: {
+					axisLabel: {
+						color: '#4EA4CC'
+					},
+					axisLine: {
+						show: false
+					},
+					axisTick: {
+						show: false
+					},
+					splitLine: {
+						show: true,
+						lineStyle: {
+							color: ['#20334F']
+						}
+					}
+				},
+				series: [{
+					name: '销量',
+					type: 'line',
+					showAllSymbol: false,
+					symbol: function(value, params){
+						if(value == 40){
+							return 'emptyCircle'
+						}
+						return 'none'
+					},
+					symbolSize: 10,
+					data: [30, 20, 36, 10, 40, 20, 0]
+				}, {
+					name: '销量2',
+					type: 'line',
+					showAllSymbol: false,
+					symbol: function(value, params){
+						if(value == 50){
+							return 'emptyCircle'
+						}
+						return 'none'
+					},
+					symbolSize: 10,
+					lineStyle: {
+						type: 'dashed'
+					},
+					data: [50, 30, 10, 40, 5, 30, 10]
+				}]
+			};
+			
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+			myChart2.setOption(option);
+		</script>
+	</body>
+</html>

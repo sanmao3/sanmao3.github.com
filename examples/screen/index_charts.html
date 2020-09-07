@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>手机银行系统数据</title>
+		<link rel="stylesheet" href="./assets/index.css" />
+		<style type="text/css">
+			.container {
+				grid-template-columns: repeat(6, 1fr);
+				grid-template-rows: auto 1fr;
+			}
+
+			.datetime,
+			h1,
+			.placeholder {
+				grid-column: span 2;
+			}
+
+			.box {
+				grid-column: span 3;
+				box-shadow: 0 0 18px #2E567B inset;
+			}
+
+			.chart {
+				height: 35%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- 头部 -->
+			<div class="datetime">
+				<text>数据更新时间：2020-08-20 18:21:34</text>
+			</div>
+			<h1 class="title title--shadow">手机银行系统数据</h1>
+			<div class="placeholder"></div>
+
+			<!-- 主机房 -->
+			<div class="box">
+				<h2 class="title title--shadow">主机房</h2>
+				<h3>近6小时在线人数</h3>
+				<div class="statistics stics-main">
+					当前
+					<text>0</text>
+					<text>0</text>
+					<text>0</text>
+					<text>0</text>
+					<text>0</text>
+					<text>0</text>
+				</div>
+				<h3>近6小时交易量</h3>
+			</div>
+
+			<!-- 同城机房 -->
+			<div class="box">
+				<h2 class="title title--shadow">同城机房</h2>
+				<h3>近6小时在线人数</h3>
+				<div class="statistics">
+					当前
+					<text>0</text>
+					<text>1</text>
+					<text>2</text>
+					<text>7</text>
+					<text>6</text>
+					<text>8</text>
+				</div>
+				<div id="chart-local-1" class="chart"></div>
+				<h3>近6小时交易量</h3>
+				<div id="chart-local-2" class="chart"></div>
+			</div>
+		</div>
+
+		<!-- 此echarts文件是从官方在线定制下载的，仅对当前大屏用到的图表量身定制的 -->
+		<script src="assets/js/echarts.min.js"></script>
+		<script src="assets/js/axios.min.js"></script>
+		<script>
+			// 在线人数数字动效
+			var el = document.querySelector('.statistics')
+			
+			var textEl = document.querySelectorAll('.stics-main text')
+			
+			var total = 123456
+			
+			var digits = total.toString().split('');
+			
+			var ei = digits.length - 1;
+			var num = 0;
+			
+			var timer = setInterval(() => {
+				num++;
+				textEl[ei].innerText = num;
+				
+				if(num == parseInt(digits[ei])){
+					ei--;
+					num = 0;
+					
+					if(ei < 0){
+						clearInterval(timer)
+					}
+				}
+			}, 50)
+			
+			var myChart = echarts.init(document.getElementById('chart-local-1'));
+			var myChart2 = echarts.init(document.getElementById('chart-local-2'));
+
+			// 指定图表的配置项和数据
+			var option = {
+				tooltip: {},
+				color: ['#7B41D5', '#62B99C'],
+				legend: {
+					data: ['销量'],
+					textStyle: {
+						color: '#fff'
+					},
+					icon: 'roundRect',
+					itemWidth: 30,
+					itemHeight: 6,
+					right: 0
+				},
+				grid: {
+					left: '5%',
+					right: '2%'
+				},
+				xAxis: {
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+					axisLabel: {
+						color: '#D6EDFF'
+					},
+					axisLine: {
+						show: false
+					},
+					axisTick: {
+						show: false
+					},
+					boundaryGap: false
+				},
+				yAxis: {
+					axisLabel: {
+						color: '#4EA4CC'
+					},
+					axisLine: {
+						show: false
+					},
+					axisTick: {
+						show: false
+					},
+					splitLine: {
+						show: false,
+						lineStyle: {
+							color: ['#20334F']
+						}
+					}
+				},
+				series: [{
+					name: '销量',
+					type: 'line',
+					areaStyle: {
+						color: '#7B41D5'
+					},
+					smooth: true,
+					data: [5, 20, 36, 10, 10, 20, 0]
+				}]
+			};
+
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+			myChart2.setOption(option);
+
+
+			// ajax请求
+			/*axios({
+				method: 'get',
+				url: 'http://158.58.60.4:8080/cmp/subsystem/realtime',
+				params: {
+
+				}
+			}).then(function(response) {
+
+			});*/
+		</script>
+	</body>
+</html>
