@@ -1050,3 +1050,6 @@ Webpack 将对代码重新打包，并将新的模块发送到浏览器端，浏
 通过在list页面定义refresh方法，在detail页面的beforeDestroy钩子函数调用this.$parent.refresh()刷新页面，也看出event bus不适用于父子组件，官网也提到适用于兄弟组件的数据通讯
 
 
+### 问题
+
+scoped less文件中html,body样式不生效
