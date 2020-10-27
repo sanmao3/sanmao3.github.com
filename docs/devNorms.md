@@ -1034,6 +1034,11 @@ methods: {
 
 Webpack 将对代码重新打包，并将新的模块发送到浏览器端，浏览器通过新的模块替换老的模块，这样在不刷新浏览器的前提下就能够对应用进行更新。
 
+### 代理
+
+devServer代理原理：`node-http-proxy`创建客户端服务器，代理发送请求并返回数据。因为服务器之间请求不存在跨域
+
+所谓的跨域，其实浏览器拦截服务端返回的数据
 
 ### Vue-CLI
 
@@ -1053,3 +1058,14 @@ Webpack 将对代码重新打包，并将新的模块发送到浏览器端，浏
 ### 问题
 
 scoped less文件中html,body样式不生效
+原因：scoped只对当前组件里面的内容生效，会对组件里面的dom加data-v-hash属性，而不会对html,body等组件之外的dom添加,但是css里面的属性选择器都是data-v-hash属性的，所以匹配不上
+
+
+FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory
+
+Using an npm package to fix
+
+1. install https://www.npmjs.com/package/increase-memory-limit globally
+2. run `increase-memory-limit` in the root of your project
+
+Manual fix
