@@ -1,93 +1,38 @@
-var path = require('path')
-var webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
-  entry: {
-  	index: './src/main.js',
-		inner: './src/main2.js',
-  },
-  output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: '[name].build.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
-            'scss': 'vue-style-loader!css-loader!sass-loader',
-            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          }
-          // other vue-loader options go here
-        }
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
-      }
-    ]
-  },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    }
-  },
-  devServer: {
-  	contentBase: path.resolve(__dirname, './dist'),
-    historyApiFallback: true,
-    noInfo: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map'
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    }),
-    new HtmlWebpackPlugin({
-    	title: '首页',
-    	filename: 'index.html', //http访问路径
-      template: './dist/index.html', //实际文件路径
-      inject: false,
-      chunks: ['index']
-    }),
-    new HtmlWebpackPlugin({
-    	filename: 'inner.html', //http访问路径
-      template: './dist/inner.html', //实际文件路径
-      inject: false,
-      chunks: ['inner']
-    })
-  ])
-}
+	entry: './src/index.js',
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'helloworld.js'
+	},
+	module: {
+		rules: [{
+				test: /\.vue$/,
+				use: [{
+					loader: 'vue-loader'
+				}]
+			},
+			// 它会应用到普通的 `.js` 文件
+			// 以及 `.vue` 文件中的 `<script>` 块
+			{
+				test: /\.js$/,
+				loader: 'babel-loader'
+			},
+			// 它会应用到普通的 `.css` 文件
+			// 以及 `.vue` 文件中的 `<style>` 块
+			{
+				test: /\.css$/,
+				use: [
+					'vue-style-loader',
+					'css-loader'
+				]
+			}
+		]
+	},
+	plugins: [
+		// 请确保引入这个插件！
+		new VueLoaderPlugin()
+	]
+};

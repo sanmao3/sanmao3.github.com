@@ -991,6 +991,26 @@ methods: {
 * 
 
 
+# NPM
+
+### CLI Commands
+
+`npm link`
+
+```
+cd ~/projects/node-redis    # go into the package directory
+    npm link                    # creates global link
+    cd ~/projects/node-bloggy   # go into some other package directory.
+    npm link redis              # link-install the package
+```
+
+Now, any changes to ~/projects/node-redis will be reflected in ~/projects/node-bloggy/node_modules/node-redis/. Note that the link should be to the package name, not the directory name for that package.
+
+# webpack
+
+[手动配置webpack](https://vue-loader.vuejs.org/zh/guide/#vue-cli)
+
+
 # Shell命令
 
 * telnet
@@ -1000,6 +1020,9 @@ methods: {
 * cd
 * ls
 * pwd	显示当前的目录路径
+* rm 文件 删除文件
+* rm -r 文件夹 删除文件夹
+* cp -r dir1 dir2 将dir1下所有文件复制到dir2下
 
 
 # JavaScript
