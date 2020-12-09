@@ -1036,6 +1036,7 @@ Now, any changes to ~/projects/node-redis will be reflected in ~/projects/node-b
 * slice
 * splice
 * join
+* includes()
 
 ### String
 
@@ -1043,6 +1044,17 @@ Now, any changes to ~/projects/node-redis will be reflected in ~/projects/node-b
 * substring(indexStart[, indexEnd])
 * slice(beginIndex[, endIndex])
 * charAt(index)
+* padStart()
+* padEnd()
+
+### Object
+
+* Object.keys(obj)
+* Object.values(obj)
+
+### Number
+
+* 指数计算 a**b=Math.pow(a, b)
 
 
 # 其它

@@ -8,4 +8,7 @@
 * 快捷键
 * $event中的各种坐标含义
 * repaint和reflow
+* WebWorker
+* 内存管理和内存泄露
 
+* 纯前端 -> 大前端
