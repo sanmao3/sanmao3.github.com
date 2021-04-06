@@ -40,4 +40,5 @@ MIME的英文名称是Mutipurpose internet mail extensions—多功能internet�
 
 
 ### 参考
+[常见 MIME 类型列表](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
 [MIME 类型](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)

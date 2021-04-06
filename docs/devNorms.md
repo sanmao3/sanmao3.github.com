@@ -224,17 +224,25 @@ msgService.fetchList().then(() => {});
 
 1. 创建分支
 ```
-git checkout -b branchname
+git checkout -b <branchname>
 ```
 它是下面两条命令的简写：
 ```
-git branch branchname
-git checkout branchname
+git branch <branchname>
+git checkout <branchname>
+```
+检出远程仓库的分支
+```
+git checkout -b <branch> --track <remote>/<branch>
 ```
 
-2. 删除分支
+2. 删除本地分支
 ```
-git branch -D branchname
+git branch -d <branchname>
+```
+删除远程分支
+```
+git push origin --delete <branchname>
 ```
 
 3. 添加一个新的远程 Git 仓库，同时指定一个方便使用的简写
@@ -247,14 +255,27 @@ git remote add <remote-shortname> <remote-url>
 git fetch <remote>
 ```
 
-5. 检出远程仓库的分支
-```
-git checkout -b <branch> --track <remote>/<branch>
-```
-
-6. rebase
+5. rebase
 ```
 git rebase master
+```
+
+6. 将指定的提交commitHash，应用于当前分支。
+```
+git cherry-pick <commitHash>
+```
+
+7. push
+```
+git push <远程主机名> <本地分支名>:<远程分支名>
+```
+
+8. 切换分支提交
+当前分支上的改动还没有commit时
+```
+git stash
+git checkout <branch>
+git stash pop
 ```
 
 
@@ -866,6 +887,28 @@ getList().then(value => {
 参考资源：
 [ES6 入门教程](https://es6.ruanyifeng.com/)
 
+#### await
+
+`await`操作符用于等待一个Promise对象。它只能在异步函数`async function`中使用。
+
+```
+async function f1() {
+  var x = await resolveAfter2Seconds(10);
+  console.log(x); // 10
+}
+```
+
+#### Fetch
+
+```
+fetch('http://example.com/movies.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(myJson);
+  });
+```
 
 
 ### 技术栈
@@ -986,7 +1029,6 @@ methods: {
 
 ### 注意事项
 
-* 避免v-if和v-for组合使用
 * v-for需配合key使用
 * 
 
@@ -1056,6 +1098,11 @@ Now, any changes to ~/projects/node-redis will be reflected in ~/projects/node-b
 
 * 指数计算 a**b=Math.pow(a, b)
 
+### 正则表达式
+
+* `/\d{2,}/.test(string)` 匹配至少连续2个数字,返回 true 或 false。
+* 
+
 
 # 其它
 
@@ -1104,3 +1151,7 @@ Using an npm package to fix
 2. run `increase-memory-limit` in the root of your project
 
 Manual fix
+
+### 按钮权限控制
+
+自定义指令以控制按钮是否显示

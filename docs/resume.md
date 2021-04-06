@@ -11,6 +11,7 @@
 4. 深入了解git命令，branch/rebase/remote/checkout/fetch
 5. 学习linux命令，前端代码部署
 6. 通过定义ref属性，使用`this.$refs.refname`实现访问子组件实例或元素
+7. 2.x版本中在一个元素上同时使用`v-if`和`v-for`时，`v-for`会优先作用，建议避免在同一元素上同时使用两者。比起在模板层面管理相关逻辑，更好的办法是通过创建计算属性筛选出列表，并以此创建可见元素。
 
 ### 大屏页面
 
@@ -20,8 +21,14 @@
 4. svg path数据格式兼容性问题，代号字母前不可加逗号，否则火狐不兼容
 5. promise使用，`Promise.all()`、`Promise.resolve()`、`Promise.reject()`
 6. line-height使用无单位数值
-7. 使用transform: translateX();代替left实现动画。变换在浏览器中的性能要好得多。
+7. 使用`transform: translateX();`代替left实现动画。变换在浏览器中的性能要好得多。
 8. 对transform指定多个值时，变换的每个值从右向左按顺序执行。
-9. animation-fill-mode: both;表示动画执行前取动画第一帧值并应用在元素上，和动画结束后取最后一帧值应用在元素上。
-10. 网格布局grid
+9. `animation-fill-mode: both;`表示动画执行前取动画第一帧值并应用在元素上，和动画结束后取最后一帧值应用在元素上。
+10. 网格布局grid关于repeat(auto-fill)和repeat(auto-fit)区别
 11. svg中`textPath`使用
+
+
+### onlyoffice nodejs示例
+
+1. `express()`
+2. `debug()`
