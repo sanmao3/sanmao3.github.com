@@ -16,3 +16,7 @@
 * jupyter notebook [](https://ipython.org/)
 * 微前端
 
+
+* 正则表达式整理
+* 数据类型判断
+
