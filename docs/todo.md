@@ -13,4 +13,6 @@
 
 
 * 《屠龙之技》作者：长铗
+* jupyter notebook [](https://ipython.org/)
+* 微前端
 
