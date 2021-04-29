@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>css gradient</title>
+		<style>
+			.box {
+				width: 200px;
+				height: 200px;
+			}
+
+			.box1 {
+				background-image: repeating-conic-gradient(#fff 0 9deg, #000 9deg 18deg);
+			}
+
+			.box2 {
+				background-image: conic-gradient(orange 0 60deg, #000 60deg 170deg, green 170deg 360deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box box1"></div>
+		<div class="box box2"></div>
+	</body>
+</html>
