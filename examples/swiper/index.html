@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 		<title></title>
-		<link rel="stylesheet" href="css/swiper.min.css" />
+		<link rel="stylesheet" href="css/swiper-bundle.min.css" />
 		<style type="text/css">
 			html,
 			body{
@@ -38,7 +38,7 @@
 			.swiper-slide:last-child{
 				background-color: #e9cf18;
 			}
-			.swiper-next{
+			.swiper-button-next{
 				display: block;
 				position: absolute;
 			    width: 30px;
@@ -92,14 +92,16 @@
 				<div class="swiper-slide"><img src="images/smile.jpg" /></div>
 			</div>
 			
-    		<div class="swiper-next"></div>
+    		<div class="swiper-button-next"></div>
 		</div>
 
-		<script type="text/javascript" src="js/swiper.min.js"></script>
+		<script type="text/javascript" src="js/swiper-bundle.min.js"></script>
 		<script type="text/javascript">
 			var mySwiper = new Swiper('.swiper-container', {
 				direction: 'vertical',
-				nextButton: '.swiper-next',
+				navigation: {
+				    nextEl: '.swiper-button-next',
+				  },
 				onSlideChangeEnd: function(swiper){
 					//console.log(swiper.activeIndex, document.querySelectorAll('.animation2'));
 					

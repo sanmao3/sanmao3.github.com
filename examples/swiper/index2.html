@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<title>微会议-打赏</title>
-		<link rel="stylesheet" href="css/swiper.min.css" />
+		<link rel="stylesheet" href="css/swiper-bundle.min.css" />
 		<style type="text/css">
 			* {
 				padding: 0px;
@@ -195,12 +195,14 @@
 			</ul>
 		</div>
 		<footer>魔飞科技技术支持</footer>
-		<script type="text/javascript" src="js/swiper.min.js" ></script>
+		<script type="text/javascript" src="js/swiper-bundle.min.js" ></script>
 		<script type="text/javascript">
 			//swiper
 			var galleryTop = new Swiper('.gallery-top', {
-				nextButton: '.swiper-button-next',
-				prevButton: '.swiper-button-prev',
+				navigation: {
+				    nextEl: '.swiper-button-next',
+				    prevEl: '.swiper-button-prev',
+				  },
 				spaceBetween: 10,
 			});
 			var galleryThumbs = new Swiper('.gallery-thumbs', {
