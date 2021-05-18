@@ -40,3 +40,4 @@
 * 正则表达式整理
 * 数据类型判断
 * 废弃标志
+* animation demo marquee

@@ -26,7 +26,74 @@
 9. `animation-fill-mode: both;`表示动画执行前取动画第一帧值并应用在元素上，和动画结束后取最后一帧值应用在元素上。
 10. 网格布局grid关于repeat(auto-fill)和repeat(auto-fit)区别
 11. svg中`textPath`使用
+12. 谷歌渲染的最小字体是12px，火狐没有限制，可以是任意值，如10px、5px等，甚至是负数(此时字体渲染成12px)
 
+### 日志查看
+1. multi-page多页面模式
+文件结构参考
+```
+|- public
+|- src
+|  |--assets
+|  |--components
+|  |--pages
+|  |  |--index
+|  |  |  |--index.html
+|  |  |  |--index.js
+|  |  |  |--App.vue
+|  |  |  |--Home.vue
+|  |  |  |--About.vue
+|  |  |--mobile
+|  |  |  |--mobile.html
+|  |  |  |--index.js
+|  |  |  |--mobile.vue
+|  |  |  |--Home.vue
+|  |  |  |--About.vue
+|  |--router  
+|  |  |--index.js
+|  |  |--mobile.js
+| - vue.config.js
+| - package.json
+```
+访问路径
+```
+// pc端
+localhost:8080
+// mobile端
+location:8080/mobile
+```
+实现路由
+```
+// pc端
+localhost:8080/about 
+// mobile端
+localhost:8080/mobile/about
+```
+mobile端mobile.js 添加 base: '/mobile',
+```
+// mobile.js
+import Router from 'vue-router'
+import Home from 'mobile/views/Editor.vue'
+
+export default new Router({
+  mode: 'history',
+  base: '/mobile',
+  routes: [
+    ...
+  ]
+})
+```
+nginx配置
+```
+location /login {
+  root /demo/root/dir;
+  try_files $uri $uri/ /login.html;
+}
+location / {
+  root /;
+  try_files $uri $uri/ /index.html;
+}
+```
 
 ### onlyoffice nodejs示例
 
