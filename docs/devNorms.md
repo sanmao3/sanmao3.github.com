@@ -864,7 +864,7 @@ Promise对象代表一个异步操作，有三种状态：pending（进行中）
 
 ```
 function getList(){
-  return new Promise(function(resolve, reject) { // resolve和reject是两个函数，由 JavaScript 引擎提供，不用自己部署。
+  return new Promise((resolve, reject) => { // resolve和reject是两个函数，由 JavaScript 引擎提供，不用自己部署。
     // ... some code
 
     if (/* 异步操作成功 */){
@@ -886,6 +886,43 @@ getList().then(value => {
 
 参考资源：
 [ES6 入门教程](https://es6.ruanyifeng.com/)
+
+```
+const myPromise =
+  (new Promise(myExecutorFunc))
+  .then(handleFulfilledA,handleRejectedA)
+  .then(handleFulfilledB,handleRejectedB)
+  .then(handleFulfilledC,handleRejectedC);
+
+// 或者，这样可能会更好...
+
+const myPromise =
+  (new Promise(myExecutorFunc))
+  .then(handleFulfilledA)
+  .then(handleFulfilledB)
+  .then(handleFulfilledC)
+  .catch(handleRejectedAny);
+```
+> 注意，所有的 promise 都一定是异步的。
+
+**静态方法**
+```
+Promise.all(iterable)
+Promise.allSettled(iterable)
+Promise.any(iterable)
+Promise.race(iterable)
+Promise.reject(reason)
+Promise.resolve(value)
+```
+> 有时候，我们不关心异步操作的结果，只关心这些操作有没有结束。这时，Promise.allSettled()方法就很有用。
+
+**Promise原型方法**
+```
+Promise.prototype.catch(onRejected)
+Promise.prototype.then(onFulfilled, onRejected)
+Promise.prototype.finally(onFinally)
+```
+
 
 #### await
 
