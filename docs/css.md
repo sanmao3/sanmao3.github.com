@@ -73,6 +73,38 @@ function listener(e) {
 }
 ```
 
+### shape-outside
+该属性定义了一个可以是非矩形的形状，相邻的内联内容应围绕该形状进行包装。
+```
+shape-outside: circle();
+shape-outside: ellipse();
+shape-outside: inset(10px 10px 10px 10px);
+shape-outside: polygon(10px 10px, 20px 20px, 30px 30px);
+shape-outside: url(image.png);
+```
+示例
+```
+img.right {
+	float: right;
+	height: 100vh;
+	width: calc(100vh + 100vh/4);
+	shape-outside: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
+	/* clip the image to the defined shape */
+	clip-path: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
+}
+```
+`shape-margin`用于设定由`shape-outside`创建的CSS形状的外边距。
+```
+shape-margin: 10px;
+```
+
+### transform
+```
+transform: matrix(a,b,c,d,e,f);
+```
+matrix矩阵是transform变换的基础
+
+
 
 ## css布局
 ### flex弹性布局
@@ -94,31 +126,11 @@ function listener(e) {
 
 ### grid网格布局
 
-```
-transform: matrix(a,b,c,d,e,f);
-```
-
-matrix矩阵是transform变换的基础
-
-* box-shadow 盒子阴影
-* shape-inside
-* shape-outside
-* shape-margin
-* shape-padding
-
-```
-img.right {
-	float: right;
-	height: 100vh;
-	width: calc(100vh + 100vh/4);
-	shape-outside: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
-	/* clip the image to the defined shape */
-	clip-path: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 45% 60%, 45% 40%);
-}
-```
 
 
 
+## 其它
+### 常用颜色值
 背景色：#EFEFF4
 深边框色：#c8c7cc
 浅边框色：#E8E8EA

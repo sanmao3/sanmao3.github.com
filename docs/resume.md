@@ -27,6 +27,8 @@
 10. 网格布局grid关于repeat(auto-fill)和repeat(auto-fit)区别
 11. svg中`textPath`使用
 12. 谷歌渲染的最小字体是12px，火狐没有限制，可以是任意值，如10px、5px等，甚至是负数(此时字体渲染成12px)
+13. 了解`background: repeating-conic-gradient()`锥形渐变
+14. 使用less循环
 
 ### 日志查看
 1. multi-page多页面模式
