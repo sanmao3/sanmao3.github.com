@@ -29,6 +29,7 @@
 12. 谷歌渲染的最小字体是12px，火狐没有限制，可以是任意值，如10px、5px等，甚至是负数(此时字体渲染成12px)
 13. 了解`background: repeating-conic-gradient()`锥形渐变
 14. 使用less循环
+15. grid item content expanding problem in firefox v53.0.3 that 1fr means minmax(auto, 1fr), so set min-width: 0 or minmax(0, 1fr). see [automatic minimum size of grid item](https://www.w3.org/TR/css3-grid-layout/#min-size-auto)
 
 ### 日志查看
 1. multi-page多页面模式
