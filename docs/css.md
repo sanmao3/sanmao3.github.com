@@ -127,6 +127,22 @@ matrix矩阵是transform变换的基础
 ### grid网格布局
 
 
+## LESS
+### 循环
+```
+.head-picture(@n, @i:1) when (@i <= @n) {
+  &:nth-child(@{i}) {
+    transform: translateX(-30px * (@i - 1));
+  }
+  .head-picture(@n,(@i + 1));
+}
+
+&__item {
+　　// ...
+　　.head-picture(10);
+}
+```
+
 
 
 ## 其它

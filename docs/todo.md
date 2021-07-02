@@ -15,20 +15,6 @@
 * 整理svg.md path 曲线参数
 * css display: table; table-cell使用
 * 整理grid常用属性
-* 整理less循环
-```
-.head-picture(@n, @i:1) when (@i <= @n) {
-  &:nth-child(@{i}) {
-    transform: translateX(-30px * (@i - 1));
-  }
-  .head-picture(@n,(@i + 1));
-}
-
-&__item {
-　　// ...
-　　.head-picture(10);
-}
-```
 
 
 * 《屠龙之技》作者：长铗
@@ -57,16 +43,6 @@ Node.js 是一个基于Chrome JavaScript 运行时建立的一个平台。
 
 Node.js是一个事件驱动I/O服务端JavaScript环境，基于Google的V8引擎，V8引擎执行Javascript的速度非常快，性能非常好。
 
-
-```
-function triggerDownload() {
-    // Based on http://stackoverflow.com/a/27280611
-    var a = document.createElement('a');
-    a.download = "test-image.png";
-    a.href = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAABC0lEQVQYlTXPPUsCYQDA8b/e04tdQR5ZBpE3NAR6S0SDVDZKDQ2BY9TUy1foE0TQ1Edo6hOEkyUG0QuBRtQgl0hnenVdnZD5eLbU7xv8Avy5X16KhrQBg47EtpziXO6qBhAEeNEm0qr7VdBcLxt2mlnNbhVu0NMAgdj1wvjOoX2xdSt0L7MGgx2GGid8yLrJvJMUkbKfOF8N68bUIqcz2wQR7GUcYvJIr1dFQijvkh89xGV6BPPMwvMF/nQXJMgWiM+KLPX2tc0HNa/HUxDv2owpx7xV+023Hiwpdt7yhmcjj9/NdrIhn8LrPVmotctWVd01Nt27wH9T3YhHU5O+sT/6SuVZKa4cNGoAv/ZMas7pC/KaAAAAAElFTkSuQmCC";
-    a.click();
-  }
-```
 
 [JWT](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
 Header.Payload.Signature
@@ -110,33 +86,6 @@ bignumber.js  js精度问题
 启动一个计时器来跟踪某一个操作的占用时长
 console.time(timerName)
 console.timeEnd(timerName)
-
-ejs <%= and <%- diff 
-escape()
-```
-/*!
- * EJS
- * Copyright(c) 2010 TJ Holowaychuk <tj@vision-media.ca>
- * MIT Licensed
- */
-
-/**
- * Escape the given string of `html`.
- *
- * @param {String} html
- * @return {String}
- * @api private
- */
-
-exports.escape = function(html){
-  return String(html)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/'/g, '&#39;')
-    .replace(/"/g, '&quot;');
-};
-```
 
 http 状态码
 
