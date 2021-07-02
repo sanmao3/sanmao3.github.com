@@ -244,6 +244,18 @@ git branch -d <branchname>
 ```
 git push origin --delete <branchname>
 ```
+note: does not remove remote branches that no longer have a counterpart branch on the remote
+```
+git fetch
+```
+get rid of remote branches that no longer exist on the remote
+```
+git fetch --prune
+```
+show you an updated list of branches that really exist on the remote
+```
+git branch -r
+```
 
 3. 添加一个新的远程 Git 仓库，同时指定一个方便使用的简写
 ```

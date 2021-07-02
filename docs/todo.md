@@ -166,3 +166,8 @@ jsconf 系列的视频 youtube 上有很多，翻墙上去看还是值得的，�
 
 关于开源协议的书
 Working in Public: The Making and Maintenance of Open Source Software
+
+
+By default, a grid item cannot be smaller than the size of its content.
+Grid items have an initial size of min-width: auto and min-height: auto.
+You can override this behavior by setting grid items to min-width: 0, min-height: 0 or overflow with any value other than visible.
