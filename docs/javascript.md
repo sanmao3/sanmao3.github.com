@@ -69,3 +69,11 @@ o3 instanceof C; // true 因为 C.prototype 现在在 o3 的原型链上
 [参考文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/instanceof)
 [参考文档](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/Object_prototypes)
 
+
+## bignumber
+bignumber.js  js精度问题
+
+## 数据类型判断
+## 注释标记
+### @deprecated
+### @param
