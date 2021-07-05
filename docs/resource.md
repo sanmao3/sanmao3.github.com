@@ -1,4 +1,4 @@
-# learning source
+# learning resource
 
 - jsconf 系列的视频 youtube 上有很多，翻墙上去看还是值得的，不过可能对英语听力有些要求。
 - Twitter，多 follow 些前端界人士，follow 的人够多了一般最新的东西出来都能跟到。

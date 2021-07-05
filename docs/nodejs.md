@@ -1,5 +1,15 @@
 ## nodejs
 
+Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时。
+
+Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+
+Node.js 是一个开源与跨平台的 JavaScript 运行时环境。 它是一个可用于几乎任何项目的流行工具！
+
+Node.js 在浏览器外运行 V8 JavaScript 引擎（Google Chrome 的内核）。 这使 Node.js 表现得非常出色。
+
+Node.js 使用 CommonJS 模块系统
+
 简单的说 Node.js 就是运行在服务端的 JavaScript。
 
 Node.js 是一个基于Chrome JavaScript 运行时建立的一个平台。
@@ -25,6 +35,8 @@ let decoded = jwt.decode(token);
 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
 
 - express-jwt
+- iconv-lite
+[gb18030编码问题](https://www.npmjs.com/package/iconv-lite)
 
 
 ### 部署

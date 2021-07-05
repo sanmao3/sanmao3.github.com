@@ -104,9 +104,16 @@ transform: matrix(a,b,c,d,e,f);
 ```
 matrix矩阵是transform变换的基础
 
+## CSS functions
+### Image functions
+These functions may be used wherever an `<image>` is valid as the value for a property.
+#### linear-gradient()
+#### repeating-conic-gradient()
+> 产生的锯齿问题怎么解决
 
-
-## css布局
+## CSS layout
+### table
+### table-cell
 ### flex弹性布局
 弹性容器属性
 * flex-direction
@@ -153,6 +160,7 @@ You can override this behavior by setting grid items to min-width: 0, min-height
 
 
 ## 其它
+### BFC
 ### 常用颜色值
 背景色：#EFEFF4
 深边框色：#c8c7cc

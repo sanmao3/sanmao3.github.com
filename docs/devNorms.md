@@ -207,10 +207,16 @@ msgService.fetchList().then(() => {});
 > 主流框架源码均采用缩进2个空格
 
 
-### 代码检查
+### 代码检查和统一代码规范
 
 #### ESLint
+- 添加eslint配置文件 .eslintrc.js
+- 添加eslint忽略配置文件.eslintignore
 #### Prettier
+#### .editorconfig
+统一代码风格配置
+#### 注释
+注释应该着重描述“做了什么”而不是“怎么做”。
 
 
 ### 命名规范
@@ -613,6 +619,8 @@ project
 
 ![生命周期图示](https://cn.vuejs.org/images/lifecycle.png)
 
+### 插槽slot
+
 ### ES6语法
 
 #### 属性的简洁表示法
@@ -964,55 +972,16 @@ fetch('http://example.com/movies.json')
 
 node > npm > vue > webpack > Vue CLI
 
-#### node
-
-Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时。
-
-Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
-
-Node.js 是一个开源与跨平台的 JavaScript 运行时环境。 它是一个可用于几乎任何项目的流行工具！
-
-Node.js 在浏览器外运行 V8 JavaScript 引擎（Google Chrome 的内核）。 这使 Node.js 表现得非常出色。
-
-Node.js 使用 CommonJS 模块系统
-
-
-#### npm
-
-node package manager
-
-npm consists of three distinct components:
-
-* the website
-* the Command Line Interface (CLI)
-* the registry
-
-Use the website to discover packages, set up profiles, and manage other aspects of your npm experience. For example, you can set up Orgs (organizations) to manage access to public or private packages.
-
-The CLI runs from a terminal, and is how most developers interact with npm.
-
-The registry is a large public database of JavaScript software and the meta-information surrounding it.
-
-
-[npm由来](https://www.zhihu.com/question/327989736/answer/787995048)
-
-
-#### webpack
-
-webpack 是一个现代 JavaScript 应用程序的静态模块打包器。
-
-webpack 只能理解 JavaScript 和 JSON 文件，这是 webpack 开箱可用的自带能力。loader 让 webpack 能够去处理其他类型的文件。
-
-
 #### babel
 
 Babel 是一个 JavaScript 编译器。
 
 主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。
 
+#### Vue-CLI
 
+多页面配置
 
-### Vue全家桶
 
 #### Vue Router
 
@@ -1079,10 +1048,26 @@ methods: {
 ### 注意事项
 
 * v-for需配合key使用
-* 
 
 
-# NPM
+## NPM
+
+node package manager
+
+npm consists of three distinct components:
+
+* the website
+* the Command Line Interface (CLI)
+* the registry
+
+Use the website to discover packages, set up profiles, and manage other aspects of your npm experience. For example, you can set up Orgs (organizations) to manage access to public or private packages.
+
+The CLI runs from a terminal, and is how most developers interact with npm.
+
+The registry is a large public database of JavaScript software and the meta-information surrounding it.
+
+
+[npm由来](https://www.zhihu.com/question/327989736/answer/787995048)
 
 ### CLI Commands
 
@@ -1097,9 +1082,25 @@ cd ~/projects/node-redis    # go into the package directory
 
 Now, any changes to ~/projects/node-redis will be reflected in ~/projects/node-bloggy/node_modules/node-redis/. Note that the link should be to the package name, not the directory name for that package.
 
-# webpack
+## Webpack
 
-[手动配置webpack](https://vue-loader.vuejs.org/zh/guide/#vue-cli)
+webpack 是一个现代 JavaScript 应用程序的静态模块打包器。
+
+webpack 只能理解 JavaScript 和 JSON 文件，这是 webpack 开箱可用的自带能力。loader 让 webpack 能够去处理其他类型的文件。
+
+[vue-cli手动配置webpack](https://vue-loader.vuejs.org/zh/guide/#vue-cli)
+
+### 热更新
+
+`webpack-dev-server`使用`sockjs`发送`websocket`
+
+Webpack 将对代码重新打包，并将新的模块发送到浏览器端，浏览器通过新的模块替换老的模块，这样在不刷新浏览器的前提下就能够对应用进行更新。
+
+### require.context
+```
+require.context(’./assets/image’, false, /.png$/).keys();
+```
+[require.context](https://webpack.js.org/guides/dependency-management/#requirecontext)
 
 
 # Shell命令
@@ -1115,87 +1116,12 @@ Now, any changes to ~/projects/node-redis will be reflected in ~/projects/node-b
 * rm -r 文件夹 删除文件夹
 * cp -r dir1 dir2 将dir1下所有文件复制到dir2下
 
-
-# JavaScript
-
-### Array
-
-* forEach
-* map
-* filter
-* sort
-* slice
-* splice
-* join
-* includes()
-
-### String
-
-* substr 未来将可能会被移除掉，使用`substring()`替代它
-* substring(indexStart[, indexEnd])
-* slice(beginIndex[, endIndex])
-* charAt(index)
-* padStart()
-* padEnd()
-
-### Object
-
-* Object.keys(obj)
-* Object.values(obj)
-
-### Number
-
-* 指数计算 a**b=Math.pow(a, b)
-
-### 正则表达式
-
-* `/\d{2,}/.test(string)` 匹配至少连续2个数字,返回 true 或 false。
-
-### instanceof
-`instanceof` 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
-```
-// 定义构造函数
-function C(){}
-function D(){}
-
-var o = new C();
-
-
-o instanceof C; // true，因为 Object.getPrototypeOf(o) === C.prototype
-
-
-o instanceof D; // false，因为 D.prototype 不在 o 的原型链上
-
-o instanceof Object; // true，因为 Object.prototype.isPrototypeOf(o) 返回 true
-C.prototype instanceof Object // true，同上
-
-C.prototype = {};
-var o2 = new C();
-
-o2 instanceof C; // true
-
-o instanceof C; // false，C.prototype 指向了一个空对象,这个空对象不在 o 的原型链上.
-
-D.prototype = new C(); // 继承
-var o3 = new D();
-o3 instanceof D; // true
-o3 instanceof C; // true 因为 C.prototype 现在在 o3 的原型链上
-```
-[参考文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/instanceof)
-[参考文档](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/Object_prototypes)
-
-
 # 其它
 
 ### 本地服务
 
 * `http-server`
 
-### 热更新
-
-`webpack-dev-server`使用`sockjs`发送`websocket`
-
-Webpack 将对代码重新打包，并将新的模块发送到浏览器端，浏览器通过新的模块替换老的模块，这样在不刷新浏览器的前提下就能够对应用进行更新。
 
 ### 代理
 
@@ -1203,9 +1129,6 @@ devServer代理原理：`node-http-proxy`创建客户端服务器，代理发送
 
 所谓的跨域，其实是浏览器拦截服务端返回的数据
 
-### Vue-CLI
-
-多页面配置
 
 ### 优化
 
