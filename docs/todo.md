@@ -1,18 +1,14 @@
 * WebWorker
 * 内存管理和内存泄露
 * 模块化编程
-* 纯前端 -> 大前端
+* 纯前端 -> 大前端 -> 架构师
 * 动画库
-* jupyter notebook [](https://ipython.org/)
+* jupyter notebook [ipython](https://ipython.org/)
 * 微前端
 * AR增强现实
 * WebGL
 * PWA应用
 * web安全 API
-* Referer
-- [word parse article](https://www.jb51.net/article/145571.htm)
-- adm-zip 解压Word文件
-- 宏任务微任务
 - figma
 - spark plugin
 - MQTT

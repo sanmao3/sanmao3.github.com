@@ -1,7 +1,10 @@
 ## javascript
 JS是本地客户端一段字符串而已,是浏览器这个客户端跑的即时性语言,JS不能直接访问服务端的任何东西,对服务端来说(在html或者其它页面里面的JS),它就是一段需要发送出去的字符串而已。
-
-### http response status codes
+### HTTP
+#### Referer
+Referer 请求头包含了当前请求页面的来源页面的地址，即表示当前页面是通过此来源页面里的链接进入的。
+> 需要注意的是 referer 实际上是 "referrer" 误拼写
+#### http response status codes
 - Informational responses (100–199)
 - Successful responses (200–299)
 - Redirects (300–399)
@@ -40,3 +43,7 @@ Examples that cause reflows include: adding or removing content, explicitly or i
 $event中的各种坐标含义
 clientX
 clientY
+
+### event loop 宏任务&微任务
+ES6 规范中，microtask 称为 jobs，macrotask 称为 task
+宏任务是由宿主发起的，而微任务由JavaScript自身发起。

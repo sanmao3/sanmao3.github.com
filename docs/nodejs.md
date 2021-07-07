@@ -33,10 +33,7 @@ let jwt = require('jsonwebtoken');
 let decoded = jwt.decode(token);
 ```
 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
-
 - express-jwt
-- iconv-lite
-[gb18030编码问题](https://www.npmjs.com/package/iconv-lite)
 
 
 ### 部署
@@ -45,7 +42,11 @@ let decoded = jwt.decode(token);
 
 因此我们使用 forever 或者 pm2 启动 nodeapp。
 
-
+### 项目开发过程中用到的包
+- iconv-lite
+[gb18030编码问题](https://www.npmjs.com/package/iconv-lite)
+- adm-zip 解压Word文件
+[reference article](https://www.jb51.net/article/145571.htm)
 
 ## ejs
 
