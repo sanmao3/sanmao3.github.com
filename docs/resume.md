@@ -12,6 +12,7 @@
 5. 学习linux命令，前端代码部署
 6. 通过定义ref属性，使用`this.$refs.refname`实现访问子组件实例或元素
 7. 2.x版本中在一个元素上同时使用`v-if`和`v-for`时，`v-for`会优先作用，建议避免在同一元素上同时使用两者。比起在模板层面管理相关逻辑，更好的办法是通过创建计算属性筛选出列表，并以此创建可见元素。
+8. antd的`setFieldsValue({[fieldName]: value})`函数设置的field必须存在，否则控制台会打印报错信息，并且会导致表单概率性赋值失败的问题
 
 ### 大屏页面
 
@@ -20,16 +21,19 @@
 3. echarts自适应调用`resize()`
 4. svg path数据格式兼容性问题，代号字母前不可加逗号，否则火狐不兼容
 5. promise使用，`Promise.all()`、`Promise.resolve()`、`Promise.reject()`
-6. line-height使用无单位数值
+6. `line-height`使用无单位数值
 7. 使用`transform: translateX();`代替left实现动画。变换在浏览器中的性能要好得多。
-8. 对transform指定多个值时，变换的每个值从右向左按顺序执行。
+8. 对`transform`指定多个值时，变换的每个值从右向左按顺序执行。
 9. `animation-fill-mode: both;`表示动画执行前取动画第一帧值并应用在元素上，和动画结束后取最后一帧值应用在元素上。
-10. 网格布局grid关于repeat(auto-fill)和repeat(auto-fit)区别
+10. 网格布局grid关于`repeat(auto-fill, minmax(min, max))`和`repeat(auto-fit, minmax(min, max))`区别
 11. svg中`textPath`使用
 12. 谷歌渲染的最小字体是12px，火狐没有限制，可以是任意值，如10px、5px等，甚至是负数(此时字体渲染成12px)
 13. 了解`background: repeating-conic-gradient()`锥形渐变
 14. 使用less循环
 15. grid item content expanding problem in firefox v53.0.3 that 1fr means minmax(auto, 1fr), so set min-width: 0 or minmax(0, 1fr). see [automatic minimum size of grid item](https://www.w3.org/TR/css3-grid-layout/#min-size-auto)
+
+### UI设计
+1. SQL语句悬浮框展示，黑色背景`rgba(0, 0, 0, 0.9)`，关键词高亮并换行，易读、美观、舒适、匹配用户习惯的场景。关键词如SELECT,FROM,WHERE,ORDER BY,GROUP BY,LIMIT等。`color: #c678dd`
 
 ### 日志查看
 1. multi-page多页面模式

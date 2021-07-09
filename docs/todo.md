@@ -12,6 +12,8 @@
 - figma
 - spark plugin
 - MQTT
+- position: absolute元素切换display是否会产生reflow，影响性能
+- 了解502发生的可能性原因
 
 ## reading
 - 《屠龙之技》作者：长铗

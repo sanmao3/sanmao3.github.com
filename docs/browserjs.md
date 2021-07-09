@@ -12,6 +12,8 @@ Referer 请求头包含了当前请求页面的来源页面的地址，即表示
 - Server errors (500–599)
 [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
+##### 502 Bad Gateway
+
 ### console
 启动一个计时器来跟踪某一个操作的占用时长
 ```
@@ -47,3 +49,7 @@ clientY
 ### event loop 宏任务&微任务
 ES6 规范中，microtask 称为 jobs，macrotask 称为 task
 宏任务是由宿主发起的，而微任务由JavaScript自身发起。
+
+[event-loop](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)
+
+## skia
