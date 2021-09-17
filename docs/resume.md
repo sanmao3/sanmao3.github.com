@@ -12,10 +12,18 @@
 5. 学习linux命令，前端代码部署
 6. 通过定义ref属性，使用`this.$refs.refname`实现访问子组件实例或元素
 7. 2.x版本中在一个元素上同时使用`v-if`和`v-for`时，`v-for`会优先作用，建议避免在同一元素上同时使用两者。比起在模板层面管理相关逻辑，更好的办法是通过创建计算属性筛选出列表，并以此创建可见元素。
-8. antd的`setFieldsValue({[fieldName]: value})`函数设置的field必须存在，否则控制台会打印报错信息，并且会导致表单概率性赋值失败的问题
+8. 控制台的preview和response不一样是因为js的number类型不支持后台给的long类型的数据，太大了精度丢失了
+
+### 日志平台
+1. 更新@jeecg/antd-online/dist/OnlineForm.css，低版本将整个项目的css代码全部打包进去了，导致样式优先级问题
+
+### Ant Design Vue
+1. antd的`setFieldsValue({[fieldName]: value})`函数设置的field必须存在，否则控制台会打印报警信息，并且会导致表单概率性赋值失败的问题
+2. 修改main.js中antd.css引入顺序，以解决antd和自定义样式的优先级问题
+3. vue.config.js配置less modifyVars修改antd less变量
+4. 下拉框默认值是`undefined`时才会显示placeholder占位符内容
 
 ### 大屏页面
-
 1. html,body或组件外的元素无法应用组件scope样式，因为编译后的css不能与组件外的元素匹配（data-@#$%&）
 2. 异常处理（分母变量会不会是0、forEach时是否是数组、条件是否覆盖）
 3. echarts自适应调用`resize()`
@@ -33,10 +41,14 @@
 15. grid item content expanding problem in firefox v53.0.3 that 1fr means minmax(auto, 1fr), so set min-width: 0 or minmax(0, 1fr). see [automatic minimum size of grid item](https://www.w3.org/TR/css3-grid-layout/#min-size-auto)
 
 ### UI设计
-1. SQL语句悬浮框展示，黑色背景`rgba(0, 0, 0, 0.9)`，关键词高亮并换行，易读、美观、舒适、匹配用户习惯的场景。关键词如SELECT,FROM,WHERE,ORDER BY,GROUP BY,LIMIT等。`color: #c678dd`
+1. SQL语句悬浮框展示，黑色背景`rgba(0, 0, 0, 0.9)`or`#1c2237`，关键词高亮并换行，易读、美观、舒适、匹配用户习惯的场景。关键词如SELECT,FROM,WHERE,ORDER BY,GROUP BY,LIMIT等。`color: #c678dd`
+2. 表单高级选项的使用
 
 ### 日志查看
-1. multi-page多页面模式
+#### nodejs-filereader
+1. 日志文件
+2. token中exp过期时间单位
+#### multi-page多页面模式
 文件结构参考
 ```
 |- public
@@ -103,6 +115,5 @@ location / {
 ```
 
 ### onlyoffice nodejs示例
-
 1. `express()`
 2. `debug()`

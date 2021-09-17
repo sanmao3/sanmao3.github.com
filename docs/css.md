@@ -104,6 +104,9 @@ transform: matrix(a,b,c,d,e,f);
 ```
 matrix矩阵是transform变换的基础
 
+### box-shadow
+该属性可设置的值包括阴影的X轴偏移量、Y轴偏移量、模糊半径、扩散半径和颜色。
+
 ## CSS functions
 ### Image functions
 These functions may be used wherever an `<image>` is valid as the value for a property.

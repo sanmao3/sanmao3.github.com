@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>svg circle progress</title>
+    <style>
+      .progress {
+        display: inline-block;
+        width: 105px;
+        height: 105px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <svg width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <!-- 定义渐变 -->
+        <defs>
+          <linearGradient id="gradientNormal" x1="0" x2="0" y1="1" y2="0">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+            <stop offset="100%" stop-color="#09B4B1" />
+          </linearGradient>
+
+          <linearGradient id="gradientPartOne" x1="0" x2="0" y1="1" y2="0">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+            <stop offset="100%" stop-color="#09B4B1" stop-opacity="0.6" />
+          </linearGradient>
+
+          <linearGradient id="gradientPartTwo" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#09B4B1" stop-opacity="0.6" />
+            <stop offset="100%" stop-color="#09B4B1" />
+          </linearGradient>
+
+          <linearGradient id="gradientDangerPartOne" x1="0" x2="0" y1="1" y2="0">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+            <stop offset="100%" stop-color="#FFBC70" />
+          </linearGradient>
+
+          <linearGradient id="gradientDangerPartTwo" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#FFBC70" />
+            <stop offset="100%" stop-color="#D72828" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <!-- path d value
+      A rx ry x-axis-rotation large-arc-flag sweep-flag x y
+      a rx ry x-axis-rotation large-arc-flag sweep-flag dx dy
+      large-arc-flag（角度大小）决定弧线是大于还是小于180度，0表示小角度弧，1表示大角度弧。
+      sweep-flag（弧线方向）0表示从起点到终点沿逆时针画弧，1表示从起点到终点沿顺时针画弧
+    -->
+    <script>
+      // svg画布大小
+      const BOX_SIZE = 260
+      // 圆半径
+      const RADIUS = 100
+      // 圆心坐标
+      const X0 = 130
+      const Y0 = 130
+      // 圆环宽度
+      const strokeWidth = 30
+      // 计算终点坐标
+      function getEndPoint(percent) {
+        let single = percent / 100 * 360
+        let pi = (270 - single) / 180 * Math.PI
+        let x = X0 + RADIUS * Math.cos(pi)
+        let y = Y0 - RADIUS * Math.sin(pi)
+        return {
+          x,
+          y
+        }
+      }
+
+      function getProgress(percent) {
+        let div = document.createElement('div')
+        div.className = 'progress'
+        let endPoint = getEndPoint(percent)
+        // console.log(endPoint)
+        let str = `
+          <svg width="100%" height="100%" viewBox="0 0 ${BOX_SIZE} ${BOX_SIZE}" style="border: 1px solid red;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        `
+        if (percent <= 50) {
+          str +=
+            `<path d="M${X0} ${Y0 + RADIUS} A ${RADIUS} ${RADIUS}, 0, 0, 1, ${endPoint.x} ${endPoint.y}" stroke="url(#gradientNormal)" stroke-width="${strokeWidth}" fill="none" />`
+        } else if (percent <= 80) {
+          str = str + `
+          <path d="M${X0} ${Y0 + RADIUS} A ${RADIUS} ${RADIUS}, 0, 0, 1, ${X0} ${Y0 - RADIUS}" stroke="url(#gradientPartOne)" stroke-width="${strokeWidth}" fill="none" />
+          <path d="M${X0} ${Y0 - RADIUS} A ${RADIUS} ${RADIUS}, 0, 0, 1, ${endPoint.x} ${endPoint.y}" stroke="url(#gradientPartTwo)" stroke-width="${strokeWidth}" fill="none" />
+          `
+        } else {
+          str = str + `
+          <path d="M${X0} ${Y0 + RADIUS} A ${RADIUS} ${RADIUS}, 0, 0, 1, ${X0} ${Y0 - RADIUS}" stroke="url(#gradientDangerPartOne)" stroke-width="${strokeWidth}" fill="none" />
+          <path d="M${X0} ${Y0 - RADIUS} A ${RADIUS} ${RADIUS}, 0, 0, 1, ${endPoint.x} ${endPoint.y}" stroke="url(#gradientDangerPartTwo)" stroke-width="${strokeWidth}" fill="none" />
+          `
+        }
+        div.innerHTML = str + '</svg>'
+        return div
+      }
+
+      let container = document.getElementById('container')
+      let percentArr = [30, 50, 80, 87, 100]
+      for (let i = 0; i < percentArr.length; i++) {
+        container.appendChild(getProgress(percentArr[i]))
+      }
+    </script>
+  </body>
+</html>

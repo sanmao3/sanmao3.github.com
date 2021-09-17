@@ -225,9 +225,7 @@ msgService.fetchList().then(() => {});
 
 
 ### Git
-
 #### Git命令
-
 1. 创建分支
 ```
 git checkout -b <branchname>
@@ -296,6 +294,10 @@ git checkout <branch>
 git stash pop
 ```
 
+9. 查看项目远程地址
+```
+git remote -v
+```
 
 基于cmp开发的项目关于与cmp框架同步更新的操作流程如下：
 > 可以使用rebase命令实现如下功能

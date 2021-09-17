@@ -2,14 +2,21 @@
 
 ## Array
 
-* forEach
-* map
-* filter
-* sort
-* slice
-* splice
-* join
+* forEach()
+* map()
+* filter()
+* slice()
+* join()
 * includes()
+
+### 7个会改变数组的函数
+- arr.push() adds one or more elements to the end of an array and returns the new length of the array
+- arr.unshift()
+- arr.pop() removes an element from the end of an array and returns that element
+- arr.shift() removes an element from the beginning
+- arr.splice() it also returns a new array containing the value of the removed elements
+- arr.reverse()
+- arr.sort()
 
 ## String
 
@@ -17,7 +24,7 @@
 * substring(indexStart[, indexEnd])
 * slice(beginIndex[, endIndex])
 * charAt(index)
-* padStart()
+* str.padStart(targetLength [, padString])
 * padEnd()
 
 ## Object

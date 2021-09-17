@@ -20,11 +20,13 @@ Node.js是一个事件驱动I/O服务端JavaScript环境，基于Google的V8引�
 JSON WEB TOKEN
 
 Header.Payload.Signature
-头部 负载 签名
+头部.负载.签名
 
 [JWT Blog](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
 [jsonwebtoken](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)
 [jwt.io](https://jwt.io/)
+- token exp 单位秒
+- > [jwt exp](https://stackoverflow.com/questions/39926104/what-format-is-the-exp-expiration-time-claim-in-a-jwt)
 
 #### 第三方包
 - node-jsonwebtoken
@@ -81,3 +83,11 @@ exports.escape = function(html){
     .replace(/"/g, '&quot;');
 };
 ```
+
+## 日志打印
+- winston 时差8hours问题 [](https://github.com/volumio/Volumio2/issues/1952)
+- [winston](https://stackoverflow.com/questions/44952938/get-line-number-and-filename-for-a-log-output)
+[](https://github.com/winstonjs/winston-daily-rotate-file)
+[](https://github.com/winstonjs/winston#using-logging-levels)
+[](https://juejin.cn/post/6865926810061045774)
+- 比较 winston、log4js、bunyan [](https://geshan.com.np/blog/2021/01/nodejs-logging-library/)
