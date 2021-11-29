@@ -1,3 +1,40 @@
+* 解决打包时css文件引用顺序报警
+```
+css: {
+  extract: {
+    ignoreOrder: true
+  }
+}
+```
+* vue 注入inject
+* nodemon restart server but it will install many packages
+* cookie(nodejs-filereader save dirPath from token) and token
+* 优化3d柱图
+* color.less JEditor
+* 正向代理和反向代理
+正向代理是客户端的代理，帮助客户端访问其无法访问的服务器资源。反向代理则是服务器的代理，帮助服务器做负载均衡，安全防护等。
+正向代理中，服务器不知道真正的客户端到底是谁，以为访问自己的就是真实的客户端。
+反向代理中，客户端不知道真正的服务器是谁，以为自己访问的就是真实的服务器。
+* TailwindCSS
+* unicode字符集 BMP 基本多文种平面 星光平面 字符串就是码元序列
+* `string.codePointAt(index)`,`String.fromCodePoint(number)`,正规化`string.normalize([normForm])`
+* css next [var](https://developer.mozilla.org/zh-CN/docs/Web/CSS/var())
+通过在 :root 伪类上设置自定义属性，然后在整个文档需要的地方使用，可以减少这样的重复性
+```
+:root {
+  --main-bg-color: brown;
+}
+
+.one {
+  color: white;
+  background-color: var(--main-bg-color);
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+```
+
 * WebWorker
 * 内存管理和内存泄露
 * 模块化编程
@@ -27,6 +64,16 @@
 - FreeMarker
 - word-break: break-word;标准文档定义
 - 总结一下nodejs状态管理问题，全局变量，cookie
+- g2 可视化理论
+- d3
+- three.js .glb 玛雅软件
+- webpack gzip 打包
+- /*修改滚动条样式火狐 start*/
+.menu-ver {
+  scrollbar-color:rgb(239, 239, 239); /* 滑块颜色  滚动条背景颜色 */
+  scrollbar-width: thin; /* 滚动条宽度有三种：thin、auto、none */
+}
+/*修改滚动条样式火狐 end*/
 
 ## Q&A
 - 专业的语言形容自己

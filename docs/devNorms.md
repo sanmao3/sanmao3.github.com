@@ -297,6 +297,8 @@ git stash pop
 9. 查看项目远程地址
 ```
 git remote -v
+// 查看文件记录
+git log -- DELETED_FILE_PATH
 ```
 
 基于cmp开发的项目关于与cmp框架同步更新的操作流程如下：
