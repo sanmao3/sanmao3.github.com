@@ -34,7 +34,7 @@ css: {
   display: inline-block;
 }
 ```
-
+* 小球动画在高刷新率的屏幕下运行的更快
 * WebWorker
 * 内存管理和内存泄露
 * 模块化编程
