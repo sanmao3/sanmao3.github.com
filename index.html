@@ -35,12 +35,8 @@
 		<!-- HEADER -->
 		<header></header>
 		<!-- MAIN CONTENT -->
-		<div id="app" class="main_content">
-			<ul>
-				<li v-for="(item, index) in list">
-          <a :href="item.url">{{item.title}}</a>
-        </li>
-			</ul>
+		<div class="main_content">
+			
 		</div>
 		<!-- FOOTER  -->
 		<footer class="footer">
@@ -49,19 +45,6 @@
 				<a href="https://github.com/sanmao3" target="_blank">View on GitHub</a>
 			</p>
 		</footer>
-    
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script>
-      var app = new Vue({
-        el: '#app',
-        data(){
-          return {
-            list: []
-          }
-        }
-      })
-    </script>
 	</body>
 
 </html>
