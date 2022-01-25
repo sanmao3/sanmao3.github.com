@@ -6,3 +6,10 @@
 - GitHub（看看各大知名项目的 issue 讨论，可以了解项目的走向）
 - 用户自主发布新闻的，比如 Reddit 的 javascript 频道，EchoJS
 - StackOverflow
+
+
+# Google Chrome
+- chrome://version/
+
+# others
+- 《爱讲故事的老胖子》

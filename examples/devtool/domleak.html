@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+      <div id="tree">
+        <ul>
+          <li>abc</li>
+          <li>def</li>
+          <li id="leaf">123</li>
+        </ul>
+      </div>
+    <script type="text/javascript">
+      var select = document.querySelector;
+        var treeRef = document.querySelector("#tree");
+        var leafRef = document.querySelector("#leaf");
+        var body = document.querySelector("body");
+      
+        body.removeChild(treeRef);
+      
+        //#tree can't be GC yet due to treeRef
+        // treeRef = null;
+      
+        //#tree can't be GC yet due to indirect
+        //reference from leafRef
+      
+        // leafRef = null;
+        //#NOW can be #tree GC
+    </script>
+  </body>
+</html>

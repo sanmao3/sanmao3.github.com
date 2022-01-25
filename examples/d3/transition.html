@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>d3 transition</title>
+  </head>
+  <body>
+    <svg width="100%" height="300">
+      <circle r="20" cx="20" cy="20" fill="red">
+      <!-- <animate attributeName="cx" from="0" to="100" dur="5s" repeatCount="indefinite" /> -->
+      </circle>
+      <path id="path" d="M 50 50 A 20 20 0 0 1 90 50" stroke="blue" stroke-width="5" fill="none"></path>
+      <path d="M 50 100 A 20 20 0 0 1 90 100" stroke="blue" stroke-dasharray="0,100" stroke-width="5" fill="none">
+        <animate attributeName="stroke-dasharray" from="0,100" to="100,100" dur="5s" fill="freeze" />
+      </path>
+    </svg>
+
+    <script src="d3.v7.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+      // d3.select('circle')
+      //   .transition()
+      //   .duration(5000)
+      //   .attrTween("cx", function() {
+      //     return d3.interpolate(20, 100);
+      //   });
+
+      d3.select('#path')
+        .transition()
+        .duration(1000)
+        .attrTween("stroke", function() {
+          return function(t) {
+            console.log(t)
+              return "hsl(" + t * 360 + ",100%,50%)";
+            };
+            
+          // console.log(arguments)
+          // let v = 20 * Math.PI
+          // return d3.interpolate(`0,${v}`, `${v},${v}`);
+        });
+    </script>
+  </body>
+</html>

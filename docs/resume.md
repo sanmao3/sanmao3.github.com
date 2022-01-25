@@ -13,6 +13,14 @@
 6. 通过定义ref属性，使用`this.$refs.refname`实现访问子组件实例或元素
 7. 2.x版本中在一个元素上同时使用`v-if`和`v-for`时，`v-for`会优先作用，建议避免在同一元素上同时使用两者。比起在模板层面管理相关逻辑，更好的办法是通过创建计算属性筛选出列表，并以此创建可见元素。
 8. 控制台的preview和response不一样是因为js的number类型不支持后台给的long类型的数据，太大了精度丢失了
+9. 解决打包时css文件引用顺序报警，vue.config.js配置如下：
+```
+css: {
+  extract: {
+    ignoreOrder: true
+  }
+}
+```
 
 ### 日志平台
 1. 更新@jeecg/antd-online/dist/OnlineForm.css，低版本将整个项目的css代码全部打包进去了，导致样式优先级问题

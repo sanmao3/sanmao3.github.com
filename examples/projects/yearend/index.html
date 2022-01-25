@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>年终结算任务动态</title>
+    <style>
+      body,
+      h3,
+      h4,
+      p {
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        color: #333;
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
+        background: linear-gradient(180deg, #45B0F8 0%, #70E3A4 100%);
+      }
+
+      h3 {
+        font-size: 16px;
+      }
+
+      h4 {
+        font-size: 14px;
+        font-weight: normal;
+      }
+
+      p {
+        font-size: 12px;
+        color: #999;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .container {
+        background: url(bg.png) no-repeat;
+        background-size: 100% auto;
+        padding-top: 60%;
+      }
+
+      .nav {
+        background: #FFFFFF;
+        border-radius: 8px;
+        margin: 0 15px;
+        padding-bottom: 25px;
+        position: relative;
+      }
+
+      .nav::after {
+        content: '';
+        display: block;
+        height: 1px;
+        background: #E5EFF5;
+      }
+
+      .nav .icon-link {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 2;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        transform: translateY(65%);
+      }
+
+      #active-mark {
+        position: absolute;
+        left: 0;
+        bottom: 19px;
+        width: 25%;
+        transition: left 0.5s;
+        text-align: center;
+      }
+
+      .nav-content {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .menu {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-family: PingFangSC-Medium;
+        padding: 20px 0 30px;
+      }
+
+      .menu span {
+        margin-top: 15px;
+      }
+
+      .main {
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 15px;
+      }
+
+      .content {
+        display: flex;
+        transition: transform 0.5s;
+      }
+
+      .stage {
+        width: 100%;
+        flex: 0 0 auto;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 30px 15px 15px;
+        box-sizing: border-box;
+      }
+
+      .stage + .stage {
+        margin-left: 15px;
+      }
+
+      .progress-container {
+        display: inline-block;
+        width: 80%;
+        height: 12px;
+        background-color: rgba(253, 146, 66, 0.25);
+        border-radius: 12px;
+      }
+
+      .progress {
+        width: 0px;
+        height: 100%;
+        border-radius: 12px;
+        transition: width 1s;
+      }
+
+      .progress-count {
+        display: inline-block;
+        width: 15%;
+        text-align: right;
+        font-size: 12px;
+      }
+
+      .progress-count span {
+        font-size: 20px;
+        font-weight: bold;
+        color: #000;
+      }
+
+      .task {
+        display: flex;
+        align-items: center;
+        background-color: rgba(69, 176, 248, 0.08);
+        border-radius: 8px;
+        padding: 8px 8px 8px 0px;
+        margin-top: 10px;
+      }
+
+      .task-number {
+        display: inline-block;
+        width: 40px;
+        text-align: center;
+        color: #BCE6FD;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .task-content {
+        flex: 1 1 auto;
+      }
+
+      .task-man {
+        font-size: 12px;
+        color: #999;
+      }
+
+      /*--------------- 弹窗 -------------- */
+      #modal-mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      #modal {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10;
+        width: 100%;
+        height: 80%;
+        background-color: #fff;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        overflow: hidden;
+        transform: translateY(100%);
+        transition: transform 0.5s;
+      }
+
+      .modal-header {
+        background-color: #f3f8fe;
+        padding: 15px;
+        text-align: center;
+        position: relative;
+      }
+
+      .modal-header .close {
+        position: absolute;
+        top: 16px;
+        left: 15px;
+      }
+
+      .modal-content {
+        padding: 15px;
+      }
+
+      .task-status {
+        text-align: center;
+      }
+
+      .task-time {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .task-detail .item {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 图标 -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;">
+      <defs>
+        <linearGradient id="gradient1" x1="0" x2="1" y1="1" y2="0">
+          <stop offset="0%" stop-color="#FD9242" />
+          <stop offset="100%" stop-color="#FC6835" />
+        </linearGradient>
+        <linearGradient id="gradient2" x1="0" x2="1" y1="1" y2="0">
+          <stop offset="0%" stop-color="#56E656" />
+          <stop offset="100%" stop-color="#38D494" />
+        </linearGradient>
+        <linearGradient id="gradient3" x1="0" x2="1" y1="1" y2="0">
+          <stop offset="0%" stop-color="#46B1F7" />
+          <stop offset="100%" stop-color="#2E90FA" />
+        </linearGradient>
+        <linearGradient id="gradient4" x1="0" x2="1" y1="1" y2="0">
+          <stop offset="0%" stop-color="#FD6F6F" />
+          <stop offset="100%" stop-color="#EE3333" />
+        </linearGradient>
+      </defs>
+      <!-- 菜单 -->
+      <symbol id="icon-menu" viewBox="0 0 76 76">
+        <g fill-rule="evenodd">
+          <circle cx="38" cy="38" r="38"></circle>
+          <path transform="translate(18.399998, 18.399998)"
+            d="M27.6754341,1.56456193 L6.62687388,1.56456193 C4.43012412,1.56456193 2.64662432,3.34806174 2.64662432,5.5448115 L2.64662432,28.8336215 C2.64662432,33.9557459 6.81174886,38.115433 11.9284358,38.115433 L32.976996,38.115433 C35.1737458,38.115433 36.9572509,36.3319331 36.9572509,34.1351834 L36.9572509,10.8463734 C36.9626831,5.72968648 32.7975585,1.56456193 27.6754341,1.56456193 L27.6754341,1.56456193 Z M20.7752473,26.5118092 L12.2111858,26.5118092 C11.2433109,26.5118092 10.460311,25.7288093 10.460311,24.7609344 C10.460311,23.7930595 11.2433109,23.0046221 12.2111858,23.0046221 L20.7752473,23.0046221 C21.7431222,23.0046221 22.5261501,23.787622 22.5261501,24.7609344 C22.5315597,25.7233718 21.7431222,26.5118092 20.7752473,26.5118092 Z M27.3926841,16.4469978 L12.2111858,16.4469978 C11.2433109,16.4469978 10.460311,15.6639979 10.460311,14.696123 C10.460311,13.7282481 11.2433109,12.9452482 12.2111858,12.9452482 L27.3926841,12.9452482 C28.360559,12.9452482 29.1435589,13.7282481 29.1435589,14.696123 C29.1435589,15.6639979 28.360559,16.4469978 27.3926841,16.4469978 L27.3926841,16.4469978 Z"
+            fill="currentColor"></path>
+        </g>
+      </symbol>
+      <!-- 连接 -->
+      <symbol id="icon-link" viewBox="0 0 100 100">
+        <circle cx="50" cy="15" r="12" fill="#57C6D4" />
+        <circle cx="50" cy="85" r="12" fill="#57C6D4" />
+        <line x1="50" y1="20" x2="50" y2="80" stroke="#6FE2A5" stroke-linecap="round" stroke-width="10" />
+      </symbol>
+      <!-- 三角 -->
+      <symbol id="icon-triangle" viewBox="0 0 100 100">
+        <path d="M 50 45 L 20 80 L 80 80 Z" fill="currentColor" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="16" />
+      </symbol>
+      <!-- 箭头 -->
+      <symbol id="icon-arrow-right" viewBox="0 0 100 100">
+        <path d="M 30 15 L 70 50 L 30 85" fill="none" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="8" />
+      </symbol>
+      <!-- 加载中 -->
+      <symbol id="icon-loading" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" stroke-width="3" stroke="currentColor" fill="none" />
+        <circle r="8" fill="currentColor">
+          <animateMotion path="M 50 10 A 40 40 0 0 1 50 90 M 50 90 A 40 40 0 0 1 50 10" dur="1s"
+            repeatCount="indefinite" />
+        </circle>
+      </symbol>
+      <!-- 关闭 -->
+      <symbol id="icon-close" viewBox="0 0 100 100">
+        <path d="M 10 10 L 90 90 M 90 10 L 10 90" fill="none" stroke="currentColor" stroke-width="10"
+          stroke-linecap="round" />
+      </symbol>
+      <!-- 进度环 -->
+      <symbol id="icon-progress-bingo" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" stroke-width="6" stroke="currentColor" fill="none" />
+        <path d="M 28 50 L 48 65 L 73 35" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" />
+      </symbol>
+    </svg>
+    <!-- 页面内容 -->
+    <div class="container">
+      <!-- loading... -->
+      <div id="loading" style="text-align: center; margin-top: 20vh;">
+        <svg width="50" height="50" style="color: #fff;">
+          <use xlink:href="#icon-loading" />
+        </svg>
+      </div>
+      <!-- 开始 -->
+      <div id="nav" class="nav hidden">
+        <div id="nav-content" class="nav-content"></div>
+        <div id="active-mark">
+          <svg width="28" height="28" style="color: #47B2F3;">
+            <use xlink:href="#icon-triangle" />
+          </svg>
+        </div>
+        <div class="icon-link">
+          <svg width="50" height="50">
+            <use xlink:href="#icon-link" />
+          </svg>
+          <svg width="50" height="50">
+            <use xlink:href="#icon-link" />
+          </svg>
+        </div>
+      </div>
+      <div class="main">
+        <div id="content" class="content"></div>
+      </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="modal-mask" class="hidden"></div>
+    <div id="modal">
+      <div class="modal-header">
+        <h4 style="font-weight: bold;">代销基金系统日终处理</h4>
+        <div class="close" onclick="closeModal()">
+          <svg width="12" height="12">
+            <use xlink:href="#icon-close" />
+          </svg>
+        </div>
+      </div>
+      <div id="modal-content" class="modal-content">
+        <!-- 任务详情 -->
+      </div>
+    </div>
+    <script type="text/javascript">
+      const colors = ['#FD9242', '#56E656', '#46B1F7', '#FD6F6F']
+      const bgColors = ['rgba(253,146,66,0.25)', 'rgba(86,230,86,0.25)', 'rgba(70,177,247,0.25)',
+        'rgba(253,111,111,0.25)'
+      ]
+
+      fetchData()
+
+      function fetchData() {
+        fetch('http://127.0.0.1:8848/sanmao3/examples/yearend.html')
+          .then(response => response)
+          .then(data => {
+            setTimeout(() => {
+              select('loading').hide()
+              select('nav').show()
+              initMenu()
+              init()
+            }, 2000)
+          }).catch(err => {
+            alert(err)
+            select('loading').hide()
+            select('nav').show()
+            initMenu()
+            init()
+          });
+      }
+
+      function initMenu() {
+        let arr = ['日终处理1', '日终处理2', '数据处理', '开年保障']
+        let htmlArr = []
+        arr.forEach((item, i) => {
+          let html = `
+            <div class="menu">
+              <svg width="40" height="40" style="color: rgba(255, 255, 255, 0.8); fill: url(#gradient${i+1});">
+                <use xlink:href="#icon-menu" />
+              </svg>
+              <span>${item}</span>
+            </div>
+          `
+          htmlArr.push(html)
+        })
+
+        select('nav-content').append(htmlArr.join(''))
+
+        let width = document.body.clientWidth - 15
+
+        selectAll('.menu').forEach((el, i) => {
+          el.onclick = function() {
+            select('active-mark').style('left', `${i * 25}%`)
+            select('content').style('transform', `translateX(-${width * i}px)`)
+
+            let els = document.querySelectorAll('.progress')
+            els[i].style.width = '50%'
+          }
+        })
+      }
+
+      function init() {
+        let htmlArr = []
+        for (let i = 0; i < 4; i++) {
+
+          let taskHtml = ''
+          let taskArr = []
+
+          for (let j = 0; j < 15; j++) {
+            let taskItem = `<div class="task" onclick="viewTaskDetail()">
+              <span class="task-number">${j + 1}</span>
+              <div class="task-content">
+                <h4>代销基金系统日终处理</h4>
+                <span class="task-man">负责人</span>
+              </div>
+              <svg width="25" height="25" viewBox="0 0 100 100" style="color: ${colors[i]}; margin: 0 10px;">
+                <circle cx="50" cy="50" r="40" stroke-width="8" stroke="#ddd" fill="none" />
+                <path d="${getProgressPath(20, 8)}" fill="none" stroke="currentColor" stroke-width="8" />
+              </svg>
+              <svg width="18" height="18" style="color: #666;">
+                <use xlink:href="#icon-arrow-right" />
+              </svg>
+            </div>`
+            taskArr.push(taskItem)
+          }
+          taskHtml = taskArr.join('')
+
+          let html = `<div id="stage-${i}" class="stage">
+        <div class="stage-header">
+          <h3>年结日终处理第一阶段</h3>
+          <p>2021年12月31日15:00-20:00</p>
+        </div>
+        <div class="progress-container" style="background: ${bgColors[i]}">
+          <div class="progress" style="background: ${colors[i]}"></div>
+        </div>
+        <div class="progress-count">
+          <span style="color: ${colors[i]}">1</span>/20
+        </div>
+        <div class="task-list">
+          ${taskHtml}
+        </div>
+      </div>
+        `
+          htmlArr.push(html)
+        }
+        select('content').append(htmlArr.join(''))
+      }
+
+      function getProgressPath(total, done) {
+        const percent = done / total
+        const angle = percent * 360
+        const anglePI = (90 - angle) / 180 * Math.PI
+        const r = 40
+        const x = 50 + r * Math.cos(anglePI)
+        const y = 50 - r * Math.sin(anglePI)
+        return `M 50 10 A ${r} ${r} 0 ${percent > 0.5 ? 1 : 0} 1 ${x} ${y}`
+      }
+
+      function viewTaskDetail() {
+        select('modal-mask').show()
+
+        let html = `
+          <div class="task-status">
+            <svg width="50" height="50" style="color: orange;">
+              <use xlink:href="#icon-progress-bingo" />
+            </svg>
+            <div>任务已完成</div>
+          </div>
+          <div class="task-time">
+            <div class="start">
+              <span>开始时间</span>
+            </div>
+            <div class="end">
+              <span>结束时间</span>
+            </div>
+          </div>
+          <div class="task-detail">
+            <div class="item">
+              <label>阶段</label>
+              <span>阶段一</span>
+            </div>
+          </div>`
+
+        select('modal-content').append(html)
+        select('modal').style('transform', 'translateY(0px)')
+      }
+
+      function closeModal() {
+        select('modal-mask').hide()
+        select('modal').style('transform', 'translateY(100%)')
+      }
+
+      function Selection(id) {
+        this._el = document.getElementById(id)
+      }
+
+      function select(id) {
+        return new Selection(id)
+      }
+
+      Selection.prototype = {
+        append: function(html) {
+          this._el.innerHTML = html
+        },
+        style: function(name, value) {
+          this._el.style[name] = value
+        },
+        hide: function() {
+          this._el.classList.add('hidden')
+        },
+        show: function() {
+          this._el.classList.remove('hidden')
+        }
+      }
+
+      function selectAll(className) {
+        return Array.from(document.querySelectorAll(className))
+      }
+    </script>
+  </body>
+</html>

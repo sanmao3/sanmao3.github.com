@@ -1,36 +1,7 @@
-## css属性
-### filter滤镜
-```
-/* URL to SVG filter */
-filter: url("filters.svg#filter-id");
+## css
+### 属性
 
-/* <filter-function> values */
-filter: blur(5px);
-filter: brightness(0.4);
-filter: contrast(200%);
-filter: drop-shadow(16px 16px 20px blue);
-filter: grayscale(50%);
-filter: hue-rotate(90deg);
-filter: invert(75%);
-filter: opacity(25%);
-filter: saturate(30%);
-filter: sepia(60%);
-
-/* Multiple filters */
-filter: contrast(175%) brightness(3%);
-
-/* Use no filter */
-filter: none;
-
-/* Global values */
-filter: inherit;
-filter: initial;
-filter: unset;
-```
-[参考文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)
-> `filters`属性值同样适用于`backdrop-filter`属性（为一个元素后面区域添加滤镜效果）
-
-### animation
+#### animation
 `animation` 是下列属性的一个简写属性形式。
 ```
 animation-name: none
@@ -73,7 +44,41 @@ function listener(e) {
 }
 ```
 
-### shape-outside
+#### box-shadow
+该属性可设置的值包括阴影的X轴偏移量、Y轴偏移量、模糊半径、扩散半径和颜色。
+
+#### filter滤镜
+```
+/* URL to SVG filter */
+filter: url("filters.svg#filter-id");
+
+/* <filter-function> values */
+filter: blur(5px);
+filter: brightness(0.4);
+filter: contrast(200%);
+filter: drop-shadow(16px 16px 20px blue);
+filter: grayscale(50%);
+filter: hue-rotate(90deg);
+filter: invert(75%);
+filter: opacity(25%);
+filter: saturate(30%);
+filter: sepia(60%);
+
+/* Multiple filters */
+filter: contrast(175%) brightness(3%);
+
+/* Use no filter */
+filter: none;
+
+/* Global values */
+filter: inherit;
+filter: initial;
+filter: unset;
+```
+[参考文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)
+> `filters`属性值同样适用于`backdrop-filter`属性（为一个元素后面区域添加滤镜效果）
+
+#### shape-outside
 该属性定义了一个可以是非矩形的形状，相邻的内联内容应围绕该形状进行包装。
 ```
 shape-outside: circle();
@@ -98,26 +103,37 @@ img.right {
 shape-margin: 10px;
 ```
 
-### transform
+#### transform
 ```
 transform: matrix(a,b,c,d,e,f);
 ```
 matrix矩阵是transform变换的基础
 
-### box-shadow
-该属性可设置的值包括阴影的X轴偏移量、Y轴偏移量、模糊半径、扩散半径和颜色。
 
-## CSS functions
-### Image functions
+### function
+#### image functions
 These functions may be used wherever an `<image>` is valid as the value for a property.
-#### linear-gradient()
-#### repeating-conic-gradient()
+##### linear-gradient()
+##### repeating-conic-gradient()
 > 产生的锯齿问题怎么解决
 
-## CSS layout
-### table
-### table-cell
-### flex弹性布局
+#### var()
+通过在 :root 伪类上设置自定义属性，然后在整个文档需要的地方使用，可以减少这样的重复性
+```
+:root {
+  --main-bg-color: brown;
+}
+
+.one {
+  color: white;
+  background-color: var(--main-bg-color);
+}
+```
+[var()](https://developer.mozilla.org/zh-CN/docs/Web/CSS/var())
+
+### layout
+
+#### flex
 弹性容器属性
 * flex-direction
 * flex-wrap
@@ -134,17 +150,17 @@ These functions may be used wherever an `<image>` is valid as the value for a pr
 * flex
 * align-self
 
-### grid网格布局
-
-
+#### grid
 By default, a grid item cannot be smaller than the size of its content.
 
 Grid items have an initial size of min-width: auto and min-height: auto.
 
 You can override this behavior by setting grid items to min-width: 0, min-height: 0 or overflow with any value other than visible.
 
+#### table
+#### table-cell
 
-## LESS
+## less
 ### 循环
 ```
 .head-picture(@n, @i:1) when (@i <= @n) {
@@ -162,13 +178,93 @@ You can override this behavior by setting grid items to min-width: 0, min-height
 
 
 
+
+## app
+```
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: #999;
+}
+```
+
+#### 0.5px边框
+```
+  div {
+		position: relative;
+		padding: 15px;
+		border-radius: 4px;
+	}
+	
+	div:before {
+		content: "";
+		width: 200%;
+		height: 200%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		border: 1px solid #000;
+		transform: scale(0.5);
+		transform-origin: 0 0;
+		padding: 1px;
+		box-sizing: border-box;
+		pointer-events: none;
+		border-radius: 8px;
+	}
+```
+
+#### 上边框
+```
+  div:before{
+    content: '';
+		display: block;
+		height: 1px;
+	  position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		background: #c8c7cc;
+		-webkit-transform: scaleY(0.5);
+		-webkit-transform-origin: top;
+  }
+```
+
+#### 背景模糊
+```
+backdrop-filter: blur(2px); // 扩展见mdn
+```
+
+#### 裁剪路径
+```
+clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+``` 
+
+#### 文本行数超出省略
+```
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow : hidden;
+```
+  
+#### 两端对齐
+```
+  text-align: justify;
+```
+  
+#### collapsing margins
+1. overflow: hidden; (推荐)
+2. padding: 1px;
+3. border: 1px solid transparent;
+4. position: absolute;
+5. float: left;
+> no line boxes, no clearance, no padding and no border separate them
+
+
+
 ## 其它
-### 层叠上下文
-### BFC
+
 ### 常用颜色值
-背景色：#EFEFF4
-深边框色：#c8c7cc
-浅边框色：#E8E8EA
-
-
-苹果手机点击背景色
+- 背景色：#EFEFF4
+- 深边框色：#c8c7cc
+- 浅边框色：#E8E8EA

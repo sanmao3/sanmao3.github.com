@@ -297,6 +297,8 @@ git stash pop
 9. 查看项目远程地址
 ```
 git remote -v
+// 设置远程地址
+git remote set-url origin git@github.com:**/**.git
 // 查看文件记录
 git log -- DELETED_FILE_PATH
 ```
@@ -618,6 +620,88 @@ project
 * `v-on` 或 `@`
 * `v-bind` 或 `:`
 * `v-model`
+
+### v-model
+自定义事件也可以用于创建支持 v-model 的自定义输入组件。记住：
+
+<input v-model="searchText">
+等价于：
+
+<input
+  v-bind:value="searchText"
+  v-on:input="searchText = $event.target.value"
+>
+当用在组件上时，v-model 则会这样：
+
+<custom-input
+  v-bind:value="searchText"
+  v-on:input="searchText = $event"
+></custom-input>
+为了让它正常工作，这个组件内的 <input> 必须：
+
+将其 value attribute 绑定到一个名叫 value 的 prop 上
+在其 input 事件被触发时，将新的值通过自定义的 input 事件抛出
+写成代码之后是这样的：
+
+Vue.component('custom-input', {
+  props: ['value'],
+  template: `
+    <input
+      v-bind:value="value"
+      v-on:input="$emit('input', $event.target.value)"
+    >
+  `
+})
+现在 v-model 就应该可以在这个组件上完美地工作起来了：
+
+<custom-input v-model="searchText"></custom-input>
+到目前为止，关于组件自定义事件你需要了解的大概就这些了，如果你阅读完本页内容并掌握了它的内容，我们会推荐你再回来把自定义事件读完。
+
+允许一个自定义组件在使用 v-model 时定制 prop 和 event。默认情况下，一个组件上的 v-model 会把 value 用作 prop 且把 input 用作 event，但是一些输入类型比如单选框和复选框按钮可能想使用 value prop 来达到不同的目的。使用 model 选项可以回避这些情况产生的冲突。
+
+Example：
+
+Vue.component('my-checkbox', {
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: {
+    // this allows using the `value` prop for a different purpose
+    value: String,
+    // use `checked` as the prop which take the place of `value`
+    checked: {
+      type: Number,
+      default: 0
+    }
+  },
+  // ...
+})
+<my-checkbox v-model="foo" value="some value"></my-checkbox>
+上述代码相当于：
+
+<my-checkbox
+  :checked="foo"
+  @change="val => { foo = val }"
+  value="some value">
+</my-checkbox>
+
+### provide/inject
+类型：
+
+provide：Object | () => Object
+inject：Array<string> | { [key: string]: string | Symbol | Object }
+
+provide 选项允许我们指定我们想要提供给后代组件的数据/方法。在这个例子中，就是 <google-map> 内部的 getMap 方法：
+
+provide: function () {
+  return {
+    getMap: this.getMap
+  }
+}
+然后在任何后代组件里，我们都可以使用 inject 选项来接收指定的我们想要添加在这个实例上的 property：
+
+inject: ['getMap']
 
 ### 生命周期
 
@@ -1007,6 +1091,24 @@ Babel 是一个 JavaScript 编译器。
 
 #### Vuex
 
+对于大型应用，我们会希望把 Vuex 相关代码分割到模块中。下面是项目结构示例：
+```
+├── index.html
+├── main.js
+├── api
+│   └── ... # 抽取出API请求
+├── components
+│   ├── App.vue
+│   └── ...
+└── store
+    ├── index.js          # 我们组装模块并导出 store 的地方
+    ├── actions.js        # 根级别的 action
+    ├── mutations.js      # 根级别的 mutation
+    └── modules
+        ├── cart.js       # 购物车模块
+        └── products.js   # 产品模块
+```
+
 Vuex 通过 store 选项，提供了一种机制将状态从根组件“注入”到每一个子组件中（需调用 Vue.use(Vuex)）
 
 创建一个 store
@@ -1042,6 +1144,15 @@ methods: {
     console.log(this.$store.state.count)
   }
 }
+```
+
+#### 自定义指令
+```
+Vue.directive('highlight', {
+  bind(el, binding, vnode) {
+    el.style.background = binding.value
+  }
+})
 ```
 
 ### Vue3.0
@@ -1086,6 +1197,75 @@ cd ~/projects/node-redis    # go into the package directory
 
 Now, any changes to ~/projects/node-redis will be reflected in ~/projects/node-bloggy/node_modules/node-redis/. Note that the link should be to the package name, not the directory name for that package.
 
+### NPM命令
+查看npm版本
+```
+npm -v
+```
+更新npm
+```
+npm install -g npm
+```
+卸载
+```
+npm uninstall <package>
+```
+如需从 package.json 文件中删除依赖，需要在命令后添加参数 --save
+```
+npm uninstall --save lodash
+npm uninstall --save-dev <package>
+```
+更新
+```
+npm update <package>              #更新局部模块
+npm update -g <package>           #更新全局模块
+npm update -g <package>@version   #更新全局模块指定版本
+```
+其它命令
+```
+npm view <package> versions #查看包的所有版本
+npm i vue@2.0.0 --save      #安装指定版本
+npm root                    #查看本地安装的目录
+npm root -g                 #查看全局安装的目录
+npm info package            #查看包信息
+npm ls                      #查看本地安装包
+npm ls -g                   #查看全局安装包，包含依赖
+npm ls -g --depth 0         #查看全局安装包，不包含依赖
+npm outdated                #列出所有不是最新版的包，可以带参数
+npm cache clean             #清除本地缓存
+npm config ls -l            #查看npm配置
+npm publish                 #发布包
+npm access                  #设置发布包的访问级别
+npm search modulNmae        #搜索包是否存在
+```
+
+### 淘宝镜像代理
+临时使用
+```
+npm --registry https://registry.npm.taobao.org install express
+```
+永久使用
+```
+npm config set registry https://registry.npm.taobao.org
+```
+配置CNPM，npm访问官方，cnpm访问代理
+```
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+```
+恢复使用
+```
+npm config set registry https://registry.npmjs.org
+```
+验证设置
+```
+npm info express
+or
+npm config get registry
+```
+
+
+
+
 ## Webpack
 
 webpack 是一个现代 JavaScript 应用程序的静态模块打包器。
@@ -1106,6 +1286,48 @@ require.context(’./assets/image’, false, /.png$/).keys();
 ```
 [require.context](https://webpack.js.org/guides/dependency-management/#requirecontext)
 
+### webpack.config.js
+```
+const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
+module.exports = {
+	entry: './src/index.js',
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'helloworld.js'
+	},
+	module: {
+		rules: [{
+				test: /\.vue$/,
+				use: [{
+					loader: 'vue-loader'
+				}]
+			},
+			// 它会应用到普通的 `.js` 文件
+			// 以及 `.vue` 文件中的 `<script>` 块
+			{
+				test: /\.js$/,
+				loader: 'babel-loader'
+			},
+			// 它会应用到普通的 `.css` 文件
+			// 以及 `.vue` 文件中的 `<style>` 块
+			{
+				test: /\.css$/,
+				use: [
+					'vue-style-loader',
+					'css-loader'
+				]
+			}
+		]
+	},
+	plugins: [
+		// 请确保引入这个插件！
+		new VueLoaderPlugin()
+	]
+};
+```
+
 
 # Shell命令
 
@@ -1119,6 +1341,15 @@ require.context(’./assets/image’, false, /.png$/).keys();
 * rm 文件 删除文件
 * rm -r 文件夹 删除文件夹
 * cp -r dir1 dir2 将dir1下所有文件复制到dir2下
+
+# CDN
+内容分发网络（Content Delivery Network，简称CDN）是建立并覆盖在承载网之上，由分布在不同区域的边缘节点服务器群组成的分布式网络。
+CDN应用广泛，支持多种行业、多种场景内容加速，例如：图片小文件、大文件下载、视音频点播、直播流媒体、全站加速、安全加速。
+
+作者：阿里巴巴淘系技术
+链接：https://juejin.cn/post/6901479190244098062
+来源：稀土掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 # 其它
 
@@ -1160,3 +1391,21 @@ Manual fix
 ### 按钮权限控制
 
 自定义指令以控制按钮是否显示
+
+
+### html模板
+```
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="keywords" content="your keywords">
+		<meta name="description" content="your description">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>your title</title>
+		<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	</head>
+	<body>
+	</body>
+</html>
+```
