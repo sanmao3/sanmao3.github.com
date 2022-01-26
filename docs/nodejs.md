@@ -74,6 +74,14 @@ let decoded = jwt.decode(token);
 - adm-zip 解压Word文件
 [reference article](https://www.jb51.net/article/145571.htm)
 
+### TODO
+- 总结一下nodejs状态管理问题，全局变量，cookie
+
+
+## expressjs
+二级域名
+
+
 ## ejs
 
 ### <%=
@@ -115,3 +123,6 @@ exports.escape = function(html){
 [](https://github.com/winstonjs/winston#using-logging-levels)
 [](https://juejin.cn/post/6865926810061045774)
 - 比较 winston、log4js、bunyan [](https://geshan.com.np/blog/2021/01/nodejs-logging-library/)
+
+
+## deno

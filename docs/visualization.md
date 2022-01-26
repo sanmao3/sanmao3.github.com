@@ -27,12 +27,31 @@ sweep-flag（弧线方向）0表示从起点到终点沿逆时针画弧，1表�
 />
 ```
 
+## 动画
+```
+  // 改变offset值，实现一些动效
+  <defs>
+    <linearGradient id="progress">
+      <stop id="stop1" offset="0" stop-color="black"/>
+      <stop id="stop2" offset="0" stop-color="grey"/>
+    </linearGradient>
+  </defs>
+```
+
 ## TODO
+- svg 画圆环，渐变
 - SVG编辑器，可以打开SVG文件进行修改
 
+# WebGL
 
+# 动画库
 
+# d3
+[官网](https://d3js.org/)
 
+# three.js 
+# 玛雅软件
+.glb 
 
 # 拓扑图
 
@@ -49,9 +68,6 @@ sweep-flag（弧线方向）0表示从起点到终点沿逆时针画弧，1表�
 
 ### Vis.js
 [官网](https://visjs.org/)
-
-### d3
-[官网](https://d3js.org/)
 
 ### Diagram Maker
 是亚马逊开源的一个图编辑库

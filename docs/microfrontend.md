@@ -9,6 +9,7 @@ qiankun是基于single-spa而封装了隔离及共享机制的框架，其简化
 ### MicroApp
 我们借鉴了WebComponent的思想，以此为基础推出另一种更加组件化的实现方式：类WebComponent + HTML Entry。
 计划2022/03发布1.0稳定版
+* micro-app依赖于CustomElements和Proxy两个较新的API。
 [京东MicroApp](https://segmentfault.com/a/1190000040408399)
 ### Garfish
 

@@ -1,4 +1,13 @@
 ## css
+
+### 字体
+#### Consolas
+等宽字体
+
+
+### position
+- position: absolute元素切换display是否会产生reflow，影响性能
+
 ### 属性
 
 #### animation
@@ -109,12 +118,22 @@ transform: matrix(a,b,c,d,e,f);
 ```
 matrix矩阵是transform变换的基础
 
+#### scrollbar
+```
+/* 修改滚动条样式火狐 */
+.menu-ver {
+  scrollbar-color:rgb(239, 239, 239); /* 滑块颜色  滚动条背景颜色 */
+  scrollbar-width: thin; /* 滚动条宽度有三种：thin、auto、none */
+}
+```
+
 
 ### function
 #### image functions
 These functions may be used wherever an `<image>` is valid as the value for a property.
-##### linear-gradient()
-##### repeating-conic-gradient()
+#### linear-gradient()
+- 网格背景实现原理
+#### repeating-conic-gradient()
 > 产生的锯齿问题怎么解决
 
 #### var()
@@ -159,6 +178,9 @@ You can override this behavior by setting grid items to min-width: 0, min-height
 
 #### table
 #### table-cell
+
+
+
 
 ## less
 ### 循环

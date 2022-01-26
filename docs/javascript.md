@@ -29,6 +29,10 @@
 	console.log(ary); // 美好,你好,阳光
 ``` 
 
+### 拷贝副本
+```
+let a = [...new Set(ary)]
+```
 
 ## String
 * substr 未来将可能会被移除掉，使用`substring()`替代它
@@ -221,6 +225,9 @@ ws://example.com:80/some/path
 * CLOSED：值为3，表示连接已经关闭，或者打开连接失败
 
 
+## ES5
+### async await
+
 ## 注释标记
 ### @deprecated
 ### @param
@@ -246,6 +253,11 @@ Referer 请求头包含了当前请求页面的来源页面的地址，即表示
 [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
 #### 502 Bad Gateway
+- 了解502发生的可能性原因
+
+### 内存
+- 内存溢出（程序错误） && 内存泄露（资源未释放）
+- 内存管理和内存泄露
 
 ### requestAnimationFrame
 回调函数执行次数通常是每秒60次，但在大多数遵循W3C建议的浏览器中，回调函数执行次数通常与浏览器屏幕刷新次数相匹配。
@@ -331,3 +343,7 @@ observer.observe(targetNode, config);
 // 之后，可停止观察
 observer.disconnect();
 ```
+
+
+### window
+- window.getSelection()
