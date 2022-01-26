@@ -8,18 +8,11 @@
 * sso and cas
 *  -webkit-box-orient: vertical;  编译后会没有，添加/* autoprefixer: off */
 [](https://www.bryanbraun.com/checkboxland/docs/demos/webcam-test/)
-* 正向代理和反向代理
-正向代理是客户端的代理，帮助客户端访问其无法访问的服务器资源。反向代理则是服务器的代理，帮助服务器做负载均衡，安全防护等。
-正向代理中，服务器不知道真正的客户端到底是谁，以为访问自己的就是真实的客户端。
-反向代理中，客户端不知道真正的服务器是谁，以为自己访问的就是真实的服务器。
-* TailwindCSS
 * `string.codePointAt(index)`,`String.fromCodePoint(number)`,正规化`string.normalize([normForm])`
 * 小球动画在高刷新率的屏幕下运行的更快
-* 低代码 可视化编辑页面
 * WebWorker
 * 模块化编程
 * jupyter notebook [ipython](https://ipython.org/)
-* AR增强现实
 * PWA应用
 * web安全 API
 - figma
@@ -28,7 +21,6 @@
 - 最长递增子序列 贪心算法
 - eslint
 - FreeMarker
-- word-break: break-word;标准文档定义
 
 ## Q&A
 - 专业的语言形容自己
