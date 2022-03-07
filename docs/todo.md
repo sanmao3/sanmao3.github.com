@@ -21,6 +21,10 @@
 - 最长递增子序列 贪心算法
 - eslint
 - FreeMarker
+- GeeksforGeeks
+- freelancer
+- avocode
+- Instagram = ins
 
 ## Q&A
 - 专业的语言形容自己

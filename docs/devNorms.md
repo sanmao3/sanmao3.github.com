@@ -1155,8 +1155,11 @@ Vue.directive('highlight', {
 })
 ```
 
-### Vue3.0
-
+### Vue3
+#### 安装
+```
+npm init vite@latest my-vue-app -- --template vue-ts
+```
 #### TypeScript
 
 
@@ -1346,10 +1349,6 @@ module.exports = {
 内容分发网络（Content Delivery Network，简称CDN）是建立并覆盖在承载网之上，由分布在不同区域的边缘节点服务器群组成的分布式网络。
 CDN应用广泛，支持多种行业、多种场景内容加速，例如：图片小文件、大文件下载、视音频点播、直播流媒体、全站加速、安全加速。
 
-作者：阿里巴巴淘系技术
-链接：https://juejin.cn/post/6901479190244098062
-来源：稀土掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 # 其它
 

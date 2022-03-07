@@ -212,17 +212,37 @@ enctype 属性规定在发送到服务器之前应该如何对表单数据进行
 ## WebSocket
 它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。
 
+### URL
 * 协议标识符是ws（如果加密，则为wss），服务器网址就是 URL
 
-```
-ws://example.com:80/some/path
-```
+`ws://example.com:80/some/path`
 
 ### webSocket.readyState
 * CONNECTING：值为0，表示正在连接。
 * OPEN：值为1，表示连接成功，可以通信了。
 * CLOSING：值为2，表示连接正在关闭。
 * CLOSED：值为3，表示连接已经关闭，或者打开连接失败
+
+```
+var ws = new WebSocket("wss://echo.websocket.org");
+
+ws.onopen = function(evt) { 
+  console.log("Connection open ..."); 
+  ws.send("Hello WebSockets!");
+};
+
+ws.onmessage = function(evt) {
+  console.log( "Received Message: " + evt.data);
+  ws.close();
+};
+
+ws.onclose = function(evt) {
+  console.log("Connection closed.");
+};
+```
+
+### TODO
+使用node开发websocket响应服务器
 
 
 ## ES5
