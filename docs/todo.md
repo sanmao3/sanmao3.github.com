@@ -1,3 +1,9 @@
+```
+// (x, y)旋转θ后的坐标公式
+x' = x * cosθ - y * sinθ
+y' = x * sinθ + y * cosθ
+```
+
 
 ## TODO
 * nodemon restart server but it will install many packages
