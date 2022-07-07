@@ -47,6 +47,9 @@ css: {
 13. 了解`background: repeating-conic-gradient()`锥形渐变
 14. 使用less循环
 15. grid item content expanding problem in firefox v53.0.3 that 1fr means minmax(auto, 1fr), so set min-width: 0 or minmax(0, 1fr). see [automatic minimum size of grid item](https://www.w3.org/TR/css3-grid-layout/#min-size-auto)
+16. `mouseover&mouseout`vs`mouseenter&mouseleave`
+17. 深度选择器`/deep/`
+18. `Content-Type: multipart/form-data` vs `Content-Type: application/x-www-form-urlencoded` vs `Content-Type: application/json`
 
 ### UI设计
 1. SQL语句悬浮框展示，黑色背景`rgba(0, 0, 0, 0.9)`or`#1c2237`，关键词高亮并换行，易读、美观、舒适、匹配用户习惯的场景。关键词如SELECT,FROM,WHERE,ORDER BY,GROUP BY,LIMIT等。`color: #c678dd`

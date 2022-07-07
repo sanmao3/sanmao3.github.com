@@ -4,10 +4,10 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>Ajax</title>
-		<script src="js/jQuery.1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../javascripts/jQuery.1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<form name="form" method="post" action="/" enctype="multipart/form-data">
+		<form name="form" method="post" action="/" enctype="application/x-www-form-urlencoded">
 			<input type="file" name="logo" />
 			<input type="text" name="name" />
 			<button type="button">提交</button>
@@ -18,9 +18,22 @@
 				$.ajax({
 					type: "post",
 					url: "/",
-					data: new FormData($('form')[0]),
+					// data: new FormData($('form')[0]),
+          // data: JSON.stringify({
+          //   a: 1,
+          //   b: 2
+          // }),
+          data: {
+            a: 1,
+            b: 2
+          },
+          headers: {
+            // 'Content-Type': 'multipart/form-data'
+            // 'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
 					processData: false,
-					contentType: false,
+					// contentType: false,
 					success: function(response){
 						
 					}

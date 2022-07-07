@@ -5,6 +5,10 @@ y' = x * sinθ + y * cosθ
 ```
 
 
+使用getBoundingClientRect()方法可以立刻获得网页元素的位置。
+它返回一个对象，其中包含了left、right、top、bottom四个属性
+
+
 ## TODO
 * nodemon restart server but it will install many packages
 * cookie(nodejs-filereader save dirPath from token) and token
