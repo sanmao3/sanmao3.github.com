@@ -43,17 +43,19 @@ css: {
 9. `animation-fill-mode: both;`表示动画执行前取动画第一帧值并应用在元素上，和动画结束后取最后一帧值应用在元素上。
 10. 网格布局grid关于`repeat(auto-fill, minmax(min, max))`和`repeat(auto-fit, minmax(min, max))`区别
 11. svg中`textPath`使用
-12. 谷歌渲染的最小字体是12px，火狐没有限制，可以是任意值，如10px、5px等，甚至是负数(此时字体渲染成12px)
-13. 了解`background: repeating-conic-gradient()`锥形渐变
-14. 使用less循环
-15. grid item content expanding problem in firefox v53.0.3 that 1fr means minmax(auto, 1fr), so set min-width: 0 or minmax(0, 1fr). see [automatic minimum size of grid item](https://www.w3.org/TR/css3-grid-layout/#min-size-auto)
-16. `mouseover&mouseout`vs`mouseenter&mouseleave`
-17. 深度选择器`/deep/`
-18. `Content-Type: multipart/form-data` vs `Content-Type: application/x-www-form-urlencoded` vs `Content-Type: application/json`
+12. svg中可以使用`foreignObject`，Common use case: embed HTML text into SVG
+13. 谷歌渲染的最小字体是12px，火狐没有限制，可以是任意值，如10px、5px等，甚至是负数(此时字体渲染成12px)
+14. 了解`background: repeating-conic-gradient()`锥形渐变
+15. 使用less循环
+16. grid item content expanding problem in firefox v53.0.3 that 1fr means minmax(auto, 1fr), so set min-width: 0 or minmax(0, 1fr). see [automatic minimum size of grid item](https://www.w3.org/TR/css3-grid-layout/#min-size-auto)
+17. `mouseover&mouseout`vs`mouseenter&mouseleave`
+18. 深度选择器`/deep/`
+19. `Content-Type: multipart/form-data` vs `Content-Type: application/x-www-form-urlencoded` vs `Content-Type: application/json`
 
 ### UI设计
 1. SQL语句悬浮框展示，黑色背景`rgba(0, 0, 0, 0.9)`or`#1c2237`，关键词高亮并换行，易读、美观、舒适、匹配用户习惯的场景。关键词如SELECT,FROM,WHERE,ORDER BY,GROUP BY,LIMIT等。`color: #c678dd`
-2. 表单高级选项的使用
+2. 后台日志内容使用等宽字体`Consolas`
+3. 表单高级选项的使用
 
 ### 日志查看
 #### nodejs-filereader

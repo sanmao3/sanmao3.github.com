@@ -8,6 +8,18 @@ y' = x * sinθ + y * cosθ
 使用getBoundingClientRect()方法可以立刻获得网页元素的位置。
 它返回一个对象，其中包含了left、right、top、bottom四个属性
 
+## TODO
+* 实现树状结构绘制（树状拓扑图、树状结构图、树状甘特图）（canvas & svg）（三次贝塞尔曲线）
+* 实现缩放拖拽（设置边界、拖拽分类功能）
+* 研究d3重力布局实现原理
+* 思考SAN拓扑图实现方案
+* css实现字体渐变、背景网络
+* svg实现环形进度条
+* 实现数字流量雨
+* svg箭头流动
+* 实现正弦函数波浪🌊
+* 选择文本显示弹框（window.getSelection()），右击选择弹框
+
 
 ## TODO
 * nodemon restart server but it will install many packages

@@ -1,219 +1,223 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>选择图片</title>
-		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
-		<style type="text/css">
-			canvas{
-				border: 1px solid #ccc;
-			}
-			
-			.crop-area{
-				position: relative;
-				height: 500px;
-				text-align: center;
-				overflow: hidden;
-			}
-			
-			.crop-area img{
-				position: absolute;
-				top: 50%;
-				left: 50%;
-			}
-			
-			.window{
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				-webkit-transform: translateY(-50%) translateX(-50%);
-				width: 200px;
-				height: 200px;
-				box-sizing: border-box;
-				background: transparent;
-				border: 2px dashed #000;
-			}
-			
-			.cover{
-				position: absolute;
-				background: rgba(0,0,0,0.7);
-			}
-			
-			.cover-top,
-			.cover-bottom{
-				left: 0px;
-				right: 0px;
-			}
-			
-			.cover-top{
-				top: 0px;
-				bottom: 50%;
-				margin-bottom: 100px;
-			}
-			
-			.cover-bottom{
-				top: 50%;
-				bottom: 0px;
-				margin-top: 100px;
-			}
-			
-			.cover-left,
-			.cover-right{
-				top: 50%;
-				height: 200px;
-				margin-top: -100px;
-			}
-			
-			.cover-left{
-				left: 0px;
-				right: 50%;
-				margin-right: 100px;
-			}
-			
-			.cover-right{
-				left: 50%;
-				right: 0px;
-				margin-left: 100px;
-			}
-			
-			.add{
-				display: inline-block;
-				width: 100px;
-				height: 35px;
-				line-height: 35px;
-				text-align: center;
-				border: 1px solid orange;
-				border-radius: 8px;
-				color: orange;
-				vertical-align: top;
-				margin: 10px;
-				position: relative;
-			}
-			
-			.add input[type=file]{
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				opacity: 0;
-				cursor: pointer;
-			}
-		</style>
-	</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>选择图片</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+      }
 
-	<body>
-		<div class="container">
-			<div class="crop-area">
-				<img src="" />
-				
-				<div class="window"></div>
-				<div class="cover cover-top"></div>
-				<div class="cover cover-left"></div>
-				<div class="cover cover-right"></div>
-				<div class="cover cover-bottom"></div>
-			</div>
-			
-			<div class="add">
-				选择图片
-				<input type="file" id="fileInput" accept="image/*" onchange="selectImage();" />
-			</div>
-			
-			<canvas id="canvas"></canvas>
-		</div>
-			
-		<script src="../javascripts/hammer.min.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-			var content = document.querySelector(".crop-area"),
-				fileInput = document.getElementById('fileInput'),
-				headImage = document.querySelector("img"),
-				canvas = document.getElementById("canvas"),
-				ctx = canvas.getContext('2d');
-				
-			var size = 200,
-				damp = 0.03,
-				oWidth = null,
-				oHeight = null,
-				tempWidth = null,
-				tempHeight = null,
-				ratio = 1,
-				marginTop = 0,
-				marginLeft = 0;
-				
-			canvas.width = size;
-			canvas.height = size;
-			
-			var fileReader = new FileReader();
-			
-			fileReader.onload = function(e){
-				headImage.src = e.target.result;
-				
-				initImage(e.target.result);
-			};
-			
-			function selectImage(){
-				fileReader.readAsDataURL(fileInput.files[0]);
-			}
-			
-			function initImage(path){
-				var img = new Image();
-				img.onload = function(){
-					oWidth = img.width;
-					oHeight = img.height;
-						
-					ratio = oWidth >= oHeight ? (size / oHeight) : size / oWidth;
-					
-					tempWidth = oWidth * ratio,
-					tempHeight = oHeight * ratio;
-						
-					marginTop = - tempHeight / 2;
-					marginLeft = - tempWidth / 2;
-						
-					headImage.style.width = tempWidth + 'px';
-					headImage.style.height = tempHeight + 'px';
-					headImage.style.marginTop = marginTop + 'px';
-					headImage.style.marginLeft = marginLeft + 'px';
-					
-					var tempSize = size / ratio;
-					
-					var x = (-marginLeft - size / 2) / ratio,
-						y = (-marginTop - size / 2) / ratio;
-					
-					ctx.drawImage(img, x, y, tempSize, tempSize, 0, 0, size, size);
-				};
-				img.src = path;
-				
-				
-				var mc = new Hammer(content, {
-				  	recognizers: [
-				      	[Hammer.Pan, { direction: Hammer.DIRECTION_ALL }]
-				  	]
-				});
-				mc.on("panmove", function(ev) {
-					//console.log(ev);
-					var x = ev.deltaX,
-						y = ev.deltaY;
-						
-					marginTop = Math.round(marginTop + y * damp);
-					marginLeft = Math.round(marginLeft + x * damp);
-					
-					//console.log(marginTop, marginLeft);
-					
-					headImage.style.marginTop = marginTop + 'px';
-					headImage.style.marginLeft = marginLeft + 'px';
-					
-					var tempSize = size / ratio;
-					
-					var x = (-marginLeft - size / 2) / ratio,
-						y = (-marginTop - size / 2) / ratio;
-					
-					ctx.clearRect(0, 0, size, size);
-					ctx.drawImage(img, x, y, tempSize, tempSize, 0, 0, size, size);
-				});
-			}
-		</script>
-	</body>
+      html,
+      body {
+        height: 100%;
+      }
+
+      .container {
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+      }
+
+      canvas {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        border: 1px solid yellow;
+      }
+
+      .window {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translateY(-50%) translateX(-50%);
+        box-sizing: border-box;
+        border: 2px dashed #000;
+      }
+
+      .cover {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .cover-top,
+      .cover-bottom {
+        left: 0px;
+        right: 0px;
+      }
+
+      .cover-top {
+        top: 0px;
+        bottom: 50%;
+        margin-bottom: 100px;
+      }
+
+      .cover-bottom {
+        top: 50%;
+        bottom: 0px;
+        margin-top: 100px;
+      }
+
+      .cover-left,
+      .cover-right {
+        top: 50%;
+        height: 200px;
+        margin-top: -100px;
+      }
+
+      .cover-left {
+        left: 0px;
+        right: 50%;
+        margin-right: 100px;
+      }
+
+      .cover-right {
+        left: 50%;
+        right: 0px;
+        margin-left: 100px;
+      }
+
+      .btn-add {
+        width: 100px;
+        height: 35px;
+        color: orange;
+        line-height: 35px;
+        text-align: center;
+        border: 1px solid orange;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 10px;
+        position: relative;
+      }
+
+      .btn-add input[type=file] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <img class="image" src="" />
+
+      <div class="window"></div>
+      <div class="cover cover-top"></div>
+      <div class="cover cover-left"></div>
+      <div class="cover cover-right"></div>
+      <div class="cover cover-bottom"></div>
+
+      <div class="btn-add">
+        <span>选择图片</span>
+        <input type="file" id="fileInput" accept="image/*" onchange="selectImage();" />
+      </div>
+
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <script type="text/javascript">
+      var content = document.querySelector(".container"),
+        fileInput = document.getElementById('fileInput'),
+        headImage = document.querySelector("img"),
+        canvas = document.getElementById("canvas"),
+        ctx = canvas.getContext('2d');
+
+      var size = 200,
+        ratio = 1,
+        marginTop = 0,
+        marginLeft = 0;
+
+      var isMouseDown = false
+      var startX = 0
+      var startY = 0
+      var xx = 0
+      var yy = 0
+
+      canvas.width = size;
+      canvas.height = size;
+
+      var fileReader = new FileReader();
+
+      fileReader.onload = function(e) {
+        headImage.src = e.target.result;
+
+        initImage(e.target.result);
+      };
+
+      function selectImage() {
+        fileReader.readAsDataURL(fileInput.files[0]);
+      }
+
+      function initImage(path) {
+        var img = new Image();
+        img.onload = function() {
+          let oWidth = img.width;
+          let oHeight = img.height;
+
+          ratio = oWidth >= oHeight ? (size / oHeight) : size / oWidth;
+
+          let tempWidth = oWidth * ratio
+          let tempHeight = oHeight * ratio;
+
+          marginTop = -tempHeight / 2;
+          marginLeft = -tempWidth / 2;
+
+          headImage.style.width = tempWidth + 'px';
+          headImage.style.height = tempHeight + 'px';
+
+          handleImage(img)
+        };
+        img.src = path;
+
+
+
+        content.addEventListener('mousedown', e => {
+          isMouseDown = true
+          startX = e.clientX
+          startY = e.clientY
+          xx = marginLeft
+          yy = marginTop
+        })
+
+        window.addEventListener('mousemove', e => {
+          if (isMouseDown) {
+            marginTop = yy + (e.clientY - startY) * 0.8;
+            marginLeft = xx + (e.clientX - startX) * 0.8;
+            handleImage(img)
+          }
+        })
+
+        window.addEventListener('mouseup', e => {
+          isMouseDown = false
+        })
+      }
+
+      function handleImage(img) {
+        headImage.style.transform = `translate(${marginLeft}px, ${marginTop}px)`
+
+        var ox = (-marginLeft - size / 2) / ratio
+        var oy = (-marginTop - size / 2) / ratio;
+
+        ctx.clearRect(0, 0, size, size);
+        ctx.drawImage(img, ox, oy, size / ratio, size / ratio, 0, 0, size, size);
+      }
+    </script>
+  </body>
 
 </html>
