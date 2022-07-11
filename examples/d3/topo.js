@@ -16,6 +16,7 @@ const simulation = forceSimulation(nodes)
     forceLink(links).id(d => d.id)
   )
   .force('collide', forceCollide().radius(80))
+  .force('center', forceCenter())
   .force('x', forceX(0))
   .force('y', forceY(0));
 
@@ -101,6 +102,8 @@ node
   .on('click', () => {
     alert('hello');
   });
+  
+  console.log(nodes, links)
 
 node.append('text')
   .attr('fill', 'white')
