@@ -93,7 +93,7 @@ node
   .data(nodes)
   .attr(
     'href',
-    d => d.warning ? './images/node_warning.png' : './images/node.png'
+    d => d.warning ? './assets/images/node_warning.png' : './assets/images/node.png'
   )
   .attr('width', iconWidth)
   .attr('height', iconHeight)
@@ -110,7 +110,7 @@ node.append('text')
   .attr('font-size', '10')
   .attr('dy', iconHeight / 2)
   .data(nodes).text(function(d) {
-    return '核心联机';
+    return '宇宙飞船';
   });
 
 function linkArc(d) {
