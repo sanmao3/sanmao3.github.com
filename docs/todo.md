@@ -4,6 +4,17 @@ x' = x * cosθ - y * sinθ
 y' = x * sinθ + y * cosθ
 ```
 
+```
+function handleDrop(e) {
+  e.stopPropagation(); // Stops some browsers from redirecting.
+  e.preventDefault();
+
+  var files = e.dataTransfer.files;
+  for (var i = 0, f; f = files[i]; i++) {
+    // Read the File objects in this FileList.
+  }
+}
+```
 
 使用getBoundingClientRect()方法可以立刻获得网页元素的位置。
 它返回一个对象，其中包含了left、right、top、bottom四个属性

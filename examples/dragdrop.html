@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Drag and Drop</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      
+      html,
+      body,
+      .container {
+        height: 100%;
+      }
+      
+      .container {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        grid-template-rows: 1fr;
+        grid-gap: 10px;
+        padding: 10px;
+      }
+      
+      .aside {
+        border: 1px solid #eee;
+      }
+      
+      .aside .menu {
+        padding: 8px 10px;
+        border-bottom: 1px solid #eee;
+        user-select: none;
+      }
+      
+      .aside .menu:hover {
+        background-color: mistyrose;
+      }
+      
+      .content {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-template-rows: auto;
+        grid-gap: 10px;
+        border: 1px solid #eee;
+        padding: 10px;
+      }
+      
+      .box {
+        height: 100px;
+        border: 1px solid #eee;
+        text-align: center;
+        padding: 10px;
+      }
+      
+      .custom-drag-image {
+        position: absolute;
+        top: 0;
+        left: -9999px;
+      }
+      
+      #dragImage {
+        border: 1px solid #eee;
+        padding: 5px;
+        text-align: center;
+        background-color: white;
+        position: relative;
+      }
+      
+      #dragImage .count {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="aside">
+        <div class="menu"><span>one</span></div>
+        <div class="menu"><span>two</span></div>
+        <div class="menu"><span>three</span></div>
+        <div class="menu"><span>four</span></div>
+        <div class="menu"><span>five</span></div>
+      </div>
+      <div class="content">
+        <div id="box1" class="box" draggable="true">box1</div>
+        <div id="box2" class="box" draggable="true">box2</div>
+        <div id="box3" class="box" draggable="true">box3</div>
+        <div id="box4" class="box" draggable="true">box4</div>
+        <div id="box5" class="box" draggable="true">box5</div>
+      </div>
+      <div class="custom-drag-image">
+        <div id="dragImage">
+          <img src="../images/bg@2x.png" width="100" />
+          <p>box</p>
+          <span class="count">2</span>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // 自定义拖拽图像
+      const dragImage = document.getElementById('dragImage')
+      
+      // 处理可拖拽元素
+      Array.from(document.querySelectorAll('.box')).forEach(el => {
+        el.addEventListener('dragstart', function(e){
+          this.style.opacity = '0.5'
+          dragImage.querySelector('p').textContent = this.textContent
+          
+          // e.dataTransfer.effectAllowed = "copy";
+          e.dataTransfer.setDragImage(dragImage, 50, 50)
+          e.dataTransfer.setData("text/plain", this.textContent);
+        })
+        
+        el.addEventListener('dragend', function(e){
+          this.style.opacity = '1'
+        })
+      })
+      
+      // 处理拖拽放置区
+      Array.from(document.querySelectorAll('.menu')).forEach(el => {
+        el.addEventListener('dragover', function(e){
+          e.preventDefault()
+          e.dataTransfer.dropEffect = "copy";
+        })
+        
+        el.addEventListener('dragenter', function(e){
+          e.preventDefault()
+          el.style.backgroundColor = 'yellow'
+        })
+        
+        el.addEventListener('dragleave', function(e){
+          e.preventDefault()
+          el.style.backgroundColor = null
+        })
+        
+        el.addEventListener('drop', function(e){
+          e.preventDefault()
+          el.style.backgroundColor = null
+          
+          let data = e.dataTransfer.getData("text/plain");
+          el.textContent += `-${data}`
+          
+          document.querySelector('.content').removeChild(document.getElementById(data))
+          
+          return false
+        })
+      })
+    </script>
+  </body>
+</html>
