@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>checkerboard</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      .checkerboard {
+        height: 100%;
+        background: linear-gradient(45deg, #000 25%, transparent 25%), linear-gradient(45deg, #000 25%, transparent 25%),
+          linear-gradient(-135deg, #000 25%, transparent 25%), linear-gradient(-135deg, #000 25%, transparent 25%) #fff;
+        background-size: 80px 80px;
+        background-position: 0 0, 40px -40px, 0 0, -40px 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="checkerboard"></div>
+  </body>
+</html>
