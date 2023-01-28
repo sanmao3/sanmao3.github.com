@@ -11,6 +11,7 @@
     <!-- 进度条 -->
     <progress max="120" value="40"></progress>
     
+    <!-- postMessage -->
     <iframe width="200" height="100" src="http://127.0.0.1:8848/sanmao3/examples/watermark.html"></iframe>
     
     <script>
@@ -21,12 +22,20 @@
         // window.postMessage('hello', '*')
         document.querySelector('iframe').contentWindow.postMessage({a: 123}, '*')
       }, 2000)
+      
+      // iframe页面监听message
+      window.addEventListener('message', function(e){
+        console.log(e.data)
+      })
     </script>
 
+    <script src="utils.js"></script>
+    <script>
+      toast('welcome')
+    </script>
+    
+    <!-- Fragment -->
     <ul></ul>
-    
-    
-    <!-- js -->
     <script type="text/javascript">
       var ul = document.getElementsByTagName("ul")[0]; // assuming it exists
       var docfrag = document.createDocumentFragment();
@@ -59,13 +68,6 @@
     
     <!-- 水印 -->
     <script>
-      
-      window.addEventListener('message', function(e){
-        console.log(e.data)
-      })
-      
-      
-      
       function generateWaterMark(text) {
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
