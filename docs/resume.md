@@ -21,6 +21,10 @@ css: {
   }
 }
 ```
+10. 注入`provide``inject`共享父子组件数据
+11. main.js中require *.css导入文件在插入到public/index.html页面head时，为啥不是在组件css前面
+> 注意问题，入口文件中如果有 css 导入，要注意先导入的组件的 css 会比入口文件中的 css 先导入。
+12. `-webkit-box-orient: vertical;` 编译后会消失，需要添加 `/* autoprefixer: off */`
 
 ### 日志平台
 1. 更新@jeecg/antd-online/dist/OnlineForm.css，低版本将整个项目的css代码全部打包进去了，导致样式优先级问题

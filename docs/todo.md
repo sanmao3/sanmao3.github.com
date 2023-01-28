@@ -35,11 +35,7 @@ google font 'Rubik Moonrocks'
 
 antd select 数据量大时很卡顿
 
-createDocumentFragment() 渲染性能优化
-
 `hyphens`告知浏览器在换行时如何使用连字符连接单词
-
-这种支持多语言的功能称之为国际化，英文是internationalization，缩写为i18n（因为首字母i和末字母n中间有18个字母）。
 
 ```
 1、   传递参数时需要使用encodeURIComponent，这样组合的url才不会被#等特殊字符截断。                            
@@ -65,18 +61,10 @@ createDocumentFragment() 渲染性能优化
 * 选择文本显示弹框（window.getSelection()），右击选择弹框
 * CSS Art
 * 一个 sticky 元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（当该祖先的overflow 是 hidden, scroll, auto, 或 overlay时），即便这个祖先不是最近的真实可滚动祖先。
-
-
-## TODO
 * nodemon restart server but it will install many packages
 * cookie(nodejs-filereader save dirPath from token) and token
 * 优化3d柱图
-* color.less JEditor
-* antd-multi-cascader-vue
-* sso and cas
-* SaaS，Software as a service，软件即服务
-*  -webkit-box-orient: vertical;  编译后会没有，添加/* autoprefixer: off */
-[](https://www.bryanbraun.com/checkboxland/docs/demos/webcam-test/)
+* [](https://www.bryanbraun.com/checkboxland/docs/demos/webcam-test/)
 * `string.codePointAt(index)`,`String.fromCodePoint(number)`,正规化`string.normalize([normForm])`
 * 小球动画在高刷新率的屏幕下运行的更快
 * WebWorker
@@ -84,27 +72,16 @@ createDocumentFragment() 渲染性能优化
 * jupyter notebook [ipython](https://ipython.org/)
 * PWA应用
 * web安全 API
-- figma
-- spark plugin  
-- MQTT
 - 最长递增子序列 贪心算法
 - eslint
-- FreeMarker
-- GeeksforGeeks
-- freelancer
-- avocode
-- Instagram = ins
 
 ## Q&A
-- 专业的语言形容自己
-- 延展问题在项目中的应用
 - snabbdom
 - stdout stdin stderr
 - cwd command
 - hbs 模板 handlebars
 - 柯里化
-- compositionstart
-- chalk
+- compositionstart compositionend 中文过滤时会用到，v-model里有用到
 - with(){}
 - pwa service work
 - 骨架屏
@@ -114,8 +91,6 @@ createDocumentFragment() 渲染性能优化
 - element.scrollTo() mdn
 - [grid](https://www.joomlashack.com/blog/tutorials/center-and-align-items-in-css-grid/)
 - dart eggjs koa
-- [momentjs](https://momentjs.com/docs/#/parsing/string-format/)
-- [vue-i18n switch language](https://www.programmersought.com/article/72734289888/)
 
 ## Vue
 - vue-virtual-scroll-list
@@ -139,11 +114,7 @@ createDocumentFragment() 渲染性能优化
 - what why where how
 - v-model sync
 - github.com/57code/vue-interview
-- 子系统监控 子组件共享父组件数据 provide inject 注入 子系统监控页面 翻译字典优化
 - 异步组件
-- vue入口文件main.js require *.css导入文件 插入在public/index.html页面head时，为啥不是在组件css前面
-> 注意问题，入口文件中如果有 css 导入，要注意先导入的组件的 css 会比入口文件中的 css 先导入。
-
 
 ## CSS
 * line-height, mobile垂直居中兼容问题
