@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>HTML</title>
+  </head>
+
+  <body>
+    <!-- 进度条 -->
+    <progress max="120" value="40"></progress>
+    
+    <iframe width="200" height="100" src="http://127.0.0.1:8848/sanmao3/examples/watermark.html"></iframe>
+    
+    <script>
+      // window.postMessage('hello', '*')
+      document.querySelector('iframe').contentWindow.postMessage('hello', '*')
+      
+      setTimeout(function(){
+        // window.postMessage('hello', '*')
+        document.querySelector('iframe').contentWindow.postMessage({a: 123}, '*')
+      }, 2000)
+    </script>
+
+    <ul></ul>
+    
+    
+    <!-- js -->
+    <script type="text/javascript">
+      var ul = document.getElementsByTagName("ul")[0]; // assuming it exists
+      var docfrag = document.createDocumentFragment();
+      var browserList = ["Internet Explorer", "Firefox", "Safari", "Chrome", "Opera"];
+
+      browserList.forEach(function(e) {
+        var li = document.createElement("li");
+        li.textContent = e;
+        docfrag.appendChild(li);
+      });
+
+      ul.appendChild(docfrag);
+    </script>
+    
+    <script>
+      document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState == 'hidden') {
+          console.log('hidden')
+        }
+      });
+      
+      window.addEventListener('beforeunload', (event) => {
+        // Cancel the event as stated by the standard.
+        event.preventDefault();
+        // Chrome requires returnValue to be set.
+        event.returnValue = '提示';
+        return 'tip'
+      });
+    </script>
+    
+    <!-- 水印 -->
+    <script>
+      
+      window.addEventListener('message', function(e){
+        console.log(e.data)
+      })
+      
+      
+      
+      function generateWaterMark(text) {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        
+        // canvas画布大小
+        canvas.width = 200
+        canvas.height = 80
+        
+        // 水印字样式
+        ctx.font = '15px Vedana'
+        ctx.fillStyle = '#999'
+        
+        // 水印旋转角度
+        ctx.rotate(-30 * Math.PI / 180)
+        ctx.fillText(text, 0, canvas.height)
+        
+        return canvas.toDataURL('image/png')
+      }
+      
+      function setWatermark(targetNode, text){
+        const styleStr = `background: url(${generateWaterMark(text)}) left top repeat;`
+        targetNode.setAttribute('style', styleStr)
+        
+        // 观察器的配置（需要观察什么变动）
+        const config = {
+          attributes: true
+        };
+        
+        // 当观察到变动时执行的回调函数
+        const callback = function(mutationsList, observer) {
+          mutationsList.forEach(mutation => {
+            if (mutation.type === 'attributes' && targetNode.getAttribute('style') !== styleStr) {
+              targetNode.setAttribute('style', styleStr)
+            }
+          })
+        };
+        
+        // 创建一个观察器实例并传入回调函数
+        const observer = new MutationObserver(callback);
+        
+        // 以上述配置开始观察目标节点
+        observer.observe(targetNode, config);
+      }
+    
+      setWatermark(document.body, 'sanmao3.github.io')
+    </script>
+    
+    <!-- 打印 -->
+    <script>
+      function print(){
+        newwin = window.open("", "newwin", "height=" + window.screen.height + ",width=" + window.screen.width + "");
+        newwin.document.body.innerHTML = '打印内容';
+        
+        setTimeout(function(){
+          newwin.window.print();
+          //newwin.window.close();
+        }, 1000);
+      }
+    </script>
+  </body>
+
+</html>
