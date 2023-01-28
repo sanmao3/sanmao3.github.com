@@ -1,3 +1,9 @@
+- 背景
+- 解决思路
+- 工程实践
+- 总结与展望
+
+
 ```
 // (x, y)旋转θ后的坐标公式
 x' = x * cosθ - y * sinθ
@@ -19,7 +25,32 @@ function handleDrop(e) {
 使用getBoundingClientRect()方法可以立刻获得网页元素的位置。
 它返回一个对象，其中包含了left、right、top、bottom四个属性
 
+CommonJs AMD CMD UMD ES6 Module
+
+密码加密
+
+The change event of the `MediaQueryList` interface fires when the status of media query support changes.
+
 google font 'Rubik Moonrocks'
+
+antd select 数据量大时很卡顿
+
+createDocumentFragment() 渲染性能优化
+
+`hyphens`告知浏览器在换行时如何使用连字符连接单词
+
+这种支持多语言的功能称之为国际化，英文是internationalization，缩写为i18n（因为首字母i和末字母n中间有18个字母）。
+
+```
+1、   传递参数时需要使用encodeURIComponent，这样组合的url才不会被#等特殊字符截断。                            
+
+例如：<script language="javascript">document.write('<a href="http://passport.baidu.com/?logout&aid=7&u= +encodeURIComponent("http://cang.baidu.com/bruce42")+">退出< /a>');</script> 
+
+2、   进行url跳转时可以整体使用encodeURI 
+
+例如：Location.href=encodeURI("http://cang.baidu.com/do/s?word=百度&ct=21"); 
+```
+
 
 ## TODO
 * 实现树状结构绘制（树状拓扑图、树状结构图、树状甘特图）（canvas & svg）（三次贝塞尔曲线）
@@ -32,6 +63,8 @@ google font 'Rubik Moonrocks'
 * svg箭头流动
 * 实现正弦函数波浪🌊
 * 选择文本显示弹框（window.getSelection()），右击选择弹框
+* CSS Art
+* 一个 sticky 元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（当该祖先的overflow 是 hidden, scroll, auto, 或 overlay时），即便这个祖先不是最近的真实可滚动祖先。
 
 
 ## TODO
@@ -41,6 +74,7 @@ google font 'Rubik Moonrocks'
 * color.less JEditor
 * antd-multi-cascader-vue
 * sso and cas
+* SaaS，Software as a service，软件即服务
 *  -webkit-box-orient: vertical;  编译后会没有，添加/* autoprefixer: off */
 [](https://www.bryanbraun.com/checkboxland/docs/demos/webcam-test/)
 * `string.codePointAt(index)`,`String.fromCodePoint(number)`,正规化`string.normalize([normForm])`
