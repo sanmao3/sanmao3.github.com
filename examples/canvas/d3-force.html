@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script src="utils/index.js"></script>
+    <script type="module">
+      // start
+      const radius = 20
+      const n = 4
+
+      const circles = Array.from({
+        length: 200
+      }, (_, i) => ({
+        r: 10,
+        color: `rgba(${randomColorValue()}, ${randomColorValue()}, ${randomColorValue()}, 0.8)`
+      }))
+
+      function randomColorValue() {
+        return Math.floor(Math.random() * 255)
+      }
+
+      function render() {
+        context.clearRect(0, 0, width, height)
+        context.save()
+        context.translate(width / 2, height / 2);
+        for (let {
+            x,
+            y,
+            color
+          } of circles) {
+          context.beginPath()
+          context.moveTo(x, y)
+          context.arc(x, y, radius, 0, Math.PI * 2, false)
+          context.fillStyle = color
+          context.fill()
+        }
+        context.restore()
+      }
+
+      import {
+        select
+      } from "https://cdn.skypack.dev/d3-selection@3";
+      import {
+        forceSimulation,
+        forceCollide,
+        forceX,
+        forceY,
+        forceManyBody
+      } from "https://cdn.skypack.dev/d3-force@3";
+
+      const simulation = forceSimulation(circles)
+        .alphaTarget(0.3) // stay hot
+        .velocityDecay(0.1) // low friction
+        .force("x", forceX().strength(0.01))
+        .force("y", forceY().strength(0.01))
+        .force("collide", forceCollide().radius(10).iterations(3))
+        .force("charge", forceManyBody().strength((d, i) => i ? 0 : -width * 2 / 3))
+        .on("tick", render);
+
+      select('canvas')
+        // .on("touchmove", event => event.preventDefault())
+        .on("pointermove", pointed);
+
+      function pointed(event) {
+        const {
+          x,
+          y
+        } = event
+        circles[0].fx = x - width / 2;
+        circles[0].fy = y - height / 2;
+      }
+    </script>
+  </body>
+</html>

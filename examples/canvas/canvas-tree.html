@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script src="utils/index.js"></script>
+    <script type="text/javascript">
+      var random = Math.random(),
+        maxAngle = Math.PI / 2,
+        maxBranch = 3;
+
+      draw(width / 2, height, 120, (Math.PI / 2), 12, 12);
+
+      function draw(startX, startY, length, angle, branchWidth, depth) {
+        context.beginPath();
+        context.moveTo(startX, startY);
+        var endX = startX + length * Math.cos(angle),
+          endY = startY - length * Math.sin(angle);
+        context.lineCap = 'round';
+        context.lineWidth = branchWidth;
+        context.lineTo(endX, endY);
+
+        if (depth <= 2) {
+          context.strokeStyle = 'darkgreen';
+        } else {
+          context.strokeStyle = '#333';
+        }
+
+        context.stroke();
+
+        if (depth == 0) return;
+
+        var subBranches = Math.random() * (maxBranch - 1) + 1;
+        branchWidth *= 0.7;
+        depth--;
+        for (var i = 0; i < subBranches; i++) {
+          angle = angle + Math.random() * maxAngle - maxAngle * 0.5;
+          length = length * (0.7 + Math.random() * 0.3);
+          draw(endX, endY, length, angle, branchWidth, depth);
+        }
+      }
+    </script>
+  </body>
+
+</html>

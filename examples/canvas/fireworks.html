@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script src="utils/index.js"></script>
+    <script>
+
+      function drawParticles(particles) {
+        for (let i = 0; i < particles.length; i++) {
+          let p = particles[i]
+
+          drawParticle(p)
+        }
+      }
+
+      function drawParticle(particle) {
+        context.beginPath()
+        context.arc(particle.x, particle.y, 3, 0, Math.PI * 2, false)
+        context.fillStyle = 'rgba(20, 150, 80, 0.5)'
+        context.fill()
+      }
+
+      let x = width * 0.5
+      let y = 200
+      let r = 20
+      let particles = []
+
+      function update() {
+        context.clearRect(0, 0, width, height)
+        if (y > 50) {
+          drawParticle({
+            x,
+            y
+          })
+        }
+
+        y--
+
+        if (y < 0) {
+          y = 200
+          particles = []
+        }
+
+        // 文字粒子，canvas绘制文字，通过getImageData获取像素，通过判断像素非透明获取坐标，就可以渲染粒子成文字图案
+
+        if (y == 50) {
+          for (let i = 0; i < 50; i++) {
+            let angle = Math.random() * 2 * Math.PI
+            let a = x + r * Math.cos(angle)
+            let b = y + r * Math.sin(angle)
+
+            let vx = Math.cos(angle) * 0.8
+            let vy = Math.sin(angle) * 0.8
+
+            particles.push({
+              x: a,
+              y: b,
+              vx,
+              vy
+            })
+          }
+        }
+
+        if (y < 50 && y > 0) {
+          for (let i = 0; i < particles.length; i++) {
+            particles[i].x += particles[i].vx
+            particles[i].y += particles[i].vy
+          }
+          drawParticles(particles)
+        }
+
+        requestAnimationFrame(update)
+
+      }
+
+      update()
+    </script>
+  </body>
+</html>

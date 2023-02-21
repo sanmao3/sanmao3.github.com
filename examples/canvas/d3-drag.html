@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script src="utils/index.js"></script>
+    <script type="module">
+      // start
+      const radius = 20
+      const circles = [1, 2, 3, 4, 5, 6].map(i => {
+        return {
+          x: Math.random() * (width - radius * 2),
+          y: Math.random() * (height - radius * 2),
+          color: `rgba(${randomColorValue()}, ${randomColorValue()}, ${randomColorValue()}, 0.8)`
+        }
+      })
+
+      function randomColorValue() {
+        return Math.floor(Math.random() * 255)
+      }
+
+      render()
+
+      function render() {
+        context.clearRect(0, 0, width, height)
+        for (let {
+            x,
+            y,
+            color
+          } of circles) {
+          context.beginPath()
+          context.moveTo(x, y)
+          context.arc(x, y, radius, 0, Math.PI * 2, false)
+          context.fillStyle = color
+          context.fill()
+        }
+      }
+
+      import {
+        select
+      } from "https://cdn.skypack.dev/d3-selection@3";
+      import {
+        drag
+      } from "https://cdn.skypack.dev/d3-drag@3";
+
+      function dragsubject(event) {
+        let subject = null;
+        let distance = radius * 2 // maxDistance;
+        for (const c of circles) {
+          let d = Math.hypot(event.x - c.x, event.y - c.y);
+          if (d < distance) {
+            distance = d;
+            subject = c;
+          }
+        }
+        return subject;
+      }
+
+      function dragged(event) {
+        event.subject.x = Math.max(radius, Math.min(width - radius, event.x));
+        event.subject.y = Math.max(radius, Math.min(height - radius, event.y));
+      }
+
+      function dragstarted({
+        subject
+      }) {
+        circles.splice(circles.indexOf(subject), 1);
+        circles.push(subject);
+        // subject.active = true;
+      }
+
+      select('canvas').call(
+        drag()
+        .subject(dragsubject)
+        .on('start', dragstarted)
+        .on('drag', dragged)
+        .on('start.render drag.render end.render', render)
+      )
+    </script>
+  </body>
+</html>

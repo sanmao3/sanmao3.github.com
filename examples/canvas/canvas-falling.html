@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+
+	<body>
+		<canvas id="canvas" style="border-bottom: 2px solid #666;"></canvas>
+    
+    <script src="utils/index.js"></script>
+		<script type="text/javascript">
+			//h = g * t^2;
+			//m = v0*t + a*t^2;
+			
+			var x = width / 2,
+				y = 11,
+				radius = 10,
+				g = 9.8,
+				a = g,
+				t = 0.15,
+				dir = 'down',
+				v2 = 0;
+				
+				
+			function falling(){
+				if(dir == 'down'){
+					a = g;
+					y = y + v2 * t + a * t * t;
+				}
+				
+				if(dir == 'up'){
+					a = -(g + 3.2);
+					y = y - (v2 * t + a * t * t);
+				}
+				
+				v2 = v2 + a * t;
+				
+				context.clearRect(0, 0, width, height);
+				context.beginPath();
+				context.arc(x, y, radius, 0, Math.PI * 2);
+				context.fillStyle = '#08AE9E';
+				context.fill();
+				
+				if(y + radius >= height && v2 <= 0){
+					return false;
+				}else if(y + radius >= height){
+					dir = 'up';
+					v2 -= 0.8;
+				}else if(v2 <= 0){
+					dir = 'down';
+				}
+				
+        requestAnimationFrame(falling)
+			}
+			
+			falling();
+		</script>
+	</body>
+
+</html>

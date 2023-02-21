@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script src="utils/index.js"></script>
+    <script type="module">
+      import {
+        select
+      } from "https://cdn.skypack.dev/d3-selection@3";
+      import {
+        drag
+      } from "https://cdn.skypack.dev/d3-drag@3";
+      import {
+        curveBasis
+      } from "https://cdn.jsdelivr.net/npm/d3-shape@3/+esm";
+
+
+      context.lineJoin = 'round';
+      context.lineCap = 'round';
+
+      let lines = [
+        [50, 100],
+        [300, 300],
+        [600, 100],
+        [700, 200]
+      ]
+
+      let curve = curveBasis(context)
+
+      render()
+
+      function render() {
+        context.clearRect(0, 0, width, height);
+        context.beginPath();
+
+        curve.lineStart();
+        for (const point of lines) {
+          curve.point(...point);
+        }
+        if (lines.length === 1) curve.point(...lines[0]);
+        curve.lineEnd();
+
+        context.stroke();
+
+        // for (const point of lines) {
+        //   context.rect(...point, 10, 10)
+        //   context.stroke()
+        // }
+      }
+
+
+      function dragged({
+        x,
+        y
+      }) {
+        lines.push([x, y])
+      }
+
+      select('#canvas').call(
+        drag()
+        .on("start drag", dragged)
+        .on("start.render drag.render", render)
+      )
+    </script>
+  </body>
+</html>
