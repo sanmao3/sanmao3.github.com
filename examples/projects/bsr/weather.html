@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>天气</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/qweather-icons@1.6.0/font/qweather-icons.css">
+    <style>
+      html {
+        font-size: 1vw;
+      }
+
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color: #000;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 7fr 3fr;
+        gap: 2vw;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .top {
+        height: 20vh;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        align-items: center;
+        font-size: 2rem;
+      }
+
+      .top>div {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .top .icon {
+        font-size: 3rem;
+      }
+
+      .right {
+        display: grid;
+        grid-template-rows: repeat(9, 1fr);
+        align-items: center;
+        height: 90vh;
+        align-self: center;
+        background: linear-gradient(45deg, #db6a0f, #f9a7a7);
+        border-radius: 1rem;
+        margin-right: 1vw;
+        padding: 2vw;
+        box-sizing: border-box;
+        font-size: 2rem;
+      }
+
+      .right span {
+        color: #e0ff00;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="left">
+      <div class="top"></div>
+      <div id="echart" style="width: 100%; height:80vh;"></div>
+    </div>
+    <div class="right"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('echart'));
+
+      // 指定图表的配置项和数据
+      var option = {
+        color: ['#00ffff'],
+        grid: {
+          top: 0,
+          left: 30,
+          right: 30,
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          position: 'top',
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            fontSize: '1.5rem',
+            margin: 60
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(255, 255, 255, 0.15)'
+            }
+          },
+          boundaryGap: false
+        },
+        yAxis: {
+          axisLabel: {
+            show: false
+          },
+          splitLine: {
+            show: false
+          }
+        },
+        dataset: {
+          dimensions: ['time', 'temp'],
+          source: []
+        },
+        series: [{
+          name: '温度',
+          type: 'line',
+          label: {
+            show: true,
+            distance: 16,
+            formatter: '{@temp}°C',
+            color: 'rgba(255, 255, 255, 0.8)',
+            fontSize: '1.5rem'
+          }
+        }]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+      window.addEventListener('resize', function() {
+        myChart.resize()
+      })
+
+      init12hWeather()
+      initToday()
+
+      setInterval(function() {
+        init12hWeather()
+        initToday()
+      }, 0.5 * 60 * 60 * 1000)
+
+      function init12hWeather() {
+        fetch(
+          'https://devapi.qweather.com/v7/grid-weather/24h?location=119.809837,29.889534&key=1bf24e6d310244cca3e6e8198b85def7', {
+            method: 'get'
+          }).then(function(response) {
+          return response.json()
+        }).then(function(res) {
+          const curr = dayjs(new Date()).format('YYYY-MM-DDTHH:00')
+          const posi = res.hourly.findIndex(item => item.fxTime.startsWith(curr))
+          const data = res.hourly.slice(posi, posi + 12).map(item => {
+            return {
+              text: item.text,
+              icon: item.icon,
+              time: item.fxTime.replace(/[\d\-]+T([\d:]+)\+[\d:]+/, '$1'),
+              temp: parseInt(item.temp)
+            }
+          })
+          myChart.setOption({
+            dataset: {
+              source: data
+            }
+          })
+          const html = data.map(item => `<div><i class="icon qi-${item.icon}"></i>${item.text}</div>`).join('')
+          document.querySelector('.top').innerHTML = html
+        })
+      }
+
+      function initToday() {
+        fetch(
+          'https://devapi.qweather.com/v7/grid-weather/now?location=119.809837,29.889534&key=1bf24e6d310244cca3e6e8198b85def7', {
+            method: 'get'
+          }).then(function(response) {
+          return response.json()
+        }).then(function(res) {
+          const data = res.now
+          document.querySelector('.right').innerHTML = `
+            <div>当前位置：<span>富阳区桐洲岛</span></div>
+            <div>经度：<span>119.809837</span></div>
+            <div>纬度：<span>29.889534</span></div>
+            <div style="font-size: 1.5rem;">天气预报精确到3-5公里范围</div>
+            <div>风向：<span>${data.windDir}${data.wind360}度</span></div>
+            <div>风力等级：<span>${data.windScale}级</span></div>
+            <div>风速：<span>${data.windSpeed}公里/小时</span></div>
+            <div>相对湿度：<span>${data.humidity}%</span></div>
+            <div>大气压强：<span>${data.pressure}百帕</span></div>
+          `
+        })
+      }
+    </script>
+  </body>
+</html>

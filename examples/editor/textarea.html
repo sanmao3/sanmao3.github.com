@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Textarea</title>
+  </head>
+
+  <body>
+    <textarea class="textarea" rows="5" onfocus="setSelection()">这里是文字内容</textarea>
+
+    <button type="button" onclick="send()">发送</button>
+
+    <script>
+      const textarea = document.querySelector('.textarea')
+
+      let selectionStart = 0
+      let selectionEnd = 0
+
+      textarea.addEventListener("select", function(e) {
+        selectionStart = e.target.selectionStart
+        selectionEnd = e.target.selectionEnd
+      })
+
+      function setSelection() {
+        textarea.setSelectionRange(selectionStart, selectionEnd)
+      }
+
+      function send() {
+        const selection = textarea.value.substring(selectionStart, selectionEnd)
+        alert(`选中字符串为：\n"${selection}"`)
+      }
+    </script>
+  </body>
+</html>

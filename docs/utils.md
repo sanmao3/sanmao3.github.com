@@ -3,3 +3,5 @@
 
 
 ## Mac快捷键
+
+command+option+shift+esc 强行退出当前运行程序

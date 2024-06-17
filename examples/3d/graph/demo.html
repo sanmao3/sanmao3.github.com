@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>3d-force-graph</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <script src="//unpkg.com/3d-force-graph"></script>
+  </head>
+
+  <body>
+    <div id="3d-graph"></div>
+
+    <script>
+      const N = 10;
+      const r = 100
+      const delta = Math.PI * 2 / N
+
+      const nodes = [...Array(N).keys()].map(i => ({
+        id: i,
+        x: r * Math.cos(delta * i),
+        y: 0,
+        z: r * Math.sin(delta * i)
+      }))
+
+      const gData = {
+        nodes: nodes,
+        links: []
+      };
+
+      const Graph = ForceGraph3D()
+        (document.getElementById('3d-graph'))
+        .graphData(gData);
+    </script>
+  </body>
+</html>

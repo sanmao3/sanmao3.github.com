@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script src="utils/index.js"></script>
+    <script>
+      // (x, y)旋转θ后的坐标公式
+      // x' = x * cosθ - y * sinθ
+      // y' = x * sinθ + y * cosθ
+
+      function getRotatedXY(x, y, angle) {
+        return {
+          x: x * Math.cos(angle) - y * Math.sin(angle),
+          y: x * Math.sin(angle) + y * Math.cos(angle)
+        }
+      }
+
+      context.translate(width * 0.5, height * 0.5)
+
+      const radius = 100
+      const x1 = radius
+      const y1 = 0
+
+      context.arc(0, 0, 5, Math.PI * 2, false)
+      context.fill()
+
+      context.arc(x1, y1, 5, Math.PI * 2, false)
+      context.fill()
+
+      context.beginPath()
+      context.arc(0, 0, radius, 0, Math.PI * 2, false)
+      context.strokeStyle = 'green'
+      context.stroke()
+
+      let a = [0.3, 0.2, 0.4, 0.1]
+
+      let lastPoint = {
+        x: x1,
+        y: y1
+      }
+      let lastAngle = 0
+
+      a = a.map((item, i) => {
+        let angle = Math.PI * 2 * item
+
+        let endAngle = lastAngle + angle
+
+        let res = {
+          startX: lastPoint.x,
+          startY: lastPoint.y,
+          startAngle: lastAngle,
+          endAngle: endAngle
+        }
+
+        lastAngle = endAngle
+
+        lastPoint = getRotatedXY(lastPoint.x, lastPoint.y, angle)
+
+        return res
+      })
+
+      for (let {
+          startX,
+          startY,
+          startAngle,
+          endAngle
+        } of a) {
+        drawPie(startX, startY, startAngle, endAngle)
+      }
+
+      function drawPie(startX, startY, startAngle, endAngle) {
+        context.beginPath()
+        context.moveTo(0, 0)
+        context.lineTo(startX, startY)
+        context.arc(0, 0, radius, startAngle, endAngle, false)
+        context.closePath()
+        context.fillStyle = `rgba(${randomColorValue()}, ${randomColorValue()}, ${randomColorValue()}, 0.8)`
+        context.fill()
+      }
+
+      function randomColorValue() {
+        return Math.floor(Math.random() * 255)
+      }
+    </script>
+  </body>
+</html>

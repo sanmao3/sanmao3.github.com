@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas')
 const context = canvas.getContext('2d')
 
-const width = document.body.clientWidth
+const width = window.innerWidth
 const height = window.innerHeight * 0.8
 const devicePixelRatio = window.devicePixelRatio
 

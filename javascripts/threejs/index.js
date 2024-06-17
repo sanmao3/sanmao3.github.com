@@ -24,7 +24,7 @@ const fontLoader = new FontLoader();
 const textMaterial = new THREE.MeshBasicMaterial({ color: '#ce7662' });
 fontLoader.load('javascripts/threejs/fonts/helvetiker_regular.typeface.json', (font) => {
   textFont = font;
-  const textGeometry = new TextGeometry('sanmao3', {
+  const textGeometry = new TextGeometry('welcome', {
     font: font,
     size: 1,
     height: 0.2
